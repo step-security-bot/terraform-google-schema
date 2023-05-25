@@ -9,13 +9,6 @@ import (
 const googleSpannerDatabase = `{
   "block": {
     "attributes": {
-      "database_dialect": {
-        "computed": true,
-        "description": "The dialect of the Cloud Spanner Database.\nIf it is not provided, \"GOOGLE_STANDARD_SQL\" will be used. Possible values: [\"GOOGLE_STANDARD_SQL\", \"POSTGRESQL\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "ddl": {
         "description": "An optional list of DDL statements to run inside the newly created\ndatabase. Statements can create tables, indexes, etc. These statements\nexecute atomically with the creation of the database: if there is an\nerror in any statement, the database is not created.",
         "description_kind": "plain",
@@ -26,7 +19,6 @@ const googleSpannerDatabase = `{
         ]
       },
       "deletion_protection": {
-        "description": "Whether or not to allow Terraform to destroy the instance. Unless this field is set to false\nin Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the instance will fail.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -59,13 +51,6 @@ const googleSpannerDatabase = `{
         "computed": true,
         "description": "An explanation of the status of the database.",
         "description_kind": "plain",
-        "type": "string"
-      },
-      "version_retention_period": {
-        "computed": true,
-        "description": "The retention period for the database. The retention period must be between 1 hour\nand 7 days, and can be specified in days, hours, minutes, or seconds. For example,\nthe values 1d, 24h, 1440m, and 86400s are equivalent. Default value is 1h.\nIf this property is used, you must avoid adding new DDL statements to 'ddl' that\nupdate the database's version_retention_period.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       }
     },

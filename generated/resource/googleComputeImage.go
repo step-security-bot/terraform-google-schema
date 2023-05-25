@@ -105,16 +105,6 @@ const googleComputeImage = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "storage_locations": {
-        "computed": true,
-        "description": "Cloud Storage bucket storage location of the image \n(regional or multi-regional). \nReference link: https://cloud.google.com/compute/docs/reference/rest/v1/images",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "list",
-          "string"
-        ]
       }
     },
     "block_types": {
@@ -122,7 +112,7 @@ const googleComputeImage = `{
         "block": {
           "attributes": {
             "type": {
-              "description": "The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [\"MULTI_IP_SUBNET\", \"SECURE_BOOT\", \"SEV_CAPABLE\", \"UEFI_COMPATIBLE\", \"VIRTIO_SCSI_MULTIQUEUE\", \"WINDOWS\", \"GVNIC\", \"SEV_LIVE_MIGRATABLE\", \"SEV_SNP_CAPABLE\", \"SUSPEND_RESUME_COMPATIBLE\", \"TDX_CAPABLE\"]",
+              "description": "The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [\"MULTI_IP_SUBNET\", \"SECURE_BOOT\", \"SEV_CAPABLE\", \"UEFI_COMPATIBLE\", \"VIRTIO_SCSI_MULTIQUEUE\", \"WINDOWS\", \"GVNIC\"]",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -132,28 +122,6 @@ const googleComputeImage = `{
           "description_kind": "plain"
         },
         "nesting_mode": "set"
-      },
-      "image_encryption_key": {
-        "block": {
-          "attributes": {
-            "kms_key_self_link": {
-              "description": "The self link of the encryption key that is stored in Google Cloud\nKMS.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "kms_key_service_account": {
-              "description": "The service account being used for the encryption request for the\ngiven KMS key. If absent, the Compute Engine default service\naccount is used.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "description": "Encrypts the image using a customer-supplied encryption key.\n\nAfter you encrypt an image with a customer-supplied key, you must\nprovide the same key if you use the image later (e.g. to create a\ndisk from the image)",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
       },
       "raw_disk": {
         "block": {

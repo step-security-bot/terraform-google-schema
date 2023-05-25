@@ -9,12 +9,6 @@ import (
 const googleComputeSharedVpcServiceProject = `{
   "block": {
     "attributes": {
-      "deletion_policy": {
-        "description": "The deletion policy for the shared VPC service. Setting ABANDON allows the resource\n\t\t\t\tto be abandoned rather than deleted. Possible values are: \"ABANDON\".",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "host_project": {
         "description": "The ID of a host project to associate.",
         "description_kind": "plain",

@@ -21,6 +21,13 @@ const googleComputeInstanceTemplate = `{
         "optional": true,
         "type": "string"
       },
+      "enable_display": {
+        "deprecated": true,
+        "description": "Enable Virtual Displays on this instance. Note: allow_stopping_for_update must be set to true in order to update this field.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -103,24 +110,9 @@ const googleComputeInstanceTemplate = `{
         "optional": true,
         "type": "string"
       },
-      "resource_policies": {
-        "description": "A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "self_link": {
         "computed": true,
         "description": "The URI of the created resource.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "self_link_unique": {
-        "computed": true,
-        "description": "A special URI of the created resource that uniquely identifies this instance template.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -152,12 +144,6 @@ const googleComputeInstanceTemplate = `{
             },
             "threads_per_core": {
               "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "visible_core_count": {
-              "description": "The number of physical cores to expose to an instance. Multiply by the number of threads per core to compute the total number of virtual CPUs to expose to the instance. If unset, the number of cores is inferred from the instance\\'s nominal CPU count and the underlying platform\\'s SMT width.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -216,14 +202,14 @@ const googleComputeInstanceTemplate = `{
             },
             "disk_size_gb": {
               "computed": true,
-              "description": "The size of the image in gigabytes. If not specified, it will inherit the size of its base image. For SCRATCH disks, the size must be one of 375 or 3000 GB, with a default of 375 GB.",
+              "description": "The size of the image in gigabytes. If not specified, it will inherit the size of its base image. For SCRATCH disks, the size must be exactly 375GB.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
             },
             "disk_type": {
               "computed": true,
-              "description": "The Google Compute Engine disk type. Such as \"pd-ssd\", \"local-ssd\", \"pd-balanced\" or \"pd-standard\".",
+              "description": "The Google Compute Engine disk type. Can be either \"pd-ssd\", \"local-ssd\", \"pd-balanced\" or \"pd-standard\".",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -273,12 +259,6 @@ const googleComputeInstanceTemplate = `{
               "optional": true,
               "type": "string"
             },
-            "source_snapshot": {
-              "description": "The source snapshot to create this disk. When creating\na new instance, one of initializeParams.sourceSnapshot,\ninitializeParams.sourceImage, or disks.source is\nrequired except for local SSD.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "type": {
               "computed": true,
               "description": "The type of Google Compute Engine disk, can be either \"SCRATCH\" or \"PERSISTENT\".",
@@ -299,50 +279,6 @@ const googleComputeInstanceTemplate = `{
                   }
                 },
                 "description": "Encrypts or decrypts a disk using a customer-supplied encryption key.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "source_image_encryption_key": {
-              "block": {
-                "attributes": {
-                  "kms_key_self_link": {
-                    "description": "The self link of the encryption key that is stored in\nGoogle Cloud KMS.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "kms_key_service_account": {
-                    "description": "The service account being used for the encryption\nrequest for the given KMS key. If absent, the Compute\nEngine default service account is used.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The customer-supplied encryption key of the source\nimage. Required if the source image is protected by a\ncustomer-supplied encryption key.\n\nInstance templates do not store customer-supplied\nencryption keys, so you cannot create disks for\ninstances in a managed instance group if the source\nimages are encrypted with your own keys.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "source_snapshot_encryption_key": {
-              "block": {
-                "attributes": {
-                  "kms_key_self_link": {
-                    "description": "The self link of the encryption key that is stored in\nGoogle Cloud KMS.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "kms_key_service_account": {
-                    "description": "The service account being used for the encryption\nrequest for the given KMS key. If absent, the Compute\nEngine default service account is used.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The customer-supplied encryption key of the source snapshot.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -410,12 +346,6 @@ const googleComputeInstanceTemplate = `{
               "optional": true,
               "type": "string"
             },
-            "queue_count": {
-              "description": "The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It will be empty if not specified.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
             "stack_type": {
               "computed": true,
               "description": "The stack type for this network interface to identify whether the IPv6 feature is enabled or not. If not specified, IPV4_ONLY will be used.",
@@ -451,7 +381,7 @@ const googleComputeInstanceTemplate = `{
                   },
                   "network_tier": {
                     "computed": true,
-                    "description": "The networking tier used for configuring this instance template. This field can take the following values: PREMIUM, STANDARD, FIXED_STANDARD. If this field is not specified, it is assumed to be PREMIUM.",
+                    "description": "The networking tier used for configuring this instance template. This field can take the following values: PREMIUM or STANDARD. If this field is not specified, it is assumed to be PREMIUM.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -580,12 +510,6 @@ const googleComputeInstanceTemplate = `{
               "optional": true,
               "type": "bool"
             },
-            "instance_termination_action": {
-              "description": "Specifies the action GCE should take when SPOT VM is preempted.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "min_node_cpus": {
               "description": "Minimum number of cpus for the instance.",
               "description_kind": "plain",
@@ -604,13 +528,6 @@ const googleComputeInstanceTemplate = `{
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
-            },
-            "provisioning_model": {
-              "computed": true,
-              "description": "Whether the instance is spot. If this is set as SPOT.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
             }
           },
           "block_types": {

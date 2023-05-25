@@ -28,7 +28,7 @@ const googleDialogflowCxIntent = `{
         "type": "string"
       },
       "is_fallback": {
-        "description": "Indicates whether this is a fallback intent. Currently only default fallback intent is allowed in the agent, which is added upon agent creation.\nAdding training phrases to fallback intent is useful in the case of requests that are mistakenly matched, since training phrases assigned to fallback intents act as negative examples that triggers no-match event.",
+        "description": "Indicates whether this is a fallback intent. Currently only default fallback intent is allowed in the agent, which is added upon agent creation. \nAdding training phrases to fallback intent is useful in the case of requests that are mistakenly matched, since training phrases assigned to fallback intents act as negative examples that triggers no-match event.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -50,7 +50,7 @@ const googleDialogflowCxIntent = `{
       },
       "name": {
         "computed": true,
-        "description": "The unique identifier of the intent.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/intents/\u003cIntent ID\u003e.",
+        "description": "The unique identifier of the intent.  \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/intents/\u003cIntent ID\u003e.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -72,7 +72,7 @@ const googleDialogflowCxIntent = `{
         "block": {
           "attributes": {
             "entity_type": {
-              "description": "The entity type of the parameter.\nFormat: projects/-/locations/-/agents/-/entityTypes/\u003cSystem Entity Type ID\u003e for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/entityTypes/\u003cEntity Type ID\u003e for developer entity types.",
+              "description": "The entity type of the parameter. \nFormat: projects/-/locations/-/agents/-/entityTypes/\u003cSystem Entity Type ID\u003e for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/entityTypes/\u003cEntity Type ID\u003e for developer entity types.",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -90,7 +90,7 @@ const googleDialogflowCxIntent = `{
               "type": "bool"
             },
             "redact": {
-              "description": "Indicates whether the parameter content should be redacted in log. If redaction is enabled, the parameter content will be replaced by parameter name during logging.\nNote: the parameter content is subject to redaction if either parameter level redaction or entity type level redaction is enabled.",
+              "description": "Indicates whether the parameter content should be redacted in log. If redaction is enabled, the parameter content will be replaced by parameter name during logging. \nNote: the parameter content is subject to redaction if either parameter level redaction or entity type level redaction is enabled.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"

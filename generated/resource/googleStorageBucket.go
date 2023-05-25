@@ -9,8 +9,15 @@ import (
 const googleStorageBucket = `{
   "block": {
     "attributes": {
+      "bucket_policy_only": {
+        "computed": true,
+        "deprecated": true,
+        "description": "Enables Bucket Policy Only access to a bucket.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "default_event_based_hold": {
-        "description": "Whether or not to automatically apply an eventBasedHold to new objects added to the bucket.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -28,7 +35,6 @@ const googleStorageBucket = `{
         "type": "string"
       },
       "labels": {
-        "computed": true,
         "description": "A set of key/value label pairs to assign to the bucket.",
         "description_kind": "plain",
         "optional": true,
@@ -40,7 +46,7 @@ const googleStorageBucket = `{
       "location": {
         "description": "The Google Cloud Storage location",
         "description_kind": "plain",
-        "required": true,
+        "optional": true,
         "type": "string"
       },
       "name": {
@@ -52,13 +58,6 @@ const googleStorageBucket = `{
       "project": {
         "computed": true,
         "description": "The ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "public_access_prevention": {
-        "computed": true,
-        "description": "Prevents public access to a bucket.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -96,22 +95,6 @@ const googleStorageBucket = `{
       }
     },
     "block_types": {
-      "autoclass": {
-        "block": {
-          "attributes": {
-            "enabled": {
-              "description": "While set to true, autoclass automatically transitions objects in your bucket to appropriate storage classes based on each object's access pattern.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "The bucket's autoclass configuration.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "cors": {
         "block": {
           "attributes": {
@@ -154,25 +137,6 @@ const googleStorageBucket = `{
         },
         "nesting_mode": "list"
       },
-      "custom_placement_config": {
-        "block": {
-          "attributes": {
-            "data_locations": {
-              "description": "The list of individual regions that comprise a dual-region bucket. See the docs for a list of acceptable regions. Note: If any of the data_locations changes, it will recreate the bucket.",
-              "description_kind": "plain",
-              "required": true,
-              "type": [
-                "set",
-                "string"
-              ]
-            }
-          },
-          "description": "The bucket's custom location configuration, which specifies the individual regions that comprise a dual-region bucket. If the bucket is designated a single or multi-region, the parameters are empty.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "encryption": {
         "block": {
           "attributes": {
@@ -202,7 +166,7 @@ const googleStorageBucket = `{
                     "type": "string"
                   },
                   "type": {
-                    "description": "The type of the action of this Lifecycle Rule. Supported values include: Delete, SetStorageClass and AbortIncompleteMultipartUpload.",
+                    "description": "The type of the action of this Lifecycle Rule. Supported values include: Delete and SetStorageClass.",
                     "description_kind": "plain",
                     "required": true,
                     "type": "string"
@@ -248,26 +212,8 @@ const googleStorageBucket = `{
                     "optional": true,
                     "type": "number"
                   },
-                  "matches_prefix": {
-                    "description": "One or more matching name prefixes to satisfy this condition.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  },
                   "matches_storage_class": {
                     "description": "Storage Class of objects to satisfy this condition. Supported values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE, STANDARD, DURABLE_REDUCED_AVAILABILITY.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  },
-                  "matches_suffix": {
-                    "description": "One or more matching name suffixes to satisfy this condition.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": [
@@ -353,29 +299,6 @@ const googleStorageBucket = `{
         },
         "max_items": 1,
         "nesting_mode": "list"
-      },
-      "timeouts": {
-        "block": {
-          "attributes": {
-            "create": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "read": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "update": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "description_kind": "plain"
-        },
-        "nesting_mode": "single"
       },
       "versioning": {
         "block": {

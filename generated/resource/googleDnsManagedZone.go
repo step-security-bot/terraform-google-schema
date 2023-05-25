@@ -9,12 +9,6 @@ import (
 const googleDnsManagedZone = `{
   "block": {
     "attributes": {
-      "creation_time": {
-        "computed": true,
-        "description": "The time that this resource was created on the server.\nThis is in RFC3339 text format.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "description": {
         "description": "A textual description field. Defaults to 'Managed by Terraform'.",
         "description_kind": "plain",
@@ -28,7 +22,6 @@ const googleDnsManagedZone = `{
         "type": "string"
       },
       "force_destroy": {
-        "description": "Set this true to delete all records in the zone.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -47,12 +40,6 @@ const googleDnsManagedZone = `{
           "map",
           "string"
         ]
-      },
-      "managed_zone_id": {
-        "computed": true,
-        "description": "Unique identifier for the resource; defined by the server.",
-        "description_kind": "plain",
-        "type": "number"
       },
       "name": {
         "description": "User assigned name for this resource.\nMust be unique within the project.",
@@ -83,22 +70,6 @@ const googleDnsManagedZone = `{
       }
     },
     "block_types": {
-      "cloud_logging_config": {
-        "block": {
-          "attributes": {
-            "enable_logging": {
-              "description": "If set, enable query logging for this ManagedZone. False by default, making logging opt-in.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "Cloud logging configuration",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "dnssec_config": {
         "block": {
           "attributes": {
@@ -225,21 +196,6 @@ const googleDnsManagedZone = `{
       "private_visibility_config": {
         "block": {
           "block_types": {
-            "gke_clusters": {
-              "block": {
-                "attributes": {
-                  "gke_cluster_name": {
-                    "description": "The resource name of the cluster to bind this ManagedZone to.\nThis should be specified in the format like\n'projects/*/locations/*/clusters/*'",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The list of Google Kubernetes Engine clusters that can see this zone.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "list"
-            },
             "networks": {
               "block": {
                 "attributes": {

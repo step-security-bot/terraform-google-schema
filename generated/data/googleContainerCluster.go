@@ -28,51 +28,6 @@ const googleContainerCluster = `{
                   }
                 ]
               ],
-              "config_connector_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
-              "dns_cache_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
-              "gce_persistent_disk_csi_driver_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
-              "gcp_filestore_csi_driver_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
-              "gke_backup_agent_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
               "horizontal_pod_autoscaling": [
                 "list",
                 [
@@ -118,21 +73,6 @@ const googleContainerCluster = `{
           ]
         ]
       },
-      "binary_authorization": {
-        "computed": true,
-        "description": "Configuration options for the Binary Authorization feature.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enabled": "bool",
-              "evaluation_mode": "string"
-            }
-          ]
-        ]
-      },
       "cluster_autoscaling": {
         "computed": true,
         "description": "Per-cluster configuration of Node Auto-Provisioning with Cluster Autoscaler to automatically adjust the size of the cluster and create/delete node pools based on the current needs of the cluster's workload. See the guide to using Node Auto-Provisioning for more details.",
@@ -147,77 +87,11 @@ const googleContainerCluster = `{
                 [
                   "object",
                   {
-                    "boot_disk_kms_key": "string",
-                    "disk_size": "number",
-                    "disk_type": "string",
-                    "image_type": "string",
-                    "management": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "auto_repair": "bool",
-                          "auto_upgrade": "bool",
-                          "upgrade_options": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "auto_upgrade_start_time": "string",
-                                "description": "string"
-                              }
-                            ]
-                          ]
-                        }
-                      ]
-                    ],
-                    "min_cpu_platform": "string",
                     "oauth_scopes": [
                       "list",
                       "string"
                     ],
-                    "service_account": "string",
-                    "shielded_instance_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "enable_integrity_monitoring": "bool",
-                          "enable_secure_boot": "bool"
-                        }
-                      ]
-                    ],
-                    "upgrade_settings": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "blue_green_settings": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "node_pool_soak_duration": "string",
-                                "standard_rollout_policy": [
-                                  "list",
-                                  [
-                                    "object",
-                                    {
-                                      "batch_node_count": "number",
-                                      "batch_percentage": "number",
-                                      "batch_soak_duration": "string"
-                                    }
-                                  ]
-                                ]
-                              }
-                            ]
-                          ],
-                          "max_surge": "number",
-                          "max_unavailable": "number",
-                          "strategy": "string"
-                        }
-                      ]
-                    ]
+                    "service_account": "string"
                   }
                 ]
               ],
@@ -242,34 +116,6 @@ const googleContainerCluster = `{
         "description": "The IP address range of the Kubernetes pods in this cluster in CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one automatically chosen or specify a /14 block in 10.0.0.0/8. This field will only work for routes-based clusters, where ip_allocation_policy is not defined.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "confidential_nodes": {
-        "computed": true,
-        "description": "Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after cluster creation without deleting and recreating the entire cluster.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enabled": "bool"
-            }
-          ]
-        ]
-      },
-      "cost_management_config": {
-        "computed": true,
-        "description": "Cost management configuration for the cluster.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enabled": "bool"
-            }
-          ]
-        ]
       },
       "database_encryption": {
         "computed": true,
@@ -318,22 +164,6 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "dns_config": {
-        "computed": true,
-        "description": "Configuration for Cloud DNS for Kubernetes Engine.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "cluster_dns": "string",
-              "cluster_dns_domain": "string",
-              "cluster_dns_scope": "string"
-            }
-          ]
-        ]
-      },
       "enable_autopilot": {
         "computed": true,
         "description": "Enable Autopilot for this cluster.",
@@ -358,12 +188,6 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "bool"
       },
-      "enable_l4_ilb_subsetting": {
-        "computed": true,
-        "description": "Whether L4ILB Subsetting is enabled for this cluster.",
-        "description_kind": "plain",
-        "type": "bool"
-      },
       "enable_legacy_abac": {
         "computed": true,
         "description": "Whether the ABAC authorizer is enabled for this cluster. When enabled, identities in the system, including service accounts, nodes, and controllers, will have statically granted permissions beyond those provided by the RBAC configuration or IAM. Defaults to false.",
@@ -372,7 +196,7 @@ const googleContainerCluster = `{
       },
       "enable_shielded_nodes": {
         "computed": true,
-        "description": "Enable Shielded Nodes features on all nodes in this cluster. Defaults to true.",
+        "description": "Enable Shielded Nodes features on all nodes in this cluster.",
         "description_kind": "plain",
         "type": "bool"
       },
@@ -388,20 +212,6 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "gateway_api_config": {
-        "computed": true,
-        "description": "Configuration for GKE Gateway API controller.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "channel": "string"
-            }
-          ]
-        ]
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -414,6 +224,15 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "number"
       },
+      "instance_group_urls": {
+        "computed": true,
+        "description": "List of instance group URLs which have been assigned to the cluster.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          "string"
+        ]
+      },
       "ip_allocation_policy": {
         "computed": true,
         "description": "Configuration of cluster IP allocation for VPC-native clusters. Adding this block enables IP aliasing, making the cluster VPC-native instead of routes-based.",
@@ -425,18 +244,8 @@ const googleContainerCluster = `{
             {
               "cluster_ipv4_cidr_block": "string",
               "cluster_secondary_range_name": "string",
-              "pod_cidr_overprovision_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "disabled": "bool"
-                  }
-                ]
-              ],
               "services_ipv4_cidr_block": "string",
-              "services_secondary_range_name": "string",
-              "stack_type": "string"
+              "services_secondary_range_name": "string"
             }
           ]
         ]
@@ -502,15 +311,6 @@ const googleContainerCluster = `{
                   {
                     "end_time": "string",
                     "exclusion_name": "string",
-                    "exclusion_options": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "scope": "string"
-                        }
-                      ]
-                    ],
                     "start_time": "string"
                   }
                 ]
@@ -532,7 +332,7 @@ const googleContainerCluster = `{
       },
       "master_auth": {
         "computed": true,
-        "description": "The authentication information for accessing the Kubernetes master. Some values in this block are only returned by the API if your service account has permission to get credentials for your GKE cluster. If you see an unexpected diff unsetting your client cert, ensure you have the container.clusters.getCredentials permission.",
+        "description": "The authentication information for accessing the Kubernetes master. Some values in this block are only returned by the API if your service account has permission to get credentials for your GKE cluster. If you see an unexpected diff removing a username/password or unsetting your client cert, ensure you have the container.clusters.getCredentials permission.",
         "description_kind": "plain",
         "type": [
           "list",
@@ -550,7 +350,9 @@ const googleContainerCluster = `{
                 ]
               ],
               "client_key": "string",
-              "cluster_ca_certificate": "string"
+              "cluster_ca_certificate": "string",
+              "password": "string",
+              "username": "string"
             }
           ]
         ]
@@ -573,8 +375,7 @@ const googleContainerCluster = `{
                     "display_name": "string"
                   }
                 ]
-              ],
-              "gcp_public_cidrs_access_enabled": "bool"
+              ]
             }
           ]
         ]
@@ -584,20 +385,6 @@ const googleContainerCluster = `{
         "description": "The current version of the master in the cluster. This may be different than the min_master_version set in the config if the master has been updated by GKE.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "mesh_certificates": {
-        "computed": true,
-        "description": "If set, and enable_certificates=true, the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enable_certificates": "bool"
-            }
-          ]
-        ]
       },
       "min_master_version": {
         "computed": true,
@@ -617,15 +404,6 @@ const googleContainerCluster = `{
               "enable_components": [
                 "list",
                 "string"
-              ],
-              "managed_prometheus": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
               ]
             }
           ]
@@ -679,36 +457,8 @@ const googleContainerCluster = `{
           [
             "object",
             {
-              "advanced_machine_features": [
-                "list",
-                [
-                  "object",
-                  {
-                    "threads_per_core": "number"
-                  }
-                ]
-              ],
-              "boot_disk_kms_key": "string",
               "disk_size_gb": "number",
               "disk_type": "string",
-              "ephemeral_storage_local_ssd_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "local_ssd_count": "number"
-                  }
-                ]
-              ],
-              "gcfs_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
               "guest_accelerator": [
                 "list",
                 [
@@ -716,99 +466,27 @@ const googleContainerCluster = `{
                   {
                     "count": "number",
                     "gpu_partition_size": "string",
-                    "gpu_sharing_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "gpu_sharing_strategy": "string",
-                          "max_shared_clients_per_gpu": "number"
-                        }
-                      ]
-                    ],
                     "type": "string"
                   }
                 ]
               ],
-              "gvnic": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool"
-                  }
-                ]
-              ],
               "image_type": "string",
-              "kubelet_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "cpu_cfs_quota": "bool",
-                    "cpu_cfs_quota_period": "string",
-                    "cpu_manager_policy": "string",
-                    "pod_pids_limit": "number"
-                  }
-                ]
-              ],
               "labels": [
                 "map",
                 "string"
               ],
-              "linux_node_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "sysctls": [
-                      "map",
-                      "string"
-                    ]
-                  }
-                ]
-              ],
-              "local_nvme_ssd_block_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "local_ssd_count": "number"
-                  }
-                ]
-              ],
               "local_ssd_count": "number",
-              "logging_variant": "string",
               "machine_type": "string",
               "metadata": [
                 "map",
                 "string"
               ],
               "min_cpu_platform": "string",
-              "node_group": "string",
               "oauth_scopes": [
                 "set",
                 "string"
               ],
               "preemptible": "bool",
-              "reservation_affinity": [
-                "list",
-                [
-                  "object",
-                  {
-                    "consume_reservation_type": "string",
-                    "key": "string",
-                    "values": [
-                      "set",
-                      "string"
-                    ]
-                  }
-                ]
-              ],
-              "resource_labels": [
-                "map",
-                "string"
-              ],
               "service_account": "string",
               "shielded_instance_config": [
                 "list",
@@ -820,7 +498,6 @@ const googleContainerCluster = `{
                   }
                 ]
               ],
-              "spot": "bool",
               "tags": [
                 "list",
                 "string"
@@ -841,7 +518,8 @@ const googleContainerCluster = `{
                 [
                   "object",
                   {
-                    "mode": "string"
+                    "mode": "string",
+                    "node_metadata": "string"
                   }
                 ]
               ]
@@ -872,20 +550,13 @@ const googleContainerCluster = `{
                 [
                   "object",
                   {
-                    "location_policy": "string",
                     "max_node_count": "number",
-                    "min_node_count": "number",
-                    "total_max_node_count": "number",
-                    "total_min_node_count": "number"
+                    "min_node_count": "number"
                   }
                 ]
               ],
               "initial_node_count": "number",
               "instance_group_urls": [
-                "list",
-                "string"
-              ],
-              "managed_instance_group_urls": [
                 "list",
                 "string"
               ],
@@ -902,62 +573,13 @@ const googleContainerCluster = `{
               "max_pods_per_node": "number",
               "name": "string",
               "name_prefix": "string",
-              "network_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "create_pod_range": "bool",
-                    "enable_private_nodes": "bool",
-                    "pod_cidr_overprovision_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "disabled": "bool"
-                        }
-                      ]
-                    ],
-                    "pod_ipv4_cidr_block": "string",
-                    "pod_range": "string"
-                  }
-                ]
-              ],
               "node_config": [
                 "list",
                 [
                   "object",
                   {
-                    "advanced_machine_features": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "threads_per_core": "number"
-                        }
-                      ]
-                    ],
-                    "boot_disk_kms_key": "string",
                     "disk_size_gb": "number",
                     "disk_type": "string",
-                    "ephemeral_storage_local_ssd_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "local_ssd_count": "number"
-                        }
-                      ]
-                    ],
-                    "gcfs_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "enabled": "bool"
-                        }
-                      ]
-                    ],
                     "guest_accelerator": [
                       "list",
                       [
@@ -965,99 +587,27 @@ const googleContainerCluster = `{
                         {
                           "count": "number",
                           "gpu_partition_size": "string",
-                          "gpu_sharing_config": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "gpu_sharing_strategy": "string",
-                                "max_shared_clients_per_gpu": "number"
-                              }
-                            ]
-                          ],
                           "type": "string"
                         }
                       ]
                     ],
-                    "gvnic": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "enabled": "bool"
-                        }
-                      ]
-                    ],
                     "image_type": "string",
-                    "kubelet_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "cpu_cfs_quota": "bool",
-                          "cpu_cfs_quota_period": "string",
-                          "cpu_manager_policy": "string",
-                          "pod_pids_limit": "number"
-                        }
-                      ]
-                    ],
                     "labels": [
                       "map",
                       "string"
                     ],
-                    "linux_node_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "sysctls": [
-                            "map",
-                            "string"
-                          ]
-                        }
-                      ]
-                    ],
-                    "local_nvme_ssd_block_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "local_ssd_count": "number"
-                        }
-                      ]
-                    ],
                     "local_ssd_count": "number",
-                    "logging_variant": "string",
                     "machine_type": "string",
                     "metadata": [
                       "map",
                       "string"
                     ],
                     "min_cpu_platform": "string",
-                    "node_group": "string",
                     "oauth_scopes": [
                       "set",
                       "string"
                     ],
                     "preemptible": "bool",
-                    "reservation_affinity": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "consume_reservation_type": "string",
-                          "key": "string",
-                          "values": [
-                            "set",
-                            "string"
-                          ]
-                        }
-                      ]
-                    ],
-                    "resource_labels": [
-                      "map",
-                      "string"
-                    ],
                     "service_account": "string",
                     "shielded_instance_config": [
                       "list",
@@ -1069,7 +619,6 @@ const googleContainerCluster = `{
                         }
                       ]
                     ],
-                    "spot": "bool",
                     "tags": [
                       "list",
                       "string"
@@ -1090,7 +639,8 @@ const googleContainerCluster = `{
                       [
                         "object",
                         {
-                          "mode": "string"
+                          "mode": "string",
+                          "node_metadata": "string"
                         }
                       ]
                     ]
@@ -1102,69 +652,17 @@ const googleContainerCluster = `{
                 "set",
                 "string"
               ],
-              "placement_policy": [
-                "list",
-                [
-                  "object",
-                  {
-                    "type": "string"
-                  }
-                ]
-              ],
               "upgrade_settings": [
                 "list",
                 [
                   "object",
                   {
-                    "blue_green_settings": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "node_pool_soak_duration": "string",
-                          "standard_rollout_policy": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "batch_node_count": "number",
-                                "batch_percentage": "number",
-                                "batch_soak_duration": "string"
-                              }
-                            ]
-                          ]
-                        }
-                      ]
-                    ],
                     "max_surge": "number",
-                    "max_unavailable": "number",
-                    "strategy": "string"
+                    "max_unavailable": "number"
                   }
                 ]
               ],
               "version": "string"
-            }
-          ]
-        ]
-      },
-      "node_pool_defaults": {
-        "computed": true,
-        "description": "The default nodel pool settings for the entire cluster.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "node_config_defaults": [
-                "list",
-                [
-                  "object",
-                  {
-                    "logging_variant": "string"
-                  }
-                ]
-              ]
             }
           ]
         ]
@@ -1175,45 +673,24 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "notification_config": {
+      "operation": {
         "computed": true,
-        "description": "The notification config for sending cluster upgrade notifications",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "pod_security_policy_config": {
+        "computed": true,
+        "description": "Configuration for the PodSecurityPolicy feature.",
         "description_kind": "plain",
         "type": [
           "list",
           [
             "object",
             {
-              "pubsub": [
-                "list",
-                [
-                  "object",
-                  {
-                    "enabled": "bool",
-                    "filter": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "event_type": [
-                            "list",
-                            "string"
-                          ]
-                        }
-                      ]
-                    ],
-                    "topic": "string"
-                  }
-                ]
-              ]
+              "enabled": "bool"
             }
           ]
         ]
-      },
-      "operation": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
       },
       "private_cluster_config": {
         "computed": true,
@@ -1238,7 +715,6 @@ const googleContainerCluster = `{
               "master_ipv4_cidr_block": "string",
               "peering_name": "string",
               "private_endpoint": "string",
-              "private_endpoint_subnetwork": "string",
               "public_endpoint": "string"
             }
           ]
@@ -1315,20 +791,6 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "service_external_ips_config": {
-        "computed": true,
-        "description": "If set, and enabled=true, services with external ips field will not be blocked",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enabled": "bool"
-            }
-          ]
-        ]
-      },
       "services_ipv4_cidr": {
         "computed": true,
         "description": "The IP address range of the Kubernetes services in this cluster, in CIDR notation (e.g. 1.2.3.4/29). Service addresses are typically put in the last /16 from the container CIDR.",
@@ -1370,6 +832,7 @@ const googleContainerCluster = `{
           [
             "object",
             {
+              "identity_namespace": "string",
               "workload_pool": "string"
             }
           ]

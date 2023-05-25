@@ -9,21 +9,6 @@ import (
 const googleEventarcTrigger = `{
   "block": {
     "attributes": {
-      "channel": {
-        "description": "Optional. The name of the channel associated with the trigger in ` + "`" + `projects/{project}/locations/{location}/channels/{channel}` + "`" + ` format. You must provide a channel to receive events from Eventarc SaaS partners.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "conditions": {
-        "computed": true,
-        "description": "Output only. The reason(s) why a trigger is in FAILED state.",
-        "description_kind": "plain",
-        "type": [
-          "map",
-          "string"
-        ]
-      },
       "create_time": {
         "computed": true,
         "description": "Output only. The creation time.",
@@ -58,7 +43,7 @@ const googleEventarcTrigger = `{
         "type": "string"
       },
       "name": {
-        "description": "Required. The resource name of the trigger. Must be unique within the location on the project.",
+        "description": "Required. The resource name of the trigger. Must be unique within the location on the project and must be in ` + "`" + `projects/{project}/locations/{location}/triggers/{trigger}` + "`" + ` format.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -71,7 +56,7 @@ const googleEventarcTrigger = `{
         "type": "string"
       },
       "service_account": {
-        "description": "Optional. The IAM service account email associated with the trigger. The service account represents the identity of the trigger. The principal who calls this API must have ` + "`" + `iam.serviceAccounts.actAs` + "`" + ` permission in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts#sa_common for more information. For Cloud Run destinations, this service account is used to generate identity tokens when invoking the service. See https://cloud.google.com/run/docs/triggering/pubsub-push#create-service-account for information on how to invoke authenticated Cloud Run services. In order to create Audit Log triggers, the service account should also have ` + "`" + `roles/eventarc.eventReceiver` + "`" + ` IAM role.",
+        "description": "Optional. The IAM service account email associated with the trigger. The service account represents the identity of the trigger. The principal who calls this API must have ` + "`" + `iam.serviceAccounts.actAs` + "`" + ` permission in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts?hl=en#sa_common for more information. For Cloud Run destinations, this service account is used to generate identity tokens when invoking the service. See https://cloud.google.com/run/docs/triggering/pubsub-push#create-service-account for information on how to invoke authenticated Cloud Run services. In order to create Audit Log triggers, the service account should also have ` + "`" + `roles/eventarc.eventReceiver` + "`" + ` IAM role.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -94,13 +79,7 @@ const googleEventarcTrigger = `{
         "block": {
           "attributes": {
             "cloud_function": {
-              "description": "[WARNING] Configuring a Cloud Function in Trigger is not supported as of today. The Cloud Function resource name. Format: projects/{project}/locations/{location}/functions/{function}",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "workflow": {
-              "description": "The resource name of the Workflow whose Executions are triggered by the events. The Workflow resource should be deployed in the same project as the trigger. Format: ` + "`" + `projects/{project}/locations/{location}/workflows/{workflow}` + "`" + `",
+              "description": "The Cloud Function resource name. Only Cloud Functions V2 is supported. Format: projects/{project}/locations/{location}/functions/{function}",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -135,46 +114,6 @@ const googleEventarcTrigger = `{
               },
               "max_items": 1,
               "nesting_mode": "list"
-            },
-            "gke": {
-              "block": {
-                "attributes": {
-                  "cluster": {
-                    "description": "Required. The name of the cluster the GKE service is running in. The cluster must be running in the same project as the trigger being created.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "location": {
-                    "description": "Required. The name of the Google Compute Engine in which the cluster resides, which can either be compute zone (for example, us-central1-a) for the zonal clusters or region (for example, us-central1) for regional clusters.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "namespace": {
-                    "description": "Required. The namespace the GKE service is running in.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "path": {
-                    "description": "Optional. The relative path on the GKE service the events should be sent to. The value must conform to the definition of a URI path segment (section 3.3 of RFC2396). Examples: \"/route\", \"route\", \"route/subroute\".",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "service": {
-                    "description": "Required. Name of the GKE service.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "A GKE service capable of receiving events. The service should be running in the same project as the trigger.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "Required. Destination specifies where the events should be sent to.",
@@ -193,14 +132,8 @@ const googleEventarcTrigger = `{
               "required": true,
               "type": "string"
             },
-            "operator": {
-              "description": "Optional. The operator used for matching the events with the value of the filter. If not specified, only events that have an exact key-value pair specified in the filter are matched. The only allowed value is ` + "`" + `match-path-pattern` + "`" + `.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "value": {
-              "description": "Required. The value for the attribute. See https://cloud.google.com/eventarc/docs/creating-triggers#trigger-gcloud for available values.",
+              "description": "Required. The value for the attribute.",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -248,7 +181,7 @@ const googleEventarcTrigger = `{
                     "type": "string"
                   },
                   "topic": {
-                    "description": "Optional. The name of the Pub/Sub topic created and managed by Eventarc system as a transport for the event delivery. Format: ` + "`" + `projects/{PROJECT_ID}/topics/{TOPIC_NAME}. You may set an existing topic for triggers of the type google.cloud.pubsub.topic.v1.messagePublished` + "`" + ` only. The topic you provide here will not be deleted by Eventarc at trigger deletion.",
+                    "description": "Optional. The name of the Pub/Sub topic created and managed by Eventarc system as a transport for the event delivery. Format: ` + "`" + `projects/{PROJECT_ID}/topics/{TOPIC_NAME You may set an existing topic for triggers of the type google.cloud.pubsub.topic.v1.messagePublished` + "`" + ` only. The topic you provide here will not be deleted by Eventarc at trigger deletion.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"

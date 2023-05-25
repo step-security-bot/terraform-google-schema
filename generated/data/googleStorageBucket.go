@@ -9,19 +9,11 @@ import (
 const googleStorageBucket = `{
   "block": {
     "attributes": {
-      "autoclass": {
+      "bucket_policy_only": {
         "computed": true,
-        "description": "The bucket's autoclass configuration.",
+        "description": "Enables Bucket Policy Only access to a bucket.",
         "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "enabled": "bool"
-            }
-          ]
-        ]
+        "type": "bool"
       },
       "cors": {
         "computed": true,
@@ -49,26 +41,8 @@ const googleStorageBucket = `{
           ]
         ]
       },
-      "custom_placement_config": {
-        "computed": true,
-        "description": "The bucket's custom location configuration, which specifies the individual regions that comprise a dual-region bucket. If the bucket is designated a single or multi-region, the parameters are empty.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "data_locations": [
-                "set",
-                "string"
-              ]
-            }
-          ]
-        ]
-      },
       "default_event_based_hold": {
         "computed": true,
-        "description": "Whether or not to automatically apply an eventBasedHold to new objects added to the bucket.",
         "description_kind": "plain",
         "type": "bool"
       },
@@ -136,15 +110,7 @@ const googleStorageBucket = `{
                     "custom_time_before": "string",
                     "days_since_custom_time": "number",
                     "days_since_noncurrent_time": "number",
-                    "matches_prefix": [
-                      "list",
-                      "string"
-                    ],
                     "matches_storage_class": [
-                      "list",
-                      "string"
-                    ],
-                    "matches_suffix": [
                       "list",
                       "string"
                     ],
@@ -188,12 +154,6 @@ const googleStorageBucket = `{
       "project": {
         "computed": true,
         "description": "The ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "public_access_prevention": {
-        "computed": true,
-        "description": "Prevents public access to a bucket.",
         "description_kind": "plain",
         "type": "string"
       },

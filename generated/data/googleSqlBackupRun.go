@@ -40,13 +40,6 @@ const googleSqlBackupRun = `{
         "optional": true,
         "type": "bool"
       },
-      "project": {
-        "computed": true,
-        "description": "Project ID of the project that contains the instance.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "start_time": {
         "computed": true,
         "description": "The time the backup operation actually started in UTC timezone in RFC 3339 format, for example 2012-11-15T16:19:00.094Z.",

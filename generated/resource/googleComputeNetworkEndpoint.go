@@ -18,7 +18,7 @@ const googleComputeNetworkEndpoint = `{
       "instance": {
         "description": "The name for a specific VM instance that the IP address belongs to.\nThis is required for network endpoints of type GCE_VM_IP_PORT.\nThe instance must be in the same zone of network endpoint group.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": "string"
       },
       "ip_address": {
@@ -34,9 +34,9 @@ const googleComputeNetworkEndpoint = `{
         "type": "string"
       },
       "port": {
-        "description": "Port number of network endpoint.\n**Note** 'port' is required unless the Network Endpoint Group is created\nwith the type of 'GCE_VM_IP'",
+        "description": "Port number of network endpoint.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": "number"
       },
       "project": {

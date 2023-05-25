@@ -19,10 +19,7 @@ const googlePrivatecaCertificateAuthority = `{
             "object",
             {
               "ca_certificate_access_url": "string",
-              "crl_access_urls": [
-                "list",
-                "string"
-              ]
+              "crl_access_url": "string"
             }
           ]
         ]
@@ -37,18 +34,6 @@ const googlePrivatecaCertificateAuthority = `{
         "computed": true,
         "description": "The time at which this CertificateAuthority was created.\n\nA timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine\nfractional digits. Examples: \"2014-10-02T15:01:23Z\" and \"2014-10-02T15:01:23.045123456Z\".",
         "description_kind": "plain",
-        "type": "string"
-      },
-      "deletion_protection": {
-        "description": "Whether or not to allow Terraform to destroy the CertificateAuthority. Unless this field is set to false\nin Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the instance will fail.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
-      "desired_state": {
-        "description": "Desired state of the CertificateAuthority. Set this field to 'STAGED' to create a 'STAGED' root CA.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "gcs_bucket": {
@@ -96,12 +81,6 @@ const googlePrivatecaCertificateAuthority = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "pem_ca_certificate": {
-        "description": "The signed CA certificate issued from the subordinated CA's CSR. This is needed when activating the subordiante CA with a third party issuer.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "pem_ca_certificates": {
         "computed": true,
         "description": "This CertificateAuthority's certificate chain, including the current\nCertificateAuthority's certificate. Ordered such that the root issuer is the final\nelement (consistent with RFC 5246). For a self-signed CA, this will only list the current\nCertificateAuthority's certificate.",
@@ -123,12 +102,6 @@ const googlePrivatecaCertificateAuthority = `{
         "optional": true,
         "type": "string"
       },
-      "skip_grace_period": {
-        "description": "If this flag is set, the Certificate Authority will be deleted as soon as\npossible without a 30-day grace period where undeletion would have been\nallowed. If you proceed, there will be no way to recover this CA.\nUse with care. Defaults to 'false'.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "state": {
         "computed": true,
         "description": "The State for this CertificateAuthority.",
@@ -136,7 +109,7 @@ const googlePrivatecaCertificateAuthority = `{
         "type": "string"
       },
       "type": {
-        "description": "The Type of this CertificateAuthority.\n\n~\u003e **Note:** For 'SUBORDINATE' Certificate Authorities, they need to\nbe activated before they can issue certificates. Default value: \"SELF_SIGNED\" Possible values: [\"SELF_SIGNED\", \"SUBORDINATE\"]",
+        "description": "The Type of this CertificateAuthority.\n\n~\u003e **Note:** For 'SUBORDINATE' Certificate Authorities, they need to\nbe manually activated (via Cloud Console of 'gcloud') before they can\nissue certificates. Default value: \"SELF_SIGNED\" Possible values: [\"SELF_SIGNED\", \"SUBORDINATE\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -329,28 +302,16 @@ const googlePrivatecaCertificateAuthority = `{
                     "block": {
                       "attributes": {
                         "is_ca": {
-                          "description": "When true, the \"CA\" in Basic Constraints extension will be set to true.",
+                          "description": "Refers to the \"CA\" X.509 extension, which is a boolean value. When this value is missing,\nthe extension will be omitted from the CA certificate.",
                           "description_kind": "plain",
                           "required": true,
                           "type": "bool"
                         },
                         "max_issuer_path_length": {
-                          "description": "Refers to the \"path length constraint\" in Basic Constraints extension. For a CA certificate, this value describes the depth of\nsubordinate CA certificates that are allowed. If this value is less than 0, the request will fail. Setting the value to 0\nrequires setting 'zero_max_issuer_path_length = true'.",
+                          "description": "Refers to the path length restriction X.509 extension. For a CA certificate, this value describes the depth of\nsubordinate CA certificates that are allowed. If this value is less than 0, the request will fail. If this\nvalue is missing, the max path length will be omitted from the CA certificate.",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "number"
-                        },
-                        "non_ca": {
-                          "description": "When true, the \"CA\" in Basic Constraints extension will be set to false.\nIf both 'is_ca' and 'non_ca' are unset, the extension will be omitted from the CA certificate.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "zero_max_issuer_path_length": {
-                          "description": "When true, the \"path length constraint\" in Basic Constraints extension will be set to 0.\nIf both 'max_issuer_path_length' and 'zero_max_issuer_path_length' are unset,\nthe max path length will be omitted from the CA certificate.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
                         }
                       },
                       "description": "Describes values that are relevant in a CA certificate.",
@@ -501,94 +462,6 @@ const googlePrivatecaCertificateAuthority = `{
                     "min_items": 1,
                     "nesting_mode": "list"
                   },
-                  "name_constraints": {
-                    "block": {
-                      "attributes": {
-                        "critical": {
-                          "description": "Indicates whether or not the name constraints are marked critical.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        },
-                        "excluded_dns_names": {
-                          "description": "Contains excluded DNS names. Any DNS name that can be\nconstructed by simply adding zero or more labels to\nthe left-hand side of the name satisfies the name constraint.\nFor example, 'example.com', 'www.example.com', 'www.sub.example.com'\nwould satisfy 'example.com' while 'example1.com' does not.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_email_addresses": {
-                          "description": "Contains the excluded email addresses. The value can be a particular\nemail address, a hostname to indicate all email addresses on that host or\na domain with a leading period (e.g. '.example.com') to indicate\nall email addresses in that domain.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_ip_ranges": {
-                          "description": "Contains the excluded IP ranges. For IPv4 addresses, the ranges\nare expressed using CIDR notation as specified in RFC 4632.\nFor IPv6 addresses, the ranges are expressed in similar encoding as IPv4\naddresses.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_uris": {
-                          "description": "Contains the excluded URIs that apply to the host part of the name.\nThe value can be a hostname or a domain with a\nleading period (like '.example.com')",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_dns_names": {
-                          "description": "Contains permitted DNS names. Any DNS name that can be\nconstructed by simply adding zero or more labels to\nthe left-hand side of the name satisfies the name constraint.\nFor example, 'example.com', 'www.example.com', 'www.sub.example.com'\nwould satisfy 'example.com' while 'example1.com' does not.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_email_addresses": {
-                          "description": "Contains the permitted email addresses. The value can be a particular\nemail address, a hostname to indicate all email addresses on that host or\na domain with a leading period (e.g. '.example.com') to indicate\nall email addresses in that domain.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_ip_ranges": {
-                          "description": "Contains the permitted IP ranges. For IPv4 addresses, the ranges\nare expressed using CIDR notation as specified in RFC 4632.\nFor IPv6 addresses, the ranges are expressed in similar encoding as IPv4\naddresses.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_uris": {
-                          "description": "Contains the permitted URIs that apply to the host part of the name.\nThe value can be a hostname or a domain with a\nleading period (like '.example.com')",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "Describes the X.509 name constraints extension.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
                   "policy_ids": {
                     "block": {
                       "attributes": {
@@ -646,43 +519,6 @@ const googlePrivatecaCertificateAuthority = `{
         "min_items": 1,
         "nesting_mode": "list"
       },
-      "subordinate_config": {
-        "block": {
-          "attributes": {
-            "certificate_authority": {
-              "description": "This can refer to a CertificateAuthority that was used to create a\nsubordinate CertificateAuthority. This field is used for information\nand usability purposes only. The resource name is in the format\n'projects/*/locations/*/caPools/*/certificateAuthorities/*'.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "pem_issuer_chain": {
-              "block": {
-                "attributes": {
-                  "pem_certificates": {
-                    "description": "Expected to be in leaf-to-root order according to RFC 5246.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  }
-                },
-                "description": "Contains the PEM certificate chain for the issuers of this CertificateAuthority,\nbut not pem certificate for this CA itself.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            }
-          },
-          "description": "If this is a subordinate CertificateAuthority, this field will be set\nwith the subordinate configuration, which describes its issuers.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "timeouts": {
         "block": {
           "attributes": {
@@ -692,11 +528,6 @@ const googlePrivatecaCertificateAuthority = `{
               "type": "string"
             },
             "delete": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "update": {
               "description_kind": "plain",
               "optional": true,
               "type": "string"

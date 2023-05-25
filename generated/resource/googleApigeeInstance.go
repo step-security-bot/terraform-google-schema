@@ -9,16 +9,6 @@ import (
 const googleApigeeInstance = `{
   "block": {
     "attributes": {
-      "consumer_accept_list": {
-        "computed": true,
-        "description": "Optional. Customer accept list represents the list of projects (id/number) on customer\nside that can privately connect to the service attachment. It is an optional field\nwhich the customers can provide during the instance creation. By default, the customer\nproject associated with the Apigee organization will be included to the list.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "description": {
         "description": "Description of the instance.",
         "description_kind": "plain",
@@ -49,14 +39,8 @@ const googleApigeeInstance = `{
         "optional": true,
         "type": "string"
       },
-      "ip_range": {
-        "description": "IP range represents the customer-provided CIDR block of length 22 that will be used for\nthe Apigee instance creation. This optional range, if provided, should be freely\navailable as part of larger named range the customer has allocated to the Service\nNetworking peering. If this is not provided, Apigee will automatically request for any\navailable /22 CIDR block from Service Networking. The customer should use this CIDR block\nfor configuring their firewall needs to allow traffic from Apigee.\nInput format: \"a.b.c.d/22\"",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "location": {
-        "description": "Required. Compute Engine location where the instance resides.",
+        "description": "Compute Engine location where the instance resides. For trial organization\nsubscriptions, the location must be a Compute Engine zone. For paid organization\nsubscriptions, it should correspond to a Compute Engine region.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -74,8 +58,7 @@ const googleApigeeInstance = `{
         "type": "string"
       },
       "peering_cidr_range": {
-        "computed": true,
-        "description": "The size of the CIDR block range that will be reserved by the instance. For valid values,\nsee [CidrRange](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.instances#CidrRange) on the documentation.",
+        "description": "The size of the CIDR block range that will be reserved by the instance. Possible values: [\"SLASH_16\", \"SLASH_20\", \"SLASH_22\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -83,12 +66,6 @@ const googleApigeeInstance = `{
       "port": {
         "computed": true,
         "description": "Output only. Port number of the exposed Apigee endpoint.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "service_attachment": {
-        "computed": true,
-        "description": "Output only. Resource name of the service attachment created for the instance in\nthe format: projects/*/regions/*/serviceAttachments/* Apigee customers can privately\nforward traffic to this service attachment using the PSC endpoints.",
         "description_kind": "plain",
         "type": "string"
       }

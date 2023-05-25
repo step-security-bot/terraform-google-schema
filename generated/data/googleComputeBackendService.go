@@ -48,29 +48,12 @@ const googleComputeBackendService = `{
           [
             "object",
             {
-              "bypass_cache_on_request_headers": [
-                "list",
-                [
-                  "object",
-                  {
-                    "header_name": "string"
-                  }
-                ]
-              ],
               "cache_key_policy": [
                 "list",
                 [
                   "object",
                   {
                     "include_host": "bool",
-                    "include_http_headers": [
-                      "list",
-                      "string"
-                    ],
-                    "include_named_cookies": [
-                      "list",
-                      "string"
-                    ],
                     "include_protocol": "bool",
                     "include_query_string": "bool",
                     "query_string_blacklist": [
@@ -122,12 +105,6 @@ const googleComputeBackendService = `{
             }
           ]
         ]
-      },
-      "compression_mode": {
-        "computed": true,
-        "description": "Compress text responses using Brotli or gzip compression, based on the client's Accept-Encoding header. Possible values: [\"AUTOMATIC\", \"DISABLED\"]",
-        "description_kind": "plain",
-        "type": "string"
       },
       "connection_draining_timeout_sec": {
         "computed": true,
@@ -200,12 +177,6 @@ const googleComputeBackendService = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "edge_security_policy": {
-        "computed": true,
-        "description": "The resource URL for the edge security policy associated with this backend service.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "enable_cdn": {
         "computed": true,
         "description": "If true, enable Cloud CDN for this BackendService.",
@@ -217,12 +188,6 @@ const googleComputeBackendService = `{
         "description": "Fingerprint of this resource. A hash of the contents stored in this\nobject. This field is used in optimistic locking.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "generated_id": {
-        "computed": true,
-        "description": "The unique identifier for the resource. This identifier is defined by the server.",
-        "description_kind": "plain",
-        "type": "number"
       },
       "health_checks": {
         "computed": true,
@@ -257,45 +222,13 @@ const googleComputeBackendService = `{
       },
       "load_balancing_scheme": {
         "computed": true,
-        "description": "Indicates whether the backend service will be used with internal or\nexternal load balancing. A backend service created for one type of\nload balancing cannot be used with the other. For more information, refer to\n[Choosing a load balancer](https://cloud.google.com/load-balancing/docs/backend-service). Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"INTERNAL_SELF_MANAGED\", \"EXTERNAL_MANAGED\"]",
+        "description": "Indicates whether the backend service will be used with internal or\nexternal load balancing. A backend service created for one type of\nload balancing cannot be used with the other. Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"INTERNAL_SELF_MANAGED\"]",
         "description_kind": "plain",
         "type": "string"
       },
-      "locality_lb_policies": {
-        "computed": true,
-        "description": "A list of locality load balancing policies to be used in order of\npreference. Either the policy or the customPolicy field should be set.\nOverrides any value set in the localityLbPolicy field.\n\nlocalityLbPolicies is only supported when the BackendService is referenced\nby a URL Map that is referenced by a target gRPC proxy that has the\nvalidateForProxyless field set to true.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "custom_policy": [
-                "list",
-                [
-                  "object",
-                  {
-                    "data": "string",
-                    "name": "string"
-                  }
-                ]
-              ],
-              "policy": [
-                "list",
-                [
-                  "object",
-                  {
-                    "name": "string"
-                  }
-                ]
-              ]
-            }
-          ]
-        ]
-      },
       "locality_lb_policy": {
         "computed": true,
-        "description": "The load balancing algorithm used within the scope of the locality.\nThe possible values are:\n\n* 'ROUND_ROBIN': This is a simple policy in which each healthy backend\n                 is selected in round robin order.\n\n* 'LEAST_REQUEST': An O(1) algorithm which selects two random healthy\n                   hosts and picks the host which has fewer active requests.\n\n* 'RING_HASH': The ring/modulo hash load balancer implements consistent\n               hashing to backends. The algorithm has the property that the\n               addition/removal of a host from a set of N hosts only affects\n               1/N of the requests.\n\n* 'RANDOM': The load balancer selects a random healthy host.\n\n* 'ORIGINAL_DESTINATION': Backend host is selected based on the client\n                          connection metadata, i.e., connections are opened\n                          to the same address as the destination address of\n                          the incoming connection before the connection\n                          was redirected to the load balancer.\n\n* 'MAGLEV': used as a drop in replacement for the ring hash load balancer.\n            Maglev is not as stable as ring hash but has faster table lookup\n            build times and host selection times. For more information about\n            Maglev, refer to https://ai.google/research/pubs/pub44824\n\n* 'WEIGHTED_MAGLEV': Per-instance weighted Load Balancing via health check\n                     reported weights. If set, the Backend Service must\n                     configure a non legacy HTTP-based Health Check, and\n                     health check replies are expected to contain\n                     non-standard HTTP response header field\n                     X-Load-Balancing-Endpoint-Weight to specify the\n                     per-instance weights. If set, Load Balancing is weight\n                     based on the per-instance weights reported in the last\n                     processed health check replies, as long as every\n                     instance either reported a valid weight or had\n                     UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains\n                     equal-weight.\n\n\nThis field is applicable to either:\n\n* A regional backend service with the service_protocol set to HTTP, HTTPS, or HTTP2,\n  and loadBalancingScheme set to INTERNAL_MANAGED.\n* A global backend service with the load_balancing_scheme set to INTERNAL_SELF_MANAGED.\n* A regional backend service with loadBalancingScheme set to EXTERNAL (External Network\n  Load Balancing). Only MAGLEV and WEIGHTED_MAGLEV values are possible for External\n  Network Load Balancing. The default is MAGLEV.\n\n\nIf session_affinity is not NONE, and this field is not set to MAGLEV, WEIGHTED_MAGLEV,\nor RING_HASH, session affinity settings will not take effect.\n\nOnly ROUND_ROBIN and RING_HASH are supported when the backend service is referenced\nby a URL map that is bound to target gRPC proxy that has validate_for_proxyless\nfield set to true. Possible values: [\"ROUND_ROBIN\", \"LEAST_REQUEST\", \"RING_HASH\", \"RANDOM\", \"ORIGINAL_DESTINATION\", \"MAGLEV\", \"WEIGHTED_MAGLEV\"]",
+        "description": "The load balancing algorithm used within the scope of the locality.\nThe possible values are -\n\n* ROUND_ROBIN - This is a simple policy in which each healthy backend\n                is selected in round robin order.\n\n* LEAST_REQUEST - An O(1) algorithm which selects two random healthy\n                  hosts and picks the host which has fewer active requests.\n\n* RING_HASH - The ring/modulo hash load balancer implements consistent\n              hashing to backends. The algorithm has the property that the\n              addition/removal of a host from a set of N hosts only affects\n              1/N of the requests.\n\n* RANDOM - The load balancer selects a random healthy host.\n\n* ORIGINAL_DESTINATION - Backend host is selected based on the client\n                         connection metadata, i.e., connections are opened\n                         to the same address as the destination address of\n                         the incoming connection before the connection\n                         was redirected to the load balancer.\n\n* MAGLEV - used as a drop in replacement for the ring hash load balancer.\n           Maglev is not as stable as ring hash but has faster table lookup\n           build times and host selection times. For more information about\n           Maglev, refer to https://ai.google/research/pubs/pub44824\n\nThis field is applicable only when the load_balancing_scheme is set to\nINTERNAL_SELF_MANAGED. Possible values: [\"ROUND_ROBIN\", \"LEAST_REQUEST\", \"RING_HASH\", \"RANDOM\", \"ORIGINAL_DESTINATION\", \"MAGLEV\"]",
         "description_kind": "plain",
         "type": "string"
       },
@@ -384,24 +317,6 @@ const googleComputeBackendService = `{
         "description": "The security policy associated with this backend service.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "security_settings": {
-        "computed": true,
-        "description": "The security settings that apply to this backend service. This field is applicable to either\na regional backend service with the service_protocol set to HTTP, HTTPS, or HTTP2, and\nload_balancing_scheme set to INTERNAL_MANAGED; or a global backend service with the\nload_balancing_scheme set to INTERNAL_SELF_MANAGED.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "client_tls_policy": "string",
-              "subject_alt_names": [
-                "list",
-                "string"
-              ]
-            }
-          ]
-        ]
       },
       "self_link": {
         "computed": true,

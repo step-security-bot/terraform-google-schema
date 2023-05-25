@@ -45,7 +45,7 @@ const googleBigtableInstance = `{
         ]
       },
       "name": {
-        "description": "The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance. Must be 6-33 characters and must only contain hyphens, lowercase letters and numbers.",
+        "description": "The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -63,7 +63,7 @@ const googleBigtableInstance = `{
         "block": {
           "attributes": {
             "cluster_id": {
-              "description": "The ID of the Cloud Bigtable cluster. Must be 6-30 characters and must only contain hyphens, lowercase letters and numbers.",
+              "description": "The ID of the Cloud Bigtable cluster.",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -77,7 +77,7 @@ const googleBigtableInstance = `{
             },
             "num_nodes": {
               "computed": true,
-              "description": "The number of nodes in your Cloud Bigtable cluster. Required, with a minimum of 1 for each cluster in an instance.",
+              "description": "The number of nodes in your Cloud Bigtable cluster. Required, with a minimum of 1 for a PRODUCTION instance. Must be left unset for a DEVELOPMENT instance.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -94,43 +94,6 @@ const googleBigtableInstance = `{
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            }
-          },
-          "block_types": {
-            "autoscaling_config": {
-              "block": {
-                "attributes": {
-                  "cpu_target": {
-                    "description": "The target CPU utilization for autoscaling. Value must be between 10 and 80.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  },
-                  "max_nodes": {
-                    "description": "The maximum number of nodes for autoscaling.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  },
-                  "min_nodes": {
-                    "description": "The minimum number of nodes for autoscaling.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  },
-                  "storage_target": {
-                    "computed": true,
-                    "description": "The target storage utilization for autoscaling, in GB, for each node in a cluster. This number is limited between 2560 (2.5TiB) and 5120 (5TiB) for a SSD cluster and between 8192 (8TiB) and 16384 (16 TiB) for an HDD cluster. If not set, whatever is already set for the cluster will not change, or if the cluster is just being created, it will use the default value of 2560 for SSD clusters and 8192 for HDD clusters.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  }
-                },
-                "description": "A list of Autoscaling configurations. Only one element is used and allowed.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "A block of cluster configuration options. This can be specified at least once.",

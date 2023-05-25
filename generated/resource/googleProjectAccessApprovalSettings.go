@@ -9,18 +9,6 @@ import (
 const googleProjectAccessApprovalSettings = `{
   "block": {
     "attributes": {
-      "active_key_version": {
-        "description": "The asymmetric crypto key version to use for signing approval requests.\nEmpty active_key_version indicates that a Google-managed key should be used for signing.\nThis property will be ignored if set by an ancestor of the resource, and new non-empty values may not be set.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "ancestor_has_active_key_version": {
-        "computed": true,
-        "description": "If the field is true, that indicates that an ancestor of this Project has set active_key_version.",
-        "description_kind": "plain",
-        "type": "bool"
-      },
       "enrolled_ancestor": {
         "computed": true,
         "description": "If the field is true, that indicates that at least one service is enrolled for Access Approval in one or more ancestors of the Project.",
@@ -32,12 +20,6 @@ const googleProjectAccessApprovalSettings = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "invalid_key_version": {
-        "computed": true,
-        "description": "If the field is true, that indicates that there is some configuration issue with the active_key_version\nconfigured on this Project (e.g. it doesn't exist or the Access Approval service account doesn't have the\ncorrect permissions on it, etc.) This key version is not necessarily the effective key version at this level,\nas key versions are inherited top-down.",
-        "description_kind": "plain",
-        "type": "bool"
       },
       "name": {
         "computed": true,

@@ -53,7 +53,7 @@ const googleComputeSubnetwork = `{
         "type": "string"
       },
       "ipv6_access_type": {
-        "description": "The access type of IPv6 address this subnet holds. It's immutable and can only be specified during creation\nor the first time the subnet is updated into IPV4_IPV6 dual stack. If the ipv6_type is EXTERNAL then this subnet\ncannot enable direct path. Possible values: [\"EXTERNAL\", \"INTERNAL\"]",
+        "description": "The access type of IPv6 address this subnet holds. It's immutable and can only be specified during creation\nor the first time the subnet is updated into IPV4_IPV6 dual stack. If the ipv6_type is EXTERNAL then this subnet\ncannot enable direct path. Possible values: [\"EXTERNAL\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -77,7 +77,6 @@ const googleComputeSubnetwork = `{
         "type": "string"
       },
       "private_ip_google_access": {
-        "computed": true,
         "description": "When enabled, VMs in this subnetwork without external IP addresses can\naccess Google APIs and services by using Private Google Access.",
         "description_kind": "plain",
         "optional": true,
@@ -98,7 +97,7 @@ const googleComputeSubnetwork = `{
       },
       "purpose": {
         "computed": true,
-        "description": "The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'INTERNAL_HTTPS_LOAD_BALANCER' or 'REGIONAL_MANAGED_PROXY'.\nA subnetwork with purpose set to 'INTERNAL_HTTPS_LOAD_BALANCER' is a user-created subnetwork that is reserved for Internal HTTP(S) Load Balancing.\nA subnetwork in a given region with purpose set to 'REGIONAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the regional Envoy-based load balancers.\nIf unspecified, the purpose defaults to 'PRIVATE_RFC_1918'.\nThe enableFlowLogs field isn't supported with the purpose field set to 'INTERNAL_HTTPS_LOAD_BALANCER'.",
+        "description": "The purpose of the resource. This field can be either PRIVATE\nor INTERNAL_HTTPS_LOAD_BALANCER. A subnetwork with purpose set to\nINTERNAL_HTTPS_LOAD_BALANCER is a user-created subnetwork that is\nreserved for Internal HTTP(S) Load Balancing. If unspecified, the\npurpose defaults to PRIVATE.\n\nIf set to INTERNAL_HTTPS_LOAD_BALANCER you must also set 'role'.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -111,7 +110,7 @@ const googleComputeSubnetwork = `{
         "type": "string"
       },
       "role": {
-        "description": "The role of subnetwork.\nThe value can be set to 'ACTIVE' or 'BACKUP'.\nAn 'ACTIVE' subnetwork is one that is currently being used.\nA 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining.\n\nSubnetwork role must be specified when purpose is set to 'INTERNAL_HTTPS_LOAD_BALANCER' or 'REGIONAL_MANAGED_PROXY'. Possible values: [\"ACTIVE\", \"BACKUP\"]",
+        "description": "The role of subnetwork. Currently, this field is only used when\npurpose = INTERNAL_HTTPS_LOAD_BALANCER. The value can be set to ACTIVE\nor BACKUP. An ACTIVE subnetwork is one that is currently being used\nfor Internal HTTP(S) Load Balancing. A BACKUP subnetwork is one that\nis ready to be promoted to ACTIVE or is currently draining. Possible values: [\"ACTIVE\", \"BACKUP\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

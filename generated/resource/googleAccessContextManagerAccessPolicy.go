@@ -33,15 +33,6 @@ const googleAccessContextManagerAccessPolicy = `{
         "required": true,
         "type": "string"
       },
-      "scopes": {
-        "description": "Folder or project on which this policy is applicable.\nFormat: folders/{{folder_id}} or projects/{{project_id}}",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "title": {
         "description": "Human readable title. Does not affect behavior.",
         "description_kind": "plain",

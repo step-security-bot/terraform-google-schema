@@ -19,8 +19,7 @@ const googleComputeInstanceTemplate = `{
             "object",
             {
               "enable_nested_virtualization": "bool",
-              "threads_per_core": "number",
-              "visible_core_count": "number"
+              "threads_per_core": "number"
             }
           ]
         ]
@@ -87,31 +86,16 @@ const googleComputeInstanceTemplate = `{
               ],
               "source": "string",
               "source_image": "string",
-              "source_image_encryption_key": [
-                "list",
-                [
-                  "object",
-                  {
-                    "kms_key_self_link": "string",
-                    "kms_key_service_account": "string"
-                  }
-                ]
-              ],
-              "source_snapshot": "string",
-              "source_snapshot_encryption_key": [
-                "list",
-                [
-                  "object",
-                  {
-                    "kms_key_self_link": "string",
-                    "kms_key_service_account": "string"
-                  }
-                ]
-              ],
               "type": "string"
             }
           ]
         ]
+      },
+      "enable_display": {
+        "computed": true,
+        "description": "Enable Virtual Displays on this instance. Note: allow_stopping_for_update must be set to true in order to update this field.",
+        "description_kind": "plain",
+        "type": "bool"
       },
       "filter": {
         "description_kind": "plain",
@@ -251,7 +235,6 @@ const googleComputeInstanceTemplate = `{
               "network": "string",
               "network_ip": "string",
               "nic_type": "string",
-              "queue_count": "number",
               "stack_type": "string",
               "subnetwork": "string",
               "subnetwork_project": "string"
@@ -262,7 +245,7 @@ const googleComputeInstanceTemplate = `{
       "project": {
         "description": "The ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": "string"
       },
       "region": {
@@ -298,15 +281,6 @@ const googleComputeInstanceTemplate = `{
           ]
         ]
       },
-      "resource_policies": {
-        "computed": true,
-        "description": "A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "scheduling": {
         "computed": true,
         "description": "The scheduling strategy to use.",
@@ -317,7 +291,6 @@ const googleComputeInstanceTemplate = `{
             "object",
             {
               "automatic_restart": "bool",
-              "instance_termination_action": "string",
               "min_node_cpus": "number",
               "node_affinities": [
                 "set",
@@ -334,8 +307,7 @@ const googleComputeInstanceTemplate = `{
                 ]
               ],
               "on_host_maintenance": "string",
-              "preemptible": "bool",
-              "provisioning_model": "string"
+              "preemptible": "bool"
             }
           ]
         ]
@@ -344,11 +316,6 @@ const googleComputeInstanceTemplate = `{
         "computed": true,
         "description": "The URI of the created resource.",
         "description_kind": "plain",
-        "type": "string"
-      },
-      "self_link_unique": {
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "service_account": {

@@ -92,41 +92,6 @@ const googleDataprocCluster = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "dataproc_metric_config": {
-              "block": {
-                "block_types": {
-                  "metrics": {
-                    "block": {
-                      "attributes": {
-                        "metric_overrides": {
-                          "description": "Specify one or more [available OSS metrics] (https://cloud.google.com/dataproc/docs/guides/monitoring#available_oss_metrics) to collect.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "set",
-                            "string"
-                          ]
-                        },
-                        "metric_source": {
-                          "description": "A source for the collection of Dataproc OSS metrics (see [available OSS metrics] (https://cloud.google.com//dataproc/docs/guides/monitoring#available_oss_metrics)).",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "Metrics sources to enable.",
-                      "description_kind": "plain"
-                    },
-                    "min_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "The config for Dataproc metrics.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "encryption_config": {
               "block": {
                 "attributes": {
@@ -138,31 +103,6 @@ const googleDataprocCluster = `{
                   }
                 },
                 "description": "The Customer managed encryption keys settings for the cluster.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "endpoint_config": {
-              "block": {
-                "attributes": {
-                  "enable_http_port_access": {
-                    "description": "The flag to enable http access to specific ports on the cluster from external sources (aka Component Gateway). Defaults to false.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  },
-                  "http_ports": {
-                    "computed": true,
-                    "description": "The map of port descriptions to URLs. Will only be populated if enable_http_port_access is true.",
-                    "description_kind": "plain",
-                    "type": [
-                      "map",
-                      "string"
-                    ]
-                  }
-                },
-                "description": "The config settings for port access on the cluster. Structure defined below.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -233,53 +173,6 @@ const googleDataprocCluster = `{
                   }
                 },
                 "block_types": {
-                  "node_group_affinity": {
-                    "block": {
-                      "attributes": {
-                        "node_group_uri": {
-                          "description": "The URI of a sole-tenant that the cluster will be created on.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "Node Group Affinity for sole-tenant clusters.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "reservation_affinity": {
-                    "block": {
-                      "attributes": {
-                        "consume_reservation_type": {
-                          "description": "Type of reservation to consume.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "key": {
-                          "description": "Corresponds to the label key of reservation resource.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "values": {
-                          "description": "Corresponds to the label values of reservation resource.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "set",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "Reservation Affinity for consuming Zonal reservation.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
                   "shielded_instance_config": {
                     "block": {
                       "attributes": {
@@ -334,34 +227,6 @@ const googleDataprocCluster = `{
                 "description": "Commands to execute on each node after config is completed. You can specify multiple versions of these.",
                 "description_kind": "plain"
               },
-              "nesting_mode": "list"
-            },
-            "lifecycle_config": {
-              "block": {
-                "attributes": {
-                  "auto_delete_time": {
-                    "description": "The time when cluster will be auto-deleted. A timestamp in RFC3339 UTC \"Zulu\" format, accurate to nanoseconds. Example: \"2014-10-02T15:01:23.045123456Z\".",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "idle_delete_ttl": {
-                    "description": "The duration to keep the cluster alive while idling (no jobs running). After this TTL, the cluster will be deleted. Valid range: [10m, 14d].",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "idle_start_time": {
-                    "computed": true,
-                    "description": "Time when the cluster became idle (most recent job finished) and became eligible for deletion due to idleness.",
-                    "description_kind": "plain",
-                    "type": "string"
-                  }
-                },
-                "description": "The settings for auto deletion cluster schedule.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
               "nesting_mode": "list"
             },
             "master_config": {
@@ -438,7 +303,7 @@ const googleDataprocCluster = `{
                           "type": "number"
                         },
                         "boot_disk_type": {
-                          "description": "The disk type of the primary disk attached to each node. Such as \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
+                          "description": "The disk type of the primary disk attached to each node. One of \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"
@@ -464,22 +329,6 @@ const googleDataprocCluster = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "metastore_config": {
-              "block": {
-                "attributes": {
-                  "dataproc_metastore_service": {
-                    "description": "Resource name of an existing Dataproc Metastore service.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Specifies a Metastore configuration.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "preemptible_worker_config": {
               "block": {
                 "attributes": {
@@ -498,12 +347,6 @@ const googleDataprocCluster = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "number"
-                  },
-                  "preemptibility": {
-                    "description": "Specifies the preemptibility of the secondary nodes. Defaults to PREEMPTIBLE.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
                   }
                 },
                 "block_types": {
@@ -518,7 +361,7 @@ const googleDataprocCluster = `{
                           "type": "number"
                         },
                         "boot_disk_type": {
-                          "description": "The disk type of the primary disk attached to each preemptible worker node. Such as \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
+                          "description": "The disk type of the primary disk attached to each preemptible worker node. One of \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"
@@ -773,7 +616,7 @@ const googleDataprocCluster = `{
                           "type": "number"
                         },
                         "boot_disk_type": {
-                          "description": "The disk type of the primary disk attached to each node. Such as \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
+                          "description": "The disk type of the primary disk attached to each node. One of \"pd-ssd\" or \"pd-standard\". Defaults to \"pd-standard\".",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"
@@ -828,242 +671,6 @@ const googleDataprocCluster = `{
           "description_kind": "plain"
         },
         "nesting_mode": "single"
-      },
-      "virtual_cluster_config": {
-        "block": {
-          "attributes": {
-            "staging_bucket": {
-              "description": "A Cloud Storage bucket used to stage job dependencies, config files, and job driver console output. If you do not specify a staging bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's staging bucket according to the Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "auxiliary_services_config": {
-              "block": {
-                "block_types": {
-                  "metastore_config": {
-                    "block": {
-                      "attributes": {
-                        "dataproc_metastore_service": {
-                          "description": "The Hive Metastore configuration for this workload.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "The Hive Metastore configuration for this workload.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "spark_history_server_config": {
-                    "block": {
-                      "attributes": {
-                        "dataproc_cluster": {
-                          "description": "Resource name of an existing Dataproc Cluster to act as a Spark History Server for the workload.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "The Spark History Server configuration for the workload.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "Auxiliary services configuration for a Cluster.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "kubernetes_cluster_config": {
-              "block": {
-                "attributes": {
-                  "kubernetes_namespace": {
-                    "description": "A namespace within the Kubernetes cluster to deploy into. If this namespace does not exist, it is created. If it exists, Dataproc verifies that another Dataproc VirtualCluster is not installed into it. If not specified, the name of the Dataproc Cluster is used.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "block_types": {
-                  "gke_cluster_config": {
-                    "block": {
-                      "attributes": {
-                        "gke_cluster_target": {
-                          "description": "A target GKE cluster to deploy to. It must be in the same project and region as the Dataproc cluster (the GKE cluster can be zonal or regional). Format: 'projects/{project}/locations/{location}/clusters/{cluster_id}'",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "block_types": {
-                        "node_pool_target": {
-                          "block": {
-                            "attributes": {
-                              "node_pool": {
-                                "description": "The target GKE node pool. Format: 'projects/{project}/locations/{location}/clusters/{cluster}/nodePools/{nodePool}'",
-                                "description_kind": "plain",
-                                "required": true,
-                                "type": "string"
-                              },
-                              "roles": {
-                                "description": "The roles associated with the GKE node pool.",
-                                "description_kind": "plain",
-                                "required": true,
-                                "type": [
-                                  "set",
-                                  "string"
-                                ]
-                              }
-                            },
-                            "block_types": {
-                              "node_pool_config": {
-                                "block": {
-                                  "attributes": {
-                                    "locations": {
-                                      "description": "The list of Compute Engine zones where node pool nodes associated with a Dataproc on GKE virtual cluster will be located.",
-                                      "description_kind": "plain",
-                                      "required": true,
-                                      "type": [
-                                        "set",
-                                        "string"
-                                      ]
-                                    }
-                                  },
-                                  "block_types": {
-                                    "autoscaling": {
-                                      "block": {
-                                        "attributes": {
-                                          "max_node_count": {
-                                            "description": "The maximum number of nodes in the node pool. Must be \u003e= minNodeCount, and must be \u003e 0.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "number"
-                                          },
-                                          "min_node_count": {
-                                            "description": "The minimum number of nodes in the node pool. Must be \u003e= 0 and \u003c= maxNodeCount.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "number"
-                                          }
-                                        },
-                                        "description": "The autoscaler configuration for this node pool. The autoscaler is enabled only when a valid configuration is present.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "nesting_mode": "list"
-                                    },
-                                    "config": {
-                                      "block": {
-                                        "attributes": {
-                                          "local_ssd_count": {
-                                            "description": "The minimum number of nodes in the node pool. Must be \u003e= 0 and \u003c= maxNodeCount.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "number"
-                                          },
-                                          "machine_type": {
-                                            "description": "The name of a Compute Engine machine type.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          },
-                                          "min_cpu_platform": {
-                                            "description": "Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or a newer CPU platform. Specify the friendly names of CPU platforms, such as \"Intel Haswell\" or \"Intel Sandy Bridge\".",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          },
-                                          "preemptible": {
-                                            "description": "Whether the nodes are created as preemptible VM instances. Preemptible nodes cannot be used in a node pool with the CONTROLLER role or in the DEFAULT node pool if the CONTROLLER role is not assigned (the DEFAULT node pool will assume the CONTROLLER role).",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "bool"
-                                          },
-                                          "spot": {
-                                            "description": "Spot flag for enabling Spot VM, which is a rebrand of the existing preemptible flag.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "bool"
-                                          }
-                                        },
-                                        "description": "The node pool configuration.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "nesting_mode": "list"
-                                    }
-                                  },
-                                  "description": "Input only. The configuration for the GKE node pool.",
-                                  "description_kind": "plain"
-                                },
-                                "max_items": 1,
-                                "nesting_mode": "list"
-                              }
-                            },
-                            "description": "GKE node pools where workloads will be scheduled. At least one node pool must be assigned the DEFAULT GkeNodePoolTarget.Role. If a GkeNodePoolTarget is not specified, Dataproc constructs a DEFAULT GkeNodePoolTarget.",
-                            "description_kind": "plain"
-                          },
-                          "nesting_mode": "list"
-                        }
-                      },
-                      "description": "The configuration for running the Dataproc cluster on GKE.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "min_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "kubernetes_software_config": {
-                    "block": {
-                      "attributes": {
-                        "component_version": {
-                          "description": "The components that should be installed in this Dataproc cluster. The key must be a string from the KubernetesComponent enumeration. The value is the version of the software to be installed.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": [
-                            "map",
-                            "string"
-                          ]
-                        },
-                        "properties": {
-                          "computed": true,
-                          "description": "The properties to set on daemon config files. Property keys are specified in prefix:property format, for example spark:spark.kubernetes.container.image.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "map",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "The software configuration for this Dataproc cluster running on Kubernetes.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "min_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "The configuration for running the Dataproc cluster on Kubernetes.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            }
-          },
-          "description": "The virtual cluster config is used when creating a Dataproc cluster that does not directly control the underlying compute resources, for example, when creating a Dataproc-on-GKE cluster. Dataproc may set default values, and values may change when clusters are updated. Exactly one of config or virtualClusterConfig must be specified.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
       }
     },
     "description_kind": "plain"

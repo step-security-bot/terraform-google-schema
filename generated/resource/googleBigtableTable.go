@@ -9,13 +9,6 @@ import (
 const googleBigtableTable = `{
   "block": {
     "attributes": {
-      "deletion_protection": {
-        "computed": true,
-        "description": "A field to make the table protected against data loss i.e. when set to PROTECTED, deleting the table, the column families in the table, and the instance containing the table would be prohibited. If not provided, currently deletion protection will be set to UNPROTECTED as it is the API default value.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -29,7 +22,7 @@ const googleBigtableTable = `{
         "type": "string"
       },
       "name": {
-        "description": "The name of the table. Must be 1-50 characters and must only contain hyphens, underscores, periods, letters and numbers.",
+        "description": "The name of the table.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -66,19 +59,6 @@ const googleBigtableTable = `{
           "description_kind": "plain"
         },
         "nesting_mode": "set"
-      },
-      "timeouts": {
-        "block": {
-          "attributes": {
-            "create": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "description_kind": "plain"
-        },
-        "nesting_mode": "single"
       }
     },
     "description_kind": "plain"

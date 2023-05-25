@@ -10,7 +10,6 @@ const googleDataflowJob = `{
   "block": {
     "attributes": {
       "additional_experiments": {
-        "computed": true,
         "description": "List of experiments that should be used by the job. An example value is [\"enable_stackdriver_agent_metrics\"].",
         "description_kind": "plain",
         "optional": true,
@@ -50,7 +49,6 @@ const googleDataflowJob = `{
         "type": "string"
       },
       "labels": {
-        "computed": true,
         "description": "User labels to be specified for the job. Keys and values should follow the restrictions specified in the labeling restrictions page. NOTE: Google-provided Dataflow templates often provide default labels that begin with goog-dataflow-provided. Unless explicitly set in config, these labels will be ignored to prevent diffs on re-apply.",
         "description_kind": "plain",
         "optional": true,
@@ -116,12 +114,6 @@ const googleDataflowJob = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "skip_wait_on_job_termination": {
-        "description": "If true, treat DRAINING and CANCELLING as terminal job states and do not wait for further changes before removing from terraform state and moving on. WARNING: this will lead to job name conflicts if you do not ensure that the job names are different, e.g. by embedding a release ID or by using a random_id.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
       },
       "state": {
         "computed": true,

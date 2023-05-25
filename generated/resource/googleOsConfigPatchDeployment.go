@@ -148,12 +148,6 @@ const googleOsConfigPatchDeployment = `{
       "patch_config": {
         "block": {
           "attributes": {
-            "mig_instances_allowed": {
-              "description": "Allows the patch job to run on Managed instance groups (MIGs).",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
             "reboot_config": {
               "description": "Post-patch reboot settings. Possible values: [\"DEFAULT\", \"ALWAYS\", \"NEVER\"]",
               "description_kind": "plain",

@@ -191,28 +191,16 @@ const googlePrivatecaCaPool = `{
                     "block": {
                       "attributes": {
                         "is_ca": {
-                          "description": "When true, the \"CA\" in Basic Constraints extension will be set to true.",
+                          "description": "Refers to the \"CA\" X.509 extension, which is a boolean value. When this value is missing,\nthe extension will be omitted from the CA certificate.",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "bool"
                         },
                         "max_issuer_path_length": {
-                          "description": "Refers to the \"path length constraint\" in Basic Constraints extension. For a CA certificate, this value describes the depth of\nsubordinate CA certificates that are allowed. If this value is less than 0, the request will fail.",
+                          "description": "Refers to the path length restriction X.509 extension. For a CA certificate, this value describes the depth of\nsubordinate CA certificates that are allowed. If this value is less than 0, the request will fail. If this\nvalue is missing, the max path length will be omitted from the CA certificate.",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "number"
-                        },
-                        "non_ca": {
-                          "description": "When true, the \"CA\" in Basic Constraints extension will be set to false.\nIf both 'is_ca' and 'non_ca' are unset, the extension will be omitted from the CA certificate.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "zero_max_issuer_path_length": {
-                          "description": "When true, the \"path length constraint\" in Basic Constraints extension will be set to 0.\nif both 'max_issuer_path_length' and 'zero_max_issuer_path_length' are unset,\nthe max path length will be omitted from the CA certificate.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
                         }
                       },
                       "description": "Describes values that are relevant in a CA certificate.",
@@ -361,94 +349,6 @@ const googlePrivatecaCaPool = `{
                     },
                     "max_items": 1,
                     "min_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "name_constraints": {
-                    "block": {
-                      "attributes": {
-                        "critical": {
-                          "description": "Indicates whether or not the name constraints are marked critical.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        },
-                        "excluded_dns_names": {
-                          "description": "Contains excluded DNS names. Any DNS name that can be\nconstructed by simply adding zero or more labels to\nthe left-hand side of the name satisfies the name constraint.\nFor example, 'example.com', 'www.example.com', 'www.sub.example.com'\nwould satisfy 'example.com' while 'example1.com' does not.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_email_addresses": {
-                          "description": "Contains the excluded email addresses. The value can be a particular\nemail address, a hostname to indicate all email addresses on that host or\na domain with a leading period (e.g. '.example.com') to indicate\nall email addresses in that domain.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_ip_ranges": {
-                          "description": "Contains the excluded IP ranges. For IPv4 addresses, the ranges\nare expressed using CIDR notation as specified in RFC 4632.\nFor IPv6 addresses, the ranges are expressed in similar encoding as IPv4\naddresses.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "excluded_uris": {
-                          "description": "Contains the excluded URIs that apply to the host part of the name.\nThe value can be a hostname or a domain with a\nleading period (like '.example.com')",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_dns_names": {
-                          "description": "Contains permitted DNS names. Any DNS name that can be\nconstructed by simply adding zero or more labels to\nthe left-hand side of the name satisfies the name constraint.\nFor example, 'example.com', 'www.example.com', 'www.sub.example.com'\nwould satisfy 'example.com' while 'example1.com' does not.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_email_addresses": {
-                          "description": "Contains the permitted email addresses. The value can be a particular\nemail address, a hostname to indicate all email addresses on that host or\na domain with a leading period (e.g. '.example.com') to indicate\nall email addresses in that domain.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_ip_ranges": {
-                          "description": "Contains the permitted IP ranges. For IPv4 addresses, the ranges\nare expressed using CIDR notation as specified in RFC 4632.\nFor IPv6 addresses, the ranges are expressed in similar encoding as IPv4\naddresses.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        },
-                        "permitted_uris": {
-                          "description": "Contains the permitted URIs that apply to the host part of the name.\nThe value can be a hostname or a domain with a\nleading period (like '.example.com')",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "Describes the X.509 name constraints extension.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
                     "nesting_mode": "list"
                   },
                   "policy_ids": {

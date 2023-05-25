@@ -10,7 +10,7 @@ const googleCloudAssetFolderFeed = `{
   "block": {
     "attributes": {
       "asset_names": {
-        "description": "A list of the full names of the assets to receive updates. You must specify either or both of\nassetNames and assetTypes. Only asset updates matching specified assetNames and assetTypes are\nexported to the feed. For example: //compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1.\nSee https://cloud.google.com/apis/design/resourceNames#fullResourceName for more info.",
+        "description": "A list of the full names of the assets to receive updates. You must specify either or both of \nassetNames and assetTypes. Only asset updates matching specified assetNames and assetTypes are\nexported to the feed. For example: //compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1.\nSee https://cloud.google.com/apis/design/resourceNames#fullResourceName for more info.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -28,13 +28,13 @@ const googleCloudAssetFolderFeed = `{
         ]
       },
       "billing_project": {
-        "description": "The project whose identity will be used when sending messages to the\ndestination pubsub topic. It also specifies the project for API\nenablement check, quota, and billing.",
+        "description": "The project whose identity will be used when sending messages to the\ndestination pubsub topic. It also specifies the project for API \nenablement check, quota, and billing.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
       },
       "content_type": {
-        "description": "Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [\"CONTENT_TYPE_UNSPECIFIED\", \"RESOURCE\", \"IAM_POLICY\", \"ORG_POLICY\", \"OS_INVENTORY\", \"ACCESS_POLICY\"]",
+        "description": "Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [\"CONTENT_TYPE_UNSPECIFIED\", \"RESOURCE\", \"IAM_POLICY\", \"ORG_POLICY\", \"ACCESS_POLICY\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -87,7 +87,7 @@ const googleCloudAssetFolderFeed = `{
               "type": "string"
             },
             "location": {
-              "description": "String indicating the location of the expression for error reporting, e.g. a file\nname and a position in the file.",
+              "description": "String indicating the location of the expression for error reporting, e.g. a file \nname and a position in the file.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

@@ -22,9 +22,8 @@ const googleSpannerInstance = `{
         "type": "string"
       },
       "force_destroy": {
-        "computed": true,
-        "description": "When deleting a spanner instance, this boolean option will delete all backups of this instance.\nThis must be set to true if you created a backup manually in the console.",
         "description_kind": "plain",
+        "optional": true,
         "type": "bool"
       },
       "id": {
@@ -34,9 +33,9 @@ const googleSpannerInstance = `{
         "type": "string"
       },
       "labels": {
-        "computed": true,
         "description": "An object containing a list of \"key\": value pairs.\nExample: { \"name\": \"wrench\", \"mass\": \"1.3kg\", \"count\": \"3\" }.",
         "description_kind": "plain",
+        "optional": true,
         "type": [
           "map",
           "string"
@@ -50,14 +49,16 @@ const googleSpannerInstance = `{
       },
       "num_nodes": {
         "computed": true,
-        "description": "The number of nodes allocated to this instance. Exactly one of either node_count or processing_units\nmust be present in terraform.",
+        "description": "The number of nodes allocated to this instance. At most one of either node_count or processing_units\ncan be present in terraform.",
         "description_kind": "plain",
+        "optional": true,
         "type": "number"
       },
       "processing_units": {
         "computed": true,
-        "description": "The number of processing units allocated to this instance. Exactly one of processing_units\nor node_count must be present in terraform.",
+        "description": "The number of processing units allocated to this instance. At most one of processing_units \nor node_count can be present in terraform.",
         "description_kind": "plain",
+        "optional": true,
         "type": "number"
       },
       "project": {

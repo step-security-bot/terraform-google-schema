@@ -58,14 +58,12 @@ const googleDataCatalogTagTemplate = `{
         "block": {
           "attributes": {
             "description": {
-              "computed": true,
               "description": "A description for this field.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "display_name": {
-              "computed": true,
               "description": "The display name for this field.",
               "description_kind": "plain",
               "optional": true,
@@ -77,7 +75,6 @@ const googleDataCatalogTagTemplate = `{
               "type": "string"
             },
             "is_required": {
-              "computed": true,
               "description": "Whether this is a required field. Defaults to false.",
               "description_kind": "plain",
               "optional": true,
@@ -90,7 +87,6 @@ const googleDataCatalogTagTemplate = `{
               "type": "string"
             },
             "order": {
-              "computed": true,
               "description": "The order of this field with respect to other fields in this tag template.\nA higher value indicates a more important field. The value can be negative.\nMultiple fields can have the same order, and field orders within a tag do not have to be sequential.",
               "description_kind": "plain",
               "optional": true,
@@ -102,7 +98,6 @@ const googleDataCatalogTagTemplate = `{
               "block": {
                 "attributes": {
                   "primitive_type": {
-                    "computed": true,
                     "description": "Represents primitive types - string, bool etc.\n Exactly one of 'primitive_type' or 'enum_type' must be set Possible values: [\"DOUBLE\", \"STRING\", \"BOOL\", \"TIMESTAMP\"]",
                     "description_kind": "plain",
                     "optional": true,
@@ -145,7 +140,7 @@ const googleDataCatalogTagTemplate = `{
               "nesting_mode": "list"
             }
           },
-          "description": "Set of tag template field IDs and the settings for the field. This set is an exhaustive list of the allowed fields. This set must contain at least one field and at most 500 fields. The change of field_id will be resulting in re-creating of field. The change of primitive_type will be resulting in re-creating of field, however if the field is a required, you cannot update it.",
+          "description": "Set of tag template field IDs and the settings for the field. This set is an exhaustive list of the allowed fields. This set must contain at least one field and at most 500 fields.",
           "description_kind": "plain"
         },
         "min_items": 1,

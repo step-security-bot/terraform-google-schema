@@ -1116,34 +1116,6 @@ const googleDataprocWorkflowTemplate = `{
                                 },
                                 "max_items": 1,
                                 "nesting_mode": "list"
-                              },
-                              "shielded_instance_config": {
-                                "block": {
-                                  "attributes": {
-                                    "enable_integrity_monitoring": {
-                                      "description": "Optional. Defines whether instances have integrity monitoring enabled. Integrity monitoring compares the most recent boot measurements to the integrity policy baseline and returns a pair of pass/fail results depending on whether they match or not.",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "bool"
-                                    },
-                                    "enable_secure_boot": {
-                                      "description": "Optional. Defines whether the instances have Secure Boot enabled. Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails.",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "bool"
-                                    },
-                                    "enable_vtpm": {
-                                      "description": "Optional. Defines whether the instance have the vTPM enabled. Virtual Trusted Platform Module protects objects like keys, certificates and enables Measured Boot by performing the measurements needed to create a known good boot baseline, called the integrity policy baseline.",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "bool"
-                                    }
-                                  },
-                                  "description": "Optional. Shielded Instance Config for clusters using Compute Engine Shielded VMs.",
-                                  "description_kind": "plain"
-                                },
-                                "max_items": 1,
-                                "nesting_mode": "list"
                               }
                             },
                             "description": "Optional. The shared Compute Engine config settings for all instances in a cluster.",
@@ -1324,7 +1296,7 @@ const googleDataprocWorkflowTemplate = `{
                                 "nesting_mode": "list"
                               }
                             },
-                            "description": "Optional. The Compute Engine config settings for the master instance in a cluster.",
+                            "description": "Optional. The Compute Engine config settings for worker instances in a cluster.",
                             "description_kind": "plain"
                           },
                           "max_items": 1,
@@ -1447,7 +1419,7 @@ const googleDataprocWorkflowTemplate = `{
                                 "nesting_mode": "list"
                               }
                             },
-                            "description": "Optional. The Compute Engine config settings for additional worker instances in a cluster.",
+                            "description": "Optional. The Compute Engine config settings for worker instances in a cluster.",
                             "description_kind": "plain"
                           },
                           "max_items": 1,

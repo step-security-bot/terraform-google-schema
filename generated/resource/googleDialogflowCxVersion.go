@@ -56,7 +56,7 @@ const googleDialogflowCxVersion = `{
         ]
       },
       "parent": {
-        "description": "The Flow to create an Version for.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
+        "description": "The Flow to create an Version for. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

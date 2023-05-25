@@ -22,8 +22,9 @@ const googleProjectIamAuditConfig = `{
         "type": "string"
       },
       "project": {
+        "computed": true,
         "description_kind": "plain",
-        "required": true,
+        "optional": true,
         "type": "string"
       },
       "service": {

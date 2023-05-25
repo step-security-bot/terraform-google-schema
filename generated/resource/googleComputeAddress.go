@@ -11,13 +11,13 @@ const googleComputeAddress = `{
     "attributes": {
       "address": {
         "computed": true,
-        "description": "The static external IP address represented by this resource. Only\nIPv4 is supported. An address may only be specified for INTERNAL\naddress types. The IP address must be inside the specified subnetwork,\nif any. Set by the API if undefined.",
+        "description": "The static external IP address represented by this resource. Only\nIPv4 is supported. An address may only be specified for INTERNAL\naddress types. The IP address must be inside the specified subnetwork,\nif any.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "address_type": {
-        "description": "The type of address to reserve.\nNote: if you set this argument's value as 'INTERNAL' you need to leave the 'network_tier' argument unset in that resource block. Default value: \"EXTERNAL\" Possible values: [\"INTERNAL\", \"EXTERNAL\"]",
+        "description": "The type of address to reserve. Default value: \"EXTERNAL\" Possible values: [\"INTERNAL\", \"EXTERNAL\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -54,7 +54,7 @@ const googleComputeAddress = `{
       },
       "network_tier": {
         "computed": true,
-        "description": "The networking tier used for configuring this address. If this field is not\nspecified, it is assumed to be PREMIUM.\nThis argument should not be used when configuring Internal addresses, because [network tier cannot be set for internal traffic; it's always Premium](https://cloud.google.com/network-tiers/docs/overview). Possible values: [\"PREMIUM\", \"STANDARD\"]",
+        "description": "The networking tier used for configuring this address. If this field is not\nspecified, it is assumed to be PREMIUM. Possible values: [\"PREMIUM\", \"STANDARD\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -73,7 +73,7 @@ const googleComputeAddress = `{
       },
       "purpose": {
         "computed": true,
-        "description": "The purpose of this resource, which can be one of the following values.\n\n* GCE_ENDPOINT for addresses that are used by VM instances, alias IP\nranges, load balancers, and similar resources.\n\n* SHARED_LOADBALANCER_VIP for an address that can be used by multiple\ninternal load balancers.\n\n* VPC_PEERING for addresses that are reserved for VPC peer networks.\n\n* IPSEC_INTERCONNECT for addresses created from a private IP range that\nare reserved for a VLAN attachment in an HA VPN over Cloud Interconnect\nconfiguration. These addresses are regional resources.\n\n* PRIVATE_SERVICE_CONNECT for a private network address that is used to\nconfigure Private Service Connect. Only global internal addresses can use\nthis purpose.\n\n\nThis should only be set when using an Internal address.",
+        "description": "The purpose of this resource, which can be one of the following values:\n\n* GCE_ENDPOINT for addresses that are used by VM instances, alias IP\n  ranges, internal load balancers, and similar resources.\n\n* SHARED_LOADBALANCER_VIP for an address that can be used by multiple\n  internal load balancers.\n\n* VPC_PEERING for addresses that are reserved for VPC peer networks.\n\n* IPSEC_INTERCONNECT for addresses created from a private IP range\n  that are reserved for a VLAN attachment in an IPsec-encrypted Cloud\n  Interconnect configuration. These addresses are regional resources.\n\n* PRIVATE_SERVICE_CONNECT for a private network address that is used\nto configure Private Service Connect. Only global internal addresses\ncan use this purpose.\n\nThis should only be set when using an Internal address.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

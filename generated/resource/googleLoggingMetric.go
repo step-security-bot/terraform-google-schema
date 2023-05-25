@@ -9,23 +9,11 @@ import (
 const googleLoggingMetric = `{
   "block": {
     "attributes": {
-      "bucket_name": {
-        "description": "The resource name of the Log Bucket that owns the Log Metric. Only Log Buckets in projects\nare supported. The bucket has to be in the same project as the metric.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "description": {
         "description": "A description of this metric, which is used in documentation. The maximum length of the\ndescription is 8000 characters.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "disabled": {
-        "description": "If set to True, then this metric is disabled and it does not generate any points.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
       },
       "filter": {
         "description": "An advanced logs filter (https://cloud.google.com/logging/docs/view/advanced-filters) which\nis used to match log entries.",
@@ -157,7 +145,7 @@ const googleLoggingMetric = `{
         "block": {
           "attributes": {
             "display_name": {
-              "description": "A concise name for the metric, which can be displayed in user interfaces. Use sentence case\nwithout an ending period, for example \"Request count\". This field is optional but it is\nrecommended to be set for any metrics associated with user-visible concepts, such as Quota.",
+              "description": "A concise name for the metric, which can be displayed in user interfaces. Use sentence case \nwithout an ending period, for example \"Request count\". This field is optional but it is \nrecommended to be set for any metrics associated with user-visible concepts, such as Quota.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -210,10 +198,11 @@ const googleLoggingMetric = `{
               "nesting_mode": "set"
             }
           },
-          "description": "The optional metric descriptor associated with the logs-based metric.\nIf unspecified, it uses a default metric descriptor with a DELTA metric kind,\nINT64 value type, with no labels and a unit of \"1\". Such a metric counts the\nnumber of log entries matching the filter expression.",
+          "description": "The metric descriptor associated with the logs-based metric.",
           "description_kind": "plain"
         },
         "max_items": 1,
+        "min_items": 1,
         "nesting_mode": "list"
       },
       "timeouts": {

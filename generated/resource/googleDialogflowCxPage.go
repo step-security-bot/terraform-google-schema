@@ -29,12 +29,12 @@ const googleDialogflowCxPage = `{
       },
       "name": {
         "computed": true,
-        "description": "The unique identifier of the page.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
+        "description": "The unique identifier of the page. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
         "description_kind": "plain",
         "type": "string"
       },
       "parent": {
-        "description": "The flow to create a page for.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
+        "description": "The flow to create a page for. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -130,13 +130,13 @@ const googleDialogflowCxPage = `{
               "type": "string"
             },
             "target_flow": {
-              "description": "The target flow to transition to.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
+              "description": "The target flow to transition to. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "target_page": {
-              "description": "The target page to transition to.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
+              "description": "The target page to transition to. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -226,7 +226,7 @@ const googleDialogflowCxPage = `{
                     "type": "string"
                   },
                   "entity_type": {
-                    "description": "The entity type of the parameter.\nFormat: projects/-/locations/-/agents/-/entityTypes/\u003cSystem Entity Type ID\u003e for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/entityTypes/\u003cEntity Type ID\u003e for developer entity types.",
+                    "description": "The entity type of the parameter. \nFormat: projects/-/locations/-/agents/-/entityTypes/\u003cSystem Entity Type ID\u003e for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/entityTypes/\u003cEntity Type ID\u003e for developer entity types.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -238,13 +238,13 @@ const googleDialogflowCxPage = `{
                     "type": "bool"
                   },
                   "redact": {
-                    "description": "Indicates whether the parameter content should be redacted in log.\nIf redaction is enabled, the parameter content will be replaced by parameter name during logging. Note: the parameter content is subject to redaction if either parameter level redaction or entity type level redaction is enabled.",
+                    "description": "Indicates whether the parameter content should be redacted in log. \nIf redaction is enabled, the parameter content will be replaced by parameter name during logging. Note: the parameter content is subject to redaction if either parameter level redaction or entity type level redaction is enabled.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
                   },
                   "required": {
-                    "description": "Indicates whether the parameter is required. Optional parameters will not trigger prompts; however, they are filled if the user specifies them.\nRequired parameters must be filled before form filling concludes.",
+                    "description": "Indicates whether the parameter is required. Optional parameters will not trigger prompts; however, they are filled if the user specifies them. \nRequired parameters must be filled before form filling concludes.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
@@ -371,7 +371,7 @@ const googleDialogflowCxPage = `{
               "type": "string"
             },
             "intent": {
-              "description": "The unique identifier of an Intent.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/intents/\u003cIntent ID\u003e. Indicates that the transition can only happen when the given intent is matched. At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled.",
+              "description": "The unique identifier of an Intent. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/intents/\u003cIntent ID\u003e. Indicates that the transition can only happen when the given intent is matched. At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -383,13 +383,13 @@ const googleDialogflowCxPage = `{
               "type": "string"
             },
             "target_flow": {
-              "description": "The target flow to transition to.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
+              "description": "The target flow to transition to. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "target_page": {
-              "description": "The target page to transition to.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
+              "description": "The target page to transition to. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e/flows/\u003cFlow ID\u003e/pages/\u003cPage ID\u003e.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

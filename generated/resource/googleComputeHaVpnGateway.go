@@ -50,12 +50,6 @@ const googleComputeHaVpnGateway = `{
         "computed": true,
         "description_kind": "plain",
         "type": "string"
-      },
-      "stack_type": {
-        "description": "The stack type for this VPN gateway to identify the IP protocols that are enabled.\nIf not specified, IPV4_ONLY will be used. Default value: \"IPV4_ONLY\" Possible values: [\"IPV4_ONLY\", \"IPV4_IPV6\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
       }
     },
     "block_types": {

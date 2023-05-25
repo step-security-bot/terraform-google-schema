@@ -20,20 +20,10 @@ const googleStorageTransferProjectServiceAccount = `{
         "optional": true,
         "type": "string"
       },
-      "member": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
       "project": {
         "computed": true,
         "description_kind": "plain",
         "optional": true,
-        "type": "string"
-      },
-      "subject_id": {
-        "computed": true,
-        "description_kind": "plain",
         "type": "string"
       }
     },

@@ -37,7 +37,7 @@ const googleNetworkServicesEdgeCacheOrigin = `{
         ]
       },
       "max_attempts": {
-        "description": "The maximum number of attempts to cache fill from this origin. Another attempt is made when a cache fill fails with one of the retryConditions.\n\nOnce maxAttempts to this origin have failed the failoverOrigin will be used, if one is specified. That failoverOrigin may specify its own maxAttempts,\nretryConditions and failoverOrigin to control its own cache fill failures.\n\nThe total number of allowed attempts to cache fill across this and failover origins is limited to four.\nThe total time allowed for cache fill attempts across this and failover origins can be controlled with maxAttemptsTimeout.\n\nThe last valid, non-retried response from all origins will be returned to the client.\nIf no origin returns a valid response, an HTTP 502 will be returned to the client.\n\nDefaults to 1. Must be a value greater than 0 and less than 4.",
+        "description": "The maximum number of attempts to cache fill from this origin. Another attempt is made when a cache fill fails with one of the retryConditions.\n\nOnce maxAttempts to this origin have failed the failoverOrigin will be used, if one is specified. That failoverOrigin may specify its own maxAttempts,\nretryConditions and failoverOrigin to control its own cache fill failures.\n\nThe total number of allowed attempts to cache fill across this and failover origins is limited to four.\nThe total time allowed for cache fill attempts across this and failover origins can be controlled with maxAttemptsTimeout.\n\nThe last valid response from an origin will be returned to the client.\nIf no origin returns a valid response, an HTTP 503 will be returned to the client.\n\nDefaults to 1. Must be a value greater than 0 and less than 4.",
         "description_kind": "plain",
         "optional": true,
         "type": "number"
@@ -49,7 +49,7 @@ const googleNetworkServicesEdgeCacheOrigin = `{
         "type": "string"
       },
       "origin_address": {
-        "description": "A fully qualified domain name (FQDN) or IP address reachable over the public Internet, or the address of a Google Cloud Storage bucket.\n\nThis address will be used as the origin for cache requests - e.g. FQDN: media-backend.example.com, IPv4: 35.218.1.1, IPv6: 2607:f8b0:4012:809::200e, Cloud Storage: gs://bucketname\n\nWhen providing an FQDN (hostname), it must be publicly resolvable (e.g. via Google public DNS) and IP addresses must be publicly routable.  It must not contain a protocol (e.g., https://) and it must not contain any slashes.\nIf a Cloud Storage bucket is provided, it must be in the canonical \"gs://bucketname\" format. Other forms, such as \"storage.googleapis.com\", will be rejected.",
+        "description": "A fully qualified domain name (FQDN) or IP address reachable over the public Internet, or the address of a Google Cloud Storage bucket.\n\nThis address will be used as the origin for cache requests - e.g. FQDN: media-backend.example.com IPv4:35.218.1.1 IPv6:[2607:f8b0:4012:809::200e] Cloud Storage: gs://bucketname\n\nWhen providing an FQDN (hostname), it must be publicly resolvable (e.g. via Google public DNS) and IP addresses must be publicly routable.\nIf a Cloud Storage bucket is provided, it must be in the canonical \"gs://bucketname\" format. Other forms, such as \"storage.googleapis.com\", will be rejected.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -76,7 +76,7 @@ const googleNetworkServicesEdgeCacheOrigin = `{
       },
       "retry_conditions": {
         "computed": true,
-        "description": "Specifies one or more retry conditions for the configured origin.\n\nIf the failure mode during a connection attempt to the origin matches the configured retryCondition(s),\nthe origin request will be retried up to maxAttempts times. The failoverOrigin, if configured, will then be used to satisfy the request.\n\nThe default retryCondition is \"CONNECT_FAILURE\".\n\nretryConditions apply to this origin, and not subsequent failoverOrigin(s),\nwhich may specify their own retryConditions and maxAttempts.\n\nValid values are:\n\n- CONNECT_FAILURE: Retry on failures connecting to origins, for example due to connection timeouts.\n- HTTP_5XX: Retry if the origin responds with any 5xx response code, or if the origin does not respond at all, example: disconnects, reset, read timeout, connection failure, and refused streams.\n- GATEWAY_ERROR: Similar to 5xx, but only applies to response codes 502, 503 or 504.\n- RETRIABLE_4XX: Retry for retriable 4xx response codes, which include HTTP 409 (Conflict) and HTTP 429 (Too Many Requests)\n- NOT_FOUND: Retry if the origin returns a HTTP 404 (Not Found). This can be useful when generating video content, and the segment is not available yet.\n- FORBIDDEN: Retry if the origin returns a HTTP 403 (Forbidden). Possible values: [\"CONNECT_FAILURE\", \"HTTP_5XX\", \"GATEWAY_ERROR\", \"RETRIABLE_4XX\", \"NOT_FOUND\", \"FORBIDDEN\"]",
+        "description": "Specifies one or more retry conditions for the configured origin.\n\nIf the failure mode during a connection attempt to the origin matches the configured retryCondition(s),\nthe origin request will be retried up to maxAttempts times. The failoverOrigin, if configured, will then be used to satisfy the request.\n\nThe default retryCondition is \"CONNECT_FAILURE\".\n\nretryConditions apply to this origin, and not subsequent failoverOrigin(s),\nwhich may specify their own retryConditions and maxAttempts.\n\nValid values are:\n\n- CONNECT_FAILURE: Retry on failures connecting to origins, for example due to connection timeouts.\n- HTTP_5XX: Retry if the origin responds with any 5xx response code, or if the origin does not respond at all, example: disconnects, reset, read timeout, connection failure, and refused streams.\n- GATEWAY_ERROR: Similar to 5xx, but only applies to response codes 502, 503 or 504.\n- RETRIABLE_4XX: Retry for retriable 4xx response codes, which include HTTP 409 (Conflict) and HTTP 429 (Too Many Requests)\n- NOT_FOUND: Retry if the origin returns a HTTP 404 (Not Found). This can be useful when generating video content, and the segment is not available yet. Possible values: [\"CONNECT_FAILURE\", \"HTTP_5XX\", \"GATEWAY_ERROR\", \"RETRIABLE_4XX\", \"NOT_FOUND\"]",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -86,140 +86,23 @@ const googleNetworkServicesEdgeCacheOrigin = `{
       }
     },
     "block_types": {
-      "aws_v4_authentication": {
-        "block": {
-          "attributes": {
-            "access_key_id": {
-              "description": "The access key ID your origin uses to identify the key.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "origin_region": {
-              "description": "The name of the AWS region that your origin is in.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "secret_access_key_version": {
-              "description": "The Secret Manager secret version of the secret access key used by your origin.\n\nThis is the resource name of the secret version in the format 'projects/*/secrets/*/versions/*' where the '*' values are replaced by the project, secret, and version you require.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "description": "Enable AWS Signature Version 4 origin authentication.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "origin_override_action": {
-        "block": {
-          "block_types": {
-            "header_action": {
-              "block": {
-                "block_types": {
-                  "request_headers_to_add": {
-                    "block": {
-                      "attributes": {
-                        "header_name": {
-                          "description": "The name of the header to add.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "header_value": {
-                          "description": "The value of the header to add.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "replace": {
-                          "description": "Whether to replace all existing headers with the same name.\n\nBy default, added header values are appended\nto the response or request headers with the\nsame field names. The added values are\nseparated by commas.\n\nTo overwrite existing values, set 'replace' to 'true'.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        }
-                      },
-                      "description": "Describes a header to add.\n\nYou may add a maximum of 25 request headers.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 25,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "The header actions, including adding and removing\nheaders, for request handled by this origin.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "url_rewrite": {
-              "block": {
-                "attributes": {
-                  "host_rewrite": {
-                    "description": "Prior to forwarding the request to the selected\norigin, the request's host header is replaced with\ncontents of the hostRewrite.\n\nThis value must be between 1 and 255 characters.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The URL rewrite configuration for request that are\nhandled by this origin.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            }
-          },
-          "description": "The override actions, including url rewrites and header\nadditions, for requests that use this origin.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "origin_redirect": {
-        "block": {
-          "attributes": {
-            "redirect_conditions": {
-              "description": "The set of redirect response codes that the CDN\nfollows. Values of\n[RedirectConditions](https://cloud.google.com/media-cdn/docs/reference/rest/v1/projects.locations.edgeCacheOrigins#redirectconditions)\nare accepted.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            }
-          },
-          "description": "Follow redirects from this origin.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "timeout": {
         "block": {
           "attributes": {
             "connect_timeout": {
-              "description": "The maximum duration to wait for a single origin connection to be established, including DNS lookup, TLS handshake and TCP/QUIC connection establishment.\n\nDefaults to 5 seconds. The timeout must be a value between 1s and 15s.\n\nThe connectTimeout capped by the deadline set by the request's maxAttemptsTimeout.  The last connection attempt may have a smaller connectTimeout in order to adhere to the overall maxAttemptsTimeout.",
+              "description": "The maximum duration to wait for the origin connection to be established, including DNS lookup, TLS handshake and TCP/QUIC connection establishment.\n\nDefaults to 5 seconds. The timeout must be a value between 1s and 15s.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "max_attempts_timeout": {
-              "description": "The maximum time across all connection attempts to the origin, including failover origins, before returning an error to the client. A HTTP 504 will be returned if the timeout is reached before a response is returned.\n\nDefaults to 15 seconds. The timeout must be a value between 1s and 30s.\n\nIf a failoverOrigin is specified, the maxAttemptsTimeout of the first configured origin sets the deadline for all connection attempts across all failoverOrigins.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "read_timeout": {
-              "description": "The maximum duration to wait between reads of a single HTTP connection/stream.\n\nDefaults to 15 seconds.  The timeout must be a value between 1s and 30s.\n\nThe readTimeout is capped by the responseTimeout.  All reads of the HTTP connection/stream must be completed by the deadline set by the responseTimeout.\n\nIf the response headers have already been written to the connection, the response will be truncated and logged.",
+              "description": "The maximum time across all connection attempts to the origin, including failover origins, before returning an error to the client. A HTTP 503 will be returned if the timeout is reached before a response is returned.\n\nDefaults to 5 seconds. The timeout must be a value between 1s and 15s.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "response_timeout": {
-              "description": "The maximum duration to wait for the last byte of a response to arrive when reading from the HTTP connection/stream.\n\nDefaults to 30 seconds. The timeout must be a value between 1s and 120s.\n\nThe responseTimeout starts after the connection has been established.\n\nThis also applies to HTTP Chunked Transfer Encoding responses, and/or when an open-ended Range request is made to the origin. Origins that take longer to write additional bytes to the response than the configured responseTimeout will result in an error being returned to the client.\n\nIf the response headers have already been written to the connection, the response will be truncated and logged.",
+              "description": "The maximum duration to wait for data to arrive when reading from the HTTP connection/stream.\n\nDefaults to 5 seconds. The timeout must be a value between 1s and 30s.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

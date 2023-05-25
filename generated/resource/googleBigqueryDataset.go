@@ -21,13 +21,6 @@ const googleBigqueryDataset = `{
         "required": true,
         "type": "string"
       },
-      "default_collation": {
-        "computed": true,
-        "description": "Defines the default collation specification of future tables created\nin the dataset. If a table is created in this dataset without table-level\ndefault collation, then the table inherits the dataset default collation,\nwhich is applied to the string fields that do not have explicit collation\nspecified. A change to this field affects only tables created afterwards,\nand does not alter the existing tables.\n\nThe following values are supported:\n- 'und:ci': undetermined locale, case insensitive.\n- '': empty string. Default to case-sensitive behavior.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "default_partition_expiration_ms": {
         "description": "The default partition expiration for all partitioned tables in\nthe dataset, in milliseconds.\n\n\nOnce this property is set, all newly-created partitioned tables in\nthe dataset will have an 'expirationMs' property in the 'timePartitioning'\nsettings set to this value, and changing the value will only\naffect new tables, not existing ones. The storage in a partition will\nhave an expiration time of its partition time plus this value.\nSetting this property overrides the use of 'defaultTableExpirationMs'\nfor partitioned tables: only one of 'defaultTableExpirationMs' and\n'defaultPartitionExpirationMs' will be used for any new partitioned\ntable. If you provide an explicit 'timePartitioning.expirationMs' when\ncreating or updating a partitioned table, that value takes precedence\nover the default partition expiration time indicated by this property.",
         "description_kind": "plain",
@@ -41,7 +34,6 @@ const googleBigqueryDataset = `{
         "type": "number"
       },
       "delete_contents_on_destroy": {
-        "description": "If set to 'true', delete all the tables in the\ndataset when destroying the resource; otherwise,\ndestroying the resource will fail if tables are present.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -70,15 +62,7 @@ const googleBigqueryDataset = `{
         "optional": true,
         "type": "string"
       },
-      "is_case_insensitive": {
-        "computed": true,
-        "description": "TRUE if the dataset and its table names are case-insensitive, otherwise FALSE.\nBy default, this is FALSE, which means the dataset and its table names are\ncase-sensitive. This field does not affect routine references.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "labels": {
-        "computed": true,
         "description": "The labels associated with this dataset. You can use these to\norganize and group your datasets",
         "description_kind": "plain",
         "optional": true,
@@ -95,13 +79,6 @@ const googleBigqueryDataset = `{
       },
       "location": {
         "description": "The geographic location where the dataset should reside.\nSee [official docs](https://cloud.google.com/bigquery/docs/dataset-locations).\n\n\nThere are two types of locations, regional or multi-regional. A regional\nlocation is a specific geographic place, such as Tokyo, and a multi-regional\nlocation is a large geographic area, such as the United States, that\ncontains at least two geographic places.\n\n\nThe default value is multi-regional location 'US'.\nChanging this forces a new resource to be created.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "max_time_travel_hours": {
-        "computed": true,
-        "description": "Defines the time travel window in hours. The value can be from 48 to 168 hours (2 to 7 days).",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -154,78 +131,6 @@ const googleBigqueryDataset = `{
             }
           },
           "block_types": {
-            "dataset": {
-              "block": {
-                "attributes": {
-                  "target_types": {
-                    "description": "Which resources in the dataset this entry applies to. Currently, only views are supported,\nbut additional target types may be added in the future. Possible values: VIEWS",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  }
-                },
-                "block_types": {
-                  "dataset": {
-                    "block": {
-                      "attributes": {
-                        "dataset_id": {
-                          "description": "The ID of the dataset containing this table.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "project_id": {
-                          "description": "The ID of the project containing this table.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "The dataset this entry applies to",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "min_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "Grants all resources of particular types in a particular dataset read access to the current dataset.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "routine": {
-              "block": {
-                "attributes": {
-                  "dataset_id": {
-                    "description": "The ID of the dataset containing this table.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "project_id": {
-                    "description": "The ID of the project containing this table.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "routine_id": {
-                    "description": "The ID of the routine. The ID must contain only letters (a-z,\nA-Z), numbers (0-9), or underscores (_). The maximum length\nis 256 characters.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "A routine from a different dataset to grant access to. Queries\nexecuted against that routine will have read access to tables in\nthis dataset. The role field is not required when this field is\nset. If that routine is updated by any user, access to the routine\nneeds to be granted again via an update operation.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "view": {
               "block": {
                 "attributes": {

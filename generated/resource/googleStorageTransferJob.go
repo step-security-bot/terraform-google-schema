@@ -60,47 +60,8 @@ const googleStorageTransferJob = `{
       }
     },
     "block_types": {
-      "notification_config": {
-        "block": {
-          "attributes": {
-            "event_types": {
-              "description": "Event types for which a notification is desired. If empty, send notifications for all event types. The valid types are \"TRANSFER_OPERATION_SUCCESS\", \"TRANSFER_OPERATION_FAILED\", \"TRANSFER_OPERATION_ABORTED\".",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "set",
-                "string"
-              ]
-            },
-            "payload_format": {
-              "description": "The desired format of the notification message payloads. One of \"NONE\" or \"JSON\".",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "pubsub_topic": {
-              "description": "The Topic.name of the Pub/Sub topic to which to publish notifications.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "description": "Notification configuration.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "schedule": {
         "block": {
-          "attributes": {
-            "repeat_interval": {
-              "description": "Interval between the start of each scheduled transfer. If unspecified, the default value is 24 hours. This value may not be less than 1 hour. A duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
           "block_types": {
             "schedule_end_date": {
               "block": {
@@ -198,26 +159,11 @@ const googleStorageTransferJob = `{
           "description_kind": "plain"
         },
         "max_items": 1,
+        "min_items": 1,
         "nesting_mode": "list"
       },
       "transfer_spec": {
         "block": {
-          "attributes": {
-            "sink_agent_pool_name": {
-              "computed": true,
-              "description": "Specifies the agent pool name associated with the posix data source. When unspecified, the default name is used.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "source_agent_pool_name": {
-              "computed": true,
-              "description": "Specifies the agent pool name associated with the posix data source. When unspecified, the default name is used.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
           "block_types": {
             "aws_s3_data_source": {
               "block": {
@@ -226,18 +172,6 @@ const googleStorageTransferJob = `{
                     "description": "S3 Bucket name.",
                     "description_kind": "plain",
                     "required": true,
-                    "type": "string"
-                  },
-                  "path": {
-                    "description": "S3 Bucket path in bucket to transfer.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "role_arn": {
-                    "description": "The Amazon Resource Name (ARN) of the role to support temporary credentials via 'AssumeRoleWithWebIdentity'. For more information about ARNs, see [IAM ARNs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns). When a role ARN is provided, Transfer Service fetches temporary credentials for the session using a 'AssumeRoleWithWebIdentity' call for the provided role using the [GoogleServiceAccount][] for this project.",
-                    "description_kind": "plain",
-                    "optional": true,
                     "type": "string"
                   }
                 },
@@ -264,6 +198,7 @@ const googleStorageTransferJob = `{
                       "description_kind": "plain"
                     },
                     "max_items": 1,
+                    "min_items": 1,
                     "nesting_mode": "list"
                   }
                 },
@@ -405,18 +340,6 @@ const googleStorageTransferJob = `{
                       "string"
                     ]
                   },
-                  "last_modified_before": {
-                    "description": "If specified, only objects with a \"last modification time\" before this timestamp and objects that don't have a \"last modification time\" are transferred. A timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits. Examples: \"2014-10-02T15:01:23Z\" and \"2014-10-02T15:01:23.045123456Z\".",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "last_modified_since": {
-                    "description": "If specified, only objects with a \"last modification time\" on or after this timestamp and objects that don't have a \"last modification time\" are transferred. A timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits. Examples: \"2014-10-02T15:01:23Z\" and \"2014-10-02T15:01:23.045123456Z\".",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "max_time_elapsed_since_last_modification": {
                     "description": "A duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
                     "description_kind": "plain",
@@ -431,38 +354,6 @@ const googleStorageTransferJob = `{
                   }
                 },
                 "description": "Only objects that satisfy these object conditions are included in the set of data source and data sink objects. Object conditions based on objects' last_modification_time do not exclude objects in a data sink.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "posix_data_sink": {
-              "block": {
-                "attributes": {
-                  "root_directory": {
-                    "description": "Root directory path to the filesystem.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "A POSIX filesystem data sink.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "posix_data_source": {
-              "block": {
-                "attributes": {
-                  "root_directory": {
-                    "description": "Root directory path to the filesystem.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "A POSIX filesystem data source.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -488,12 +379,6 @@ const googleStorageTransferJob = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
-                  },
-                  "overwrite_when": {
-                    "description": "When to overwrite objects that already exist in the sink. If not set, overwrite behavior is determined by overwriteObjectsAlreadyExistingInSink.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
                   }
                 },
                 "description": "Characteristics of how to treat files from datasource and sink during job. If the option delete_objects_unique_in_sink is true, object conditions based on objects' last_modification_time are ignored and do not exclude objects in a data source or a data sink.",

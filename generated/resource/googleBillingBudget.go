@@ -123,15 +123,9 @@ const googleBillingBudget = `{
       "budget_filter": {
         "block": {
           "attributes": {
-            "calendar_period": {
-              "description": "A CalendarPeriod represents the abstract concept of a recurring time period that has a\ncanonical start. Grammatically, \"the start of the current CalendarPeriod\".\nAll calendar times begin at 12 AM US and Canadian Pacific Time (UTC-8).\n\nExactly one of 'calendar_period', 'custom_period' must be provided. Possible values: [\"MONTH\", \"QUARTER\", \"YEAR\", \"CALENDAR_PERIOD_UNSPECIFIED\"]",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "credit_types": {
               "computed": true,
-              "description": "Optional. If creditTypesTreatment is INCLUDE_SPECIFIED_CREDITS,\nthis is a list of credit types to be subtracted from gross cost to determine the spend for threshold calculations. See a list of acceptable credit type values.\nIf creditTypesTreatment is not INCLUDE_SPECIFIED_CREDITS, this field must be empty.\n\n**Note:** If the field has a value in the config and needs to be removed, the field has to be an emtpy array in the config.",
+              "description": "A set of subaccounts of the form billingAccounts/{account_id},\nspecifying that usage from only this set of subaccounts should\nbe included in the budget. If a subaccount is set to the name of\nthe parent account, usage from the parent account will be included.\nIf the field is omitted, the report will include usage from the parent\naccount and all subaccounts, if they exist.",
               "description_kind": "plain",
               "optional": true,
               "type": [
@@ -176,82 +170,13 @@ const googleBillingBudget = `{
             },
             "subaccounts": {
               "computed": true,
-              "description": "A set of subaccounts of the form billingAccounts/{account_id},\nspecifying that usage from only this set of subaccounts should\nbe included in the budget. If a subaccount is set to the name of\nthe parent account, usage from the parent account will be included.\nIf the field is omitted, the report will include usage from the parent\naccount and all subaccounts, if they exist.\n\n**Note:** If the field has a value in the config and needs to be removed, the field has to be an emtpy array in the config.",
+              "description": "A set of subaccounts of the form billingAccounts/{account_id},\nspecifying that usage from only this set of subaccounts should\nbe included in the budget. If a subaccount is set to the name of\nthe parent account, usage from the parent account will be included.\nIf the field is omitted, the report will include usage from the parent\naccount and all subaccounts, if they exist.",
               "description_kind": "plain",
               "optional": true,
               "type": [
                 "list",
                 "string"
               ]
-            }
-          },
-          "block_types": {
-            "custom_period": {
-              "block": {
-                "block_types": {
-                  "end_date": {
-                    "block": {
-                      "attributes": {
-                        "day": {
-                          "description": "Day of a month. Must be from 1 to 31 and valid for the year and month.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        },
-                        "month": {
-                          "description": "Month of a year. Must be from 1 to 12.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        },
-                        "year": {
-                          "description": "Year of the date. Must be from 1 to 9999.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Optional. The end date of the time period. Budgets with elapsed end date won't be processed.\nIf unset, specifies to track all usage incurred since the startDate.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "start_date": {
-                    "block": {
-                      "attributes": {
-                        "day": {
-                          "description": "Day of a month. Must be from 1 to 31 and valid for the year and month.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        },
-                        "month": {
-                          "description": "Month of a year. Must be from 1 to 12.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        },
-                        "year": {
-                          "description": "Year of the date. Must be from 1 to 9999.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "A start date is required. The start date must be after January 1, 2017.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "min_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "Specifies to track usage from any start date (required) to any end date (optional).\nThis time period is static, it does not recur.\n\nExactly one of 'calendar_period', 'custom_period' must be provided.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "Filters that define which resources are used to compute the actual\nspend against the budget.",
@@ -279,6 +204,7 @@ const googleBillingBudget = `{
           "description": "Rules that trigger alerts (notifications of thresholds being\ncrossed) when spend exceeds the specified percentages of the\nbudget.",
           "description_kind": "plain"
         },
+        "min_items": 1,
         "nesting_mode": "list"
       },
       "timeouts": {

@@ -52,7 +52,7 @@ const googleDialogflowCxEntityType = `{
         "type": "string"
       },
       "parent": {
-        "description": "The agent to create a entity type for.\nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e.",
+        "description": "The agent to create a entity type for. \nFormat: projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agents/\u003cAgent ID\u003e.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -100,7 +100,7 @@ const googleDialogflowCxEntityType = `{
               "type": "string"
             }
           },
-          "description": "Collection of exceptional words and phrases that shouldn't be matched. For example, if you have a size entity type with entry giant(an adjective), you might consider adding giants(a noun) as an exclusion.\nIf the kind of entity type is KIND_MAP, then the phrases specified by entities and excluded phrases should be mutually exclusive.",
+          "description": "Collection of exceptional words and phrases that shouldn't be matched. For example, if you have a size entity type with entry giant(an adjective), you might consider adding giants(a noun) as an exclusion. \nIf the kind of entity type is KIND_MAP, then the phrases specified by entities and excluded phrases should be mutually exclusive.",
           "description_kind": "plain"
         },
         "nesting_mode": "list"

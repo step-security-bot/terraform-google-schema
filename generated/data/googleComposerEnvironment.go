@@ -20,63 +20,13 @@ const googleComposerEnvironment = `{
             {
               "airflow_uri": "string",
               "dag_gcs_prefix": "string",
-              "database_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "machine_type": "string"
-                  }
-                ]
-              ],
-              "encryption_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "kms_key_name": "string"
-                  }
-                ]
-              ],
-              "environment_size": "string",
               "gke_cluster": "string",
-              "maintenance_window": [
-                "list",
-                [
-                  "object",
-                  {
-                    "end_time": "string",
-                    "recurrence": "string",
-                    "start_time": "string"
-                  }
-                ]
-              ],
-              "master_authorized_networks_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "cidr_blocks": [
-                      "set",
-                      [
-                        "object",
-                        {
-                          "cidr_block": "string",
-                          "display_name": "string"
-                        }
-                      ]
-                    ],
-                    "enabled": "bool"
-                  }
-                ]
-              ],
               "node_config": [
                 "list",
                 [
                   "object",
                   {
                     "disk_size_gb": "number",
-                    "enable_ip_masq_agent": "bool",
                     "ip_allocation_policy": [
                       "list",
                       [
@@ -112,33 +62,10 @@ const googleComposerEnvironment = `{
                 [
                   "object",
                   {
-                    "cloud_composer_connection_subnetwork": "string",
-                    "cloud_composer_network_ipv4_cidr_block": "string",
                     "cloud_sql_ipv4_cidr_block": "string",
                     "enable_private_endpoint": "bool",
-                    "enable_privately_used_public_ips": "bool",
                     "master_ipv4_cidr_block": "string",
                     "web_server_ipv4_cidr_block": "string"
-                  }
-                ]
-              ],
-              "recovery_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "scheduled_snapshots_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "enabled": "bool",
-                          "snapshot_creation_schedule": "string",
-                          "snapshot_location": "string",
-                          "time_zone": "string"
-                        }
-                      ]
-                    ]
                   }
                 ]
               ],
@@ -162,77 +89,6 @@ const googleComposerEnvironment = `{
                     ],
                     "python_version": "string",
                     "scheduler_count": "number"
-                  }
-                ]
-              ],
-              "web_server_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "machine_type": "string"
-                  }
-                ]
-              ],
-              "web_server_network_access_control": [
-                "list",
-                [
-                  "object",
-                  {
-                    "allowed_ip_range": [
-                      "set",
-                      [
-                        "object",
-                        {
-                          "description": "string",
-                          "value": "string"
-                        }
-                      ]
-                    ]
-                  }
-                ]
-              ],
-              "workloads_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "scheduler": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "count": "number",
-                          "cpu": "number",
-                          "memory_gb": "number",
-                          "storage_gb": "number"
-                        }
-                      ]
-                    ],
-                    "web_server": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "cpu": "number",
-                          "memory_gb": "number",
-                          "storage_gb": "number"
-                        }
-                      ]
-                    ],
-                    "worker": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "cpu": "number",
-                          "max_count": "number",
-                          "memory_gb": "number",
-                          "min_count": "number",
-                          "storage_gb": "number"
-                        }
-                      ]
-                    ]
                   }
                 ]
               ]

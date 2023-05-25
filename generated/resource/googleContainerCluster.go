@@ -43,7 +43,6 @@ const googleContainerCluster = `{
         "type": "bool"
       },
       "enable_binary_authorization": {
-        "deprecated": true,
         "description": "Enable Binary Authorization for this cluster. If enabled, all container images will be validated by Google Binary Authorization.",
         "description_kind": "plain",
         "optional": true,
@@ -62,12 +61,6 @@ const googleContainerCluster = `{
         "optional": true,
         "type": "bool"
       },
-      "enable_l4_ilb_subsetting": {
-        "description": "Whether L4ILB Subsetting is enabled for this cluster.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "enable_legacy_abac": {
         "description": "Whether the ABAC authorizer is enabled for this cluster. When enabled, identities in the system, including service accounts, nodes, and controllers, will have statically granted permissions beyond those provided by the RBAC configuration or IAM. Defaults to false.",
         "description_kind": "plain",
@@ -75,7 +68,8 @@ const googleContainerCluster = `{
         "type": "bool"
       },
       "enable_shielded_nodes": {
-        "description": "Enable Shielded Nodes features on all nodes in this cluster. Defaults to true.",
+        "computed": true,
+        "description": "Enable Shielded Nodes features on all nodes in this cluster.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -103,6 +97,16 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "optional": true,
         "type": "number"
+      },
+      "instance_group_urls": {
+        "computed": true,
+        "deprecated": true,
+        "description": "List of instance group URLs which have been assigned to the cluster.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          "string"
+        ]
       },
       "label_fingerprint": {
         "computed": true,
@@ -263,81 +267,6 @@ const googleContainerCluster = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "config_connector_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "The of the Config Connector addon.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "dns_cache_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "The status of the NodeLocal DNSCache addon. It is disabled by default. Set enabled = true to enable.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "gce_persistent_disk_csi_driver_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Whether this cluster should enable the Google Compute Engine Persistent Disk Container Storage Interface (CSI) Driver. Defaults to enabled; set disabled = true to disable.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "gcp_filestore_csi_driver_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "The status of the Filestore CSI driver addon, which allows the usage of filestore instance as volumes. Defaults to disabled; set enabled = true to enable.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "gke_backup_agent_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "The status of the Backup for GKE Agent addon. It is disabled by default. Set enabled = true to enable.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "horizontal_pod_autoscaling": {
               "block": {
                 "attributes": {
@@ -406,37 +335,13 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
-      "binary_authorization": {
-        "block": {
-          "attributes": {
-            "enabled": {
-              "deprecated": true,
-              "description": "Enable Binary Authorization for this cluster.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
-            "evaluation_mode": {
-              "description": "Mode of operation for Binary Authorization policy evaluation.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "description": "Configuration options for the Binary Authorization feature.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "cluster_autoscaling": {
         "block": {
           "attributes": {
             "enabled": {
-              "computed": true,
               "description": "Whether node auto-provisioning is enabled. Resource limits for cpu and memory must be defined to enable node auto-provisioning.",
               "description_kind": "plain",
-              "optional": true,
+              "required": true,
               "type": "bool"
             }
           },
@@ -444,36 +349,6 @@ const googleContainerCluster = `{
             "auto_provisioning_defaults": {
               "block": {
                 "attributes": {
-                  "boot_disk_kms_key": {
-                    "description": "The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "disk_size": {
-                    "description": "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "disk_type": {
-                    "description": "Type of the disk attached to each node.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "image_type": {
-                    "description": "The default image type used by NAP once a new node pool is being created.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "min_cpu_platform": {
-                    "description": "Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "oauth_scopes": {
                     "computed": true,
                     "description": "Scopes that are used by NAP when creating node pools.",
@@ -489,149 +364,6 @@ const googleContainerCluster = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
-                  }
-                },
-                "block_types": {
-                  "management": {
-                    "block": {
-                      "attributes": {
-                        "auto_repair": {
-                          "computed": true,
-                          "description": "Specifies whether the node auto-repair is enabled for the node pool. If enabled, the nodes in this node pool will be monitored and, if they fail health checks too many times, an automatic repair action will be triggered.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "auto_upgrade": {
-                          "computed": true,
-                          "description": "Specifies whether node auto-upgrade is enabled for the node pool. If enabled, node auto-upgrade helps keep the nodes in your node pool up to date with the latest release version of Kubernetes.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "upgrade_options": {
-                          "computed": true,
-                          "description": "Specifies the Auto Upgrade knobs for the node pool.",
-                          "description_kind": "plain",
-                          "type": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "auto_upgrade_start_time": "string",
-                                "description": "string"
-                              }
-                            ]
-                          ]
-                        }
-                      },
-                      "description": "NodeManagement configuration for this NodePool.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "shielded_instance_config": {
-                    "block": {
-                      "attributes": {
-                        "enable_integrity_monitoring": {
-                          "description": "Defines whether the instance has integrity monitoring enabled.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "enable_secure_boot": {
-                          "description": "Defines whether the instance has Secure Boot enabled.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        }
-                      },
-                      "description": "Shielded Instance options.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "upgrade_settings": {
-                    "block": {
-                      "attributes": {
-                        "max_surge": {
-                          "description": "The maximum number of nodes that can be created beyond the current size of the node pool during the upgrade process.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "max_unavailable": {
-                          "description": "The maximum number of nodes that can be simultaneously unavailable during the upgrade process.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "strategy": {
-                          "computed": true,
-                          "description": "Update strategy of the node pool.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "block_types": {
-                        "blue_green_settings": {
-                          "block": {
-                            "attributes": {
-                              "node_pool_soak_duration": {
-                                "computed": true,
-                                "description": "Time needed after draining entire blue pool. After this period, blue pool will be cleaned up.\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tA duration in seconds with up to nine fractional digits, ending with 's'. Example: \"3.5s\".",
-                                "description_kind": "plain",
-                                "optional": true,
-                                "type": "string"
-                              }
-                            },
-                            "block_types": {
-                              "standard_rollout_policy": {
-                                "block": {
-                                  "attributes": {
-                                    "batch_node_count": {
-                                      "computed": true,
-                                      "description": "Number of blue nodes to drain in a batch.",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "number"
-                                    },
-                                    "batch_percentage": {
-                                      "computed": true,
-                                      "description": "Percentage of the bool pool nodes to drain in a batch. The range of this field should be (0.0, 1.0].",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "number"
-                                    },
-                                    "batch_soak_duration": {
-                                      "description": "Soak time after each batch gets drained.\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tA duration in seconds with up to nine fractional digits, ending with 's'. Example: \"3.5s\".",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "string"
-                                    }
-                                  },
-                                  "description": "Standard policy for the blue-green upgrade.",
-                                  "description_kind": "plain"
-                                },
-                                "max_items": 1,
-                                "nesting_mode": "list"
-                              }
-                            },
-                            "description": "Settings for blue-green upgrade strategy.",
-                            "description_kind": "plain"
-                          },
-                          "max_items": 1,
-                          "nesting_mode": "list"
-                        }
-                      },
-                      "description": "Specifies the upgrade settings for NAP created node pools",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
                   }
                 },
                 "description": "Contains defaults for a node pool created by NAP.",
@@ -669,38 +401,6 @@ const googleContainerCluster = `{
             }
           },
           "description": "Per-cluster configuration of Node Auto-Provisioning with Cluster Autoscaler to automatically adjust the size of the cluster and create/delete node pools based on the current needs of the cluster's workload. See the guide to using Node Auto-Provisioning for more details.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "confidential_nodes": {
-        "block": {
-          "attributes": {
-            "enabled": {
-              "description": "Whether Confidential Nodes feature is enabled for all nodes in this cluster.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after cluster creation without deleting and recreating the entire cluster.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "cost_management_config": {
-        "block": {
-          "attributes": {
-            "enabled": {
-              "description": "Whether to enable GKE cost allocation. When you enable GKE cost allocation, the cluster name and namespace of your GKE workloads appear in the labels field of the billing export to BigQuery. Defaults to false.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "Cost management configuration for the cluster.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -744,50 +444,6 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
-      "dns_config": {
-        "block": {
-          "attributes": {
-            "cluster_dns": {
-              "description": "Which in-cluster DNS provider should be used.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "cluster_dns_domain": {
-              "description": "The suffix used for all cluster service records.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "cluster_dns_scope": {
-              "description": "The scope of access to cluster DNS records.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "description": "Configuration for Cloud DNS for Kubernetes Engine.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "gateway_api_config": {
-        "block": {
-          "attributes": {
-            "channel": {
-              "description": "The Gateway API release channel to use for Gateway API.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "description": "Configuration for GKE Gateway API controller.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "ip_allocation_policy": {
         "block": {
           "attributes": {
@@ -818,29 +474,6 @@ const googleContainerCluster = `{
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            },
-            "stack_type": {
-              "description": "The IP Stack type of the cluster. Choose between IPV4 and IPV4_IPV6. Default type is IPV4 Only if not set",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "pod_cidr_overprovision_config": {
-              "block": {
-                "attributes": {
-                  "disabled": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Configuration for cluster level pod cidr overprovision. Default is disabled=false.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "Configuration of cluster IP allocation for VPC-native clusters. Adding this block enables IP aliasing, making the cluster VPC-native instead of routes-based.",
@@ -853,7 +486,7 @@ const googleContainerCluster = `{
         "block": {
           "attributes": {
             "enable_components": {
-              "description": "GKE components exposing logs. Valid values include SYSTEM_COMPONENTS, APISERVER, CONTROLLER_MANAGER, SCHEDULER, and WORKLOADS.",
+              "description": "GKE components exposing logs. Valid values include SYSTEM_COMPONENTS and WORKLOADS.",
               "description_kind": "plain",
               "required": true,
               "type": [
@@ -908,24 +541,6 @@ const googleContainerCluster = `{
                     "description_kind": "plain",
                     "required": true,
                     "type": "string"
-                  }
-                },
-                "block_types": {
-                  "exclusion_options": {
-                    "block": {
-                      "attributes": {
-                        "scope": {
-                          "description": "The scope of automatic upgrades to restrict in the exclusion window.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "Maintenance exclusion related options.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
                   }
                 },
                 "description": "Exceptions to maintenance window. Non-emergency maintenance should not occur in these windows.",
@@ -987,6 +602,21 @@ const googleContainerCluster = `{
               "description": "Base64 encoded public certificate that is the root of trust for the cluster.",
               "description_kind": "plain",
               "type": "string"
+            },
+            "password": {
+              "deprecated": true,
+              "description": "The password to use for HTTP basic authentication when accessing the Kubernetes master endpoint.",
+              "description_kind": "plain",
+              "optional": true,
+              "sensitive": true,
+              "type": "string"
+            },
+            "username": {
+              "deprecated": true,
+              "description": "The username to use for HTTP basic authentication when accessing the Kubernetes master endpoint. If not present basic auth will be disabled.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
             }
           },
           "block_types": {
@@ -1004,11 +634,10 @@ const googleContainerCluster = `{
                 "description_kind": "plain"
               },
               "max_items": 1,
-              "min_items": 1,
               "nesting_mode": "list"
             }
           },
-          "description": "The authentication information for accessing the Kubernetes master. Some values in this block are only returned by the API if your service account has permission to get credentials for your GKE cluster. If you see an unexpected diff unsetting your client cert, ensure you have the container.clusters.getCredentials permission.",
+          "description": "The authentication information for accessing the Kubernetes master. Some values in this block are only returned by the API if your service account has permission to get credentials for your GKE cluster. If you see an unexpected diff removing a username/password or unsetting your client cert, ensure you have the container.clusters.getCredentials permission.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -1016,15 +645,6 @@ const googleContainerCluster = `{
       },
       "master_authorized_networks_config": {
         "block": {
-          "attributes": {
-            "gcp_public_cidrs_access_enabled": {
-              "computed": true,
-              "description": "Whether master is accessbile via Google Compute Engine Public IP addresses.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            }
-          },
           "block_types": {
             "cidr_blocks": {
               "block": {
@@ -1054,51 +674,17 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
-      "mesh_certificates": {
-        "block": {
-          "attributes": {
-            "enable_certificates": {
-              "description": "When enabled the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "If set, and enable_certificates=true, the GKE Workload Identity Certificates controller and node agent will be deployed in the cluster.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "monitoring_config": {
         "block": {
           "attributes": {
             "enable_components": {
-              "description": "GKE components exposing metrics. Valid values include SYSTEM_COMPONENTS, APISERVER, CONTROLLER_MANAGER, and SCHEDULER.",
+              "description": "GKE components exposing metrics. Valid values include SYSTEM_COMPONENTS.",
               "description_kind": "plain",
               "required": true,
               "type": [
                 "list",
                 "string"
               ]
-            }
-          },
-          "block_types": {
-            "managed_prometheus": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description": "Whether or not the managed collection is enabled.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Configuration for Google Cloud Managed Services for Prometheus.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "Monitoring configuration for the cluster.",
@@ -1132,12 +718,6 @@ const googleContainerCluster = `{
       "node_config": {
         "block": {
           "attributes": {
-            "boot_disk_kms_key": {
-              "description": "The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "disk_size_gb": {
               "computed": true,
               "description": "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.",
@@ -1147,7 +727,7 @@ const googleContainerCluster = `{
             },
             "disk_type": {
               "computed": true,
-              "description": "Type of the disk attached to each node. Such as pd-standard, pd-balanced or pd-ssd",
+              "description": "Type of the disk attached to each node.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -1164,16 +744,6 @@ const googleContainerCluster = `{
                   {
                     "count": "number",
                     "gpu_partition_size": "string",
-                    "gpu_sharing_config": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "gpu_sharing_strategy": "string",
-                          "max_shared_clients_per_gpu": "number"
-                        }
-                      ]
-                    ],
                     "type": "string"
                   }
                 ]
@@ -1203,12 +773,6 @@ const googleContainerCluster = `{
               "optional": true,
               "type": "number"
             },
-            "logging_variant": {
-              "description": "Type of logging agent that is used as the default value for node pools in the cluster. Valid values include DEFAULT and MAX_THROUGHPUT.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "machine_type": {
               "computed": true,
               "description": "The name of a Google Compute Engine machine type.",
@@ -1227,14 +791,7 @@ const googleContainerCluster = `{
               ]
             },
             "min_cpu_platform": {
-              "computed": true,
               "description": "Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "node_group": {
-              "description": "Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -1255,27 +812,12 @@ const googleContainerCluster = `{
               "optional": true,
               "type": "bool"
             },
-            "resource_labels": {
-              "description": "The GCE resource labels (a map of key/value pairs) to be applied to the node pool.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "map",
-                "string"
-              ]
-            },
             "service_account": {
               "computed": true,
               "description": "The Google Cloud Platform Service Account to be used by the node VMs.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            },
-            "spot": {
-              "description": "Whether the nodes are created as spot VM instances.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
             },
             "tags": {
               "description": "The list of instance tags applied to all nodes.",
@@ -1305,170 +847,6 @@ const googleContainerCluster = `{
             }
           },
           "block_types": {
-            "advanced_machine_features": {
-              "block": {
-                "attributes": {
-                  "threads_per_core": {
-                    "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  }
-                },
-                "description": "Specifies options for controlling advanced machine features.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "ephemeral_storage_local_ssd_config": {
-              "block": {
-                "attributes": {
-                  "local_ssd_count": {
-                    "description": "Number of local SSDs to use to back ephemeral storage. Uses NVMe interfaces. Each local SSD must be 375 or 3000 GB in size, and all local SSDs must share the same size.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  }
-                },
-                "description": "Parameters for the ephemeral storage filesystem. If unspecified, ephemeral storage is backed by the boot disk.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "gcfs_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description": "Whether or not GCFS is enabled",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "GCFS configuration for this node.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "gvnic": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description": "Whether or not gvnic is enabled",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Enable or disable gvnic in the node pool.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "kubelet_config": {
-              "block": {
-                "attributes": {
-                  "cpu_cfs_quota": {
-                    "description": "Enable CPU CFS quota enforcement for containers that specify CPU limits.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "cpu_cfs_quota_period": {
-                    "description": "Set the CPU CFS quota period value 'cpu.cfs_period_us'.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "cpu_manager_policy": {
-                    "description": "Control the CPU management policy on the node.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "pod_pids_limit": {
-                    "description": "Controls the maximum number of processes allowed to run in a pod.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  }
-                },
-                "description": "Node kubelet configs.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "linux_node_config": {
-              "block": {
-                "attributes": {
-                  "sysctls": {
-                    "description": "The Linux kernel parameters to be applied to the nodes and all pods running on the nodes.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": [
-                      "map",
-                      "string"
-                    ]
-                  }
-                },
-                "description": "Parameters that can be configured on Linux nodes.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "local_nvme_ssd_block_config": {
-              "block": {
-                "attributes": {
-                  "local_ssd_count": {
-                    "description": "Number of raw-block local NVMe SSD disks to be attached to the node. Each local SSD is 375 GB in size.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "number"
-                  }
-                },
-                "description": "Parameters for raw-block local NVMe SSDs.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "reservation_affinity": {
-              "block": {
-                "attributes": {
-                  "consume_reservation_type": {
-                    "description": "Corresponds to the type of reservation consumption.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "key": {
-                    "description": "The label key of a reservation resource.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "values": {
-                    "description": "The label values of the reservation resource.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "set",
-                      "string"
-                    ]
-                  }
-                },
-                "description": "The reservation affinity configuration for the node pool.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "shielded_instance_config": {
               "block": {
                 "attributes": {
@@ -1495,9 +873,18 @@ const googleContainerCluster = `{
               "block": {
                 "attributes": {
                   "mode": {
+                    "computed": true,
                     "description": "Mode is the configuration for how to expose metadata to workloads running on the node.",
                     "description_kind": "plain",
-                    "required": true,
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "node_metadata": {
+                    "computed": true,
+                    "deprecated": true,
+                    "description": "NodeMetadata is the configuration for how to expose metadata to the workloads running on the node.",
+                    "description_kind": "plain",
+                    "optional": true,
                     "type": "string"
                   }
                 },
@@ -1527,15 +914,6 @@ const googleContainerCluster = `{
             "instance_group_urls": {
               "computed": true,
               "description": "The resource URLs of the managed instance groups associated with this node pool.",
-              "description_kind": "plain",
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "managed_instance_group_urls": {
-              "computed": true,
-              "description": "List of instance group URLs which have been assigned to this node pool.",
               "description_kind": "plain",
               "type": [
                 "list",
@@ -1592,35 +970,16 @@ const googleContainerCluster = `{
             "autoscaling": {
               "block": {
                 "attributes": {
-                  "location_policy": {
-                    "computed": true,
-                    "description": "Location policy specifies the algorithm used when scaling-up the node pool. \"BALANCED\" - Is a best effort policy that aims to balance the sizes of available zones. \"ANY\" - Instructs the cluster autoscaler to prioritize utilization of unused reservations, and reduces preemption risk for Spot VMs.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "max_node_count": {
-                    "description": "Maximum number of nodes per zone in the node pool. Must be \u003e= min_node_count. Cannot be used with total limits.",
+                    "description": "Maximum number of nodes in the NodePool. Must be \u003e= min_node_count.",
                     "description_kind": "plain",
-                    "optional": true,
+                    "required": true,
                     "type": "number"
                   },
                   "min_node_count": {
-                    "description": "Minimum number of nodes per zone in the node pool. Must be \u003e=0 and \u003c= max_node_count. Cannot be used with total limits.",
+                    "description": "Minimum number of nodes in the NodePool. Must be \u003e=0 and \u003c= max_node_count.",
                     "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "total_max_node_count": {
-                    "description": "Maximum number of all nodes in the node pool. Must be \u003e= total_min_node_count. Cannot be used with per zone limits.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "total_min_node_count": {
-                    "description": "Minimum number of all nodes in the node pool. Must be \u003e=0 and \u003c= total_max_node_count. Cannot be used with per zone limits.",
-                    "description_kind": "plain",
-                    "optional": true,
+                    "required": true,
                     "type": "number"
                   }
                 },
@@ -1652,69 +1011,9 @@ const googleContainerCluster = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "network_config": {
-              "block": {
-                "attributes": {
-                  "create_pod_range": {
-                    "description": "Whether to create a new range for pod IPs in this node pool. Defaults are provided for pod_range and pod_ipv4_cidr_block if they are not specified.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "enable_private_nodes": {
-                    "computed": true,
-                    "description": "Whether nodes have internal IP addresses only.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "pod_ipv4_cidr_block": {
-                    "computed": true,
-                    "description": "The IP address range for pod IPs in this node pool. Only applicable if create_pod_range is true. Set to blank to have a range chosen with the default size. Set to /netmask (e.g. /14) to have a range chosen with a specific netmask. Set to a CIDR notation (e.g. 10.96.0.0/14) to pick a specific range to use.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "pod_range": {
-                    "computed": true,
-                    "description": "The ID of the secondary range for pod IPs. If create_pod_range is true, this ID is used for the new range. If create_pod_range is false, uses an existing secondary range with this ID.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "block_types": {
-                  "pod_cidr_overprovision_config": {
-                    "block": {
-                      "attributes": {
-                        "disabled": {
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        }
-                      },
-                      "description": "Configuration for node-pool level pod cidr overprovision. If not set, the cluster level setting will be inherited",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "Networking configuration for this NodePool. If specified, it overrides the cluster-level defaults.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "node_config": {
               "block": {
                 "attributes": {
-                  "boot_disk_kms_key": {
-                    "description": "The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "disk_size_gb": {
                     "computed": true,
                     "description": "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB.",
@@ -1724,7 +1023,7 @@ const googleContainerCluster = `{
                   },
                   "disk_type": {
                     "computed": true,
-                    "description": "Type of the disk attached to each node. Such as pd-standard, pd-balanced or pd-ssd",
+                    "description": "Type of the disk attached to each node.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -1741,16 +1040,6 @@ const googleContainerCluster = `{
                         {
                           "count": "number",
                           "gpu_partition_size": "string",
-                          "gpu_sharing_config": [
-                            "list",
-                            [
-                              "object",
-                              {
-                                "gpu_sharing_strategy": "string",
-                                "max_shared_clients_per_gpu": "number"
-                              }
-                            ]
-                          ],
                           "type": "string"
                         }
                       ]
@@ -1780,12 +1069,6 @@ const googleContainerCluster = `{
                     "optional": true,
                     "type": "number"
                   },
-                  "logging_variant": {
-                    "description": "Type of logging agent that is used as the default value for node pools in the cluster. Valid values include DEFAULT and MAX_THROUGHPUT.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "machine_type": {
                     "computed": true,
                     "description": "The name of a Google Compute Engine machine type.",
@@ -1804,14 +1087,7 @@ const googleContainerCluster = `{
                     ]
                   },
                   "min_cpu_platform": {
-                    "computed": true,
                     "description": "Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "node_group": {
-                    "description": "Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -1832,27 +1108,12 @@ const googleContainerCluster = `{
                     "optional": true,
                     "type": "bool"
                   },
-                  "resource_labels": {
-                    "description": "The GCE resource labels (a map of key/value pairs) to be applied to the node pool.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "map",
-                      "string"
-                    ]
-                  },
                   "service_account": {
                     "computed": true,
                     "description": "The Google Cloud Platform Service Account to be used by the node VMs.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
-                  },
-                  "spot": {
-                    "description": "Whether the nodes are created as spot VM instances.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
                   },
                   "tags": {
                     "description": "The list of instance tags applied to all nodes.",
@@ -1882,170 +1143,6 @@ const googleContainerCluster = `{
                   }
                 },
                 "block_types": {
-                  "advanced_machine_features": {
-                    "block": {
-                      "attributes": {
-                        "threads_per_core": {
-                          "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Specifies options for controlling advanced machine features.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "ephemeral_storage_local_ssd_config": {
-                    "block": {
-                      "attributes": {
-                        "local_ssd_count": {
-                          "description": "Number of local SSDs to use to back ephemeral storage. Uses NVMe interfaces. Each local SSD must be 375 or 3000 GB in size, and all local SSDs must share the same size.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Parameters for the ephemeral storage filesystem. If unspecified, ephemeral storage is backed by the boot disk.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "gcfs_config": {
-                    "block": {
-                      "attributes": {
-                        "enabled": {
-                          "description": "Whether or not GCFS is enabled",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        }
-                      },
-                      "description": "GCFS configuration for this node.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "gvnic": {
-                    "block": {
-                      "attributes": {
-                        "enabled": {
-                          "description": "Whether or not gvnic is enabled",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        }
-                      },
-                      "description": "Enable or disable gvnic in the node pool.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "kubelet_config": {
-                    "block": {
-                      "attributes": {
-                        "cpu_cfs_quota": {
-                          "description": "Enable CPU CFS quota enforcement for containers that specify CPU limits.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "bool"
-                        },
-                        "cpu_cfs_quota_period": {
-                          "description": "Set the CPU CFS quota period value 'cpu.cfs_period_us'.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "cpu_manager_policy": {
-                          "description": "Control the CPU management policy on the node.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "pod_pids_limit": {
-                          "description": "Controls the maximum number of processes allowed to run in a pod.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Node kubelet configs.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "linux_node_config": {
-                    "block": {
-                      "attributes": {
-                        "sysctls": {
-                          "description": "The Linux kernel parameters to be applied to the nodes and all pods running on the nodes.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": [
-                            "map",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "Parameters that can be configured on Linux nodes.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "local_nvme_ssd_block_config": {
-                    "block": {
-                      "attributes": {
-                        "local_ssd_count": {
-                          "description": "Number of raw-block local NVMe SSD disks to be attached to the node. Each local SSD is 375 GB in size.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Parameters for raw-block local NVMe SSDs.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "reservation_affinity": {
-                    "block": {
-                      "attributes": {
-                        "consume_reservation_type": {
-                          "description": "Corresponds to the type of reservation consumption.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "key": {
-                          "description": "The label key of a reservation resource.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "values": {
-                          "description": "The label values of the reservation resource.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": [
-                            "set",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "The reservation affinity configuration for the node pool.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
                   "shielded_instance_config": {
                     "block": {
                       "attributes": {
@@ -2072,9 +1169,18 @@ const googleContainerCluster = `{
                     "block": {
                       "attributes": {
                         "mode": {
+                          "computed": true,
                           "description": "Mode is the configuration for how to expose metadata to workloads running on the node.",
                           "description_kind": "plain",
-                          "required": true,
+                          "optional": true,
+                          "type": "string"
+                        },
+                        "node_metadata": {
+                          "computed": true,
+                          "deprecated": true,
+                          "description": "NodeMetadata is the configuration for how to expose metadata to the workloads running on the node.",
+                          "description_kind": "plain",
+                          "optional": true,
                           "type": "string"
                         }
                       },
@@ -2091,97 +1197,20 @@ const googleContainerCluster = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "placement_policy": {
-              "block": {
-                "attributes": {
-                  "type": {
-                    "description": "Type defines the type of placement policy",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Specifies the node placement policy",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "upgrade_settings": {
               "block": {
                 "attributes": {
                   "max_surge": {
-                    "computed": true,
                     "description": "The number of additional nodes that can be added to the node pool during an upgrade. Increasing max_surge raises the number of nodes that can be upgraded simultaneously. Can be set to 0 or greater.",
                     "description_kind": "plain",
-                    "optional": true,
+                    "required": true,
                     "type": "number"
                   },
                   "max_unavailable": {
-                    "computed": true,
                     "description": "The number of nodes that can be simultaneously unavailable during an upgrade. Increasing max_unavailable raises the number of nodes that can be upgraded in parallel. Can be set to 0 or greater.",
                     "description_kind": "plain",
-                    "optional": true,
+                    "required": true,
                     "type": "number"
-                  },
-                  "strategy": {
-                    "description": "Update strategy for the given nodepool.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "block_types": {
-                  "blue_green_settings": {
-                    "block": {
-                      "attributes": {
-                        "node_pool_soak_duration": {
-                          "computed": true,
-                          "description": "Time needed after draining entire blue pool. After this period, blue pool will be cleaned up.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "block_types": {
-                        "standard_rollout_policy": {
-                          "block": {
-                            "attributes": {
-                              "batch_node_count": {
-                                "computed": true,
-                                "description": "Number of blue nodes to drain in a batch.",
-                                "description_kind": "plain",
-                                "optional": true,
-                                "type": "number"
-                              },
-                              "batch_percentage": {
-                                "computed": true,
-                                "description": "Percentage of the blue pool nodes to drain in a batch.",
-                                "description_kind": "plain",
-                                "optional": true,
-                                "type": "number"
-                              },
-                              "batch_soak_duration": {
-                                "computed": true,
-                                "description": "Soak time after each batch gets drained.",
-                                "description_kind": "plain",
-                                "optional": true,
-                                "type": "string"
-                              }
-                            },
-                            "description": "Standard rollout policy is the default policy for blue-green.",
-                            "description_kind": "plain"
-                          },
-                          "max_items": 1,
-                          "min_items": 1,
-                          "nesting_mode": "list"
-                        }
-                      },
-                      "description": "Settings for BlueGreen node pool upgrade.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
                   }
                 },
                 "description": "Specify node upgrade settings to change how many nodes GKE attempts to upgrade at once. The number of nodes upgraded simultaneously is the sum of max_surge and max_unavailable. The maximum number of nodes upgraded simultaneously is limited to 20.",
@@ -2196,81 +1225,18 @@ const googleContainerCluster = `{
         },
         "nesting_mode": "list"
       },
-      "node_pool_defaults": {
+      "pod_security_policy_config": {
         "block": {
-          "block_types": {
-            "node_config_defaults": {
-              "block": {
-                "attributes": {
-                  "logging_variant": {
-                    "description": "Type of logging agent that is used as the default value for node pools in the cluster. Valid values include DEFAULT and MAX_THROUGHPUT.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Subset of NodeConfig message that has defaults.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
+          "attributes": {
+            "enabled": {
+              "description": "Enable the PodSecurityPolicy controller for this cluster. If enabled, pods must be valid under a PodSecurityPolicy to be created.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "bool"
             }
           },
-          "description": "The default nodel pool settings for the entire cluster.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "notification_config": {
-        "block": {
-          "block_types": {
-            "pubsub": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description": "Whether or not the notification config is enabled",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  },
-                  "topic": {
-                    "description": "The pubsub topic to push upgrade notifications to. Must be in the same project as the cluster. Must be in the format: projects/{project}/topics/{topic}.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "block_types": {
-                  "filter": {
-                    "block": {
-                      "attributes": {
-                        "event_type": {
-                          "description": "Can be used to filter what notifications are sent. Valid values include include UPGRADE_AVAILABLE_EVENT, UPGRADE_EVENT and SECURITY_BULLETIN_EVENT",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": [
-                            "list",
-                            "string"
-                          ]
-                        }
-                      },
-                      "description": "Allows filtering to one or more specific event types. If event types are present, those and only those event types will be transmitted to the cluster. Other types will be skipped. If no filter is specified, or no event types are present, all event types will be sent",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "Notification config for Cloud Pub/Sub",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "min_items": 1,
-              "nesting_mode": "list"
-            }
-          },
-          "description": "The notification config for sending cluster upgrade notifications",
+          "deprecated": true,
+          "description": "Configuration for the PodSecurityPolicy feature.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -2280,19 +1246,18 @@ const googleContainerCluster = `{
         "block": {
           "attributes": {
             "enable_private_endpoint": {
+              "description": "Enables the private cluster feature, creating a private endpoint on the cluster. In a private cluster, nodes only have RFC 1918 private addresses and communicate with the master's private endpoint via private networking.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "bool"
+            },
+            "enable_private_nodes": {
               "description": "When true, the cluster's private endpoint is used as the cluster endpoint and access through the public endpoint is disabled. When false, either endpoint can be used. This field only applies to private clusters, when enable_private_nodes is true.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
             },
-            "enable_private_nodes": {
-              "description": "Enables the private cluster feature, creating a private endpoint on the cluster. In a private cluster, nodes only have RFC 1918 private addresses and communicate with the master's private endpoint via private networking.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
             "master_ipv4_cidr_block": {
-              "computed": true,
               "description": "The IP range in CIDR notation to use for the hosted master network. This range will be used for assigning private IP addresses to the cluster master(s) and the ILB VIP. This range must not overlap with any other ranges in use within the cluster's network, and it must be a /28 subnet. See Private Cluster Limitations for more details. This field only applies to private clusters, when enable_private_nodes is true.",
               "description_kind": "plain",
               "optional": true,
@@ -2308,12 +1273,6 @@ const googleContainerCluster = `{
               "computed": true,
               "description": "The internal IP address of this cluster's master endpoint.",
               "description_kind": "plain",
-              "type": "string"
-            },
-            "private_endpoint_subnetwork": {
-              "description": "Subnetwork in cluster's network where master's endpoint will be provisioned.",
-              "description_kind": "plain",
-              "optional": true,
               "type": "string"
             },
             "public_endpoint": {
@@ -2404,22 +1363,6 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
-      "service_external_ips_config": {
-        "block": {
-          "attributes": {
-            "enabled": {
-              "description": "When enabled, services with exterenal ips specified will be allowed.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "bool"
-            }
-          },
-          "description": "If set, and enabled=true, services with external ips field will not be blocked",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "timeouts": {
         "block": {
           "attributes": {
@@ -2467,6 +1410,13 @@ const googleContainerCluster = `{
       "workload_identity_config": {
         "block": {
           "attributes": {
+            "identity_namespace": {
+              "deprecated": true,
+              "description": "Enables workload identity.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "workload_pool": {
               "description": "The workload pool to attach all Kubernetes service accounts to.",
               "description_kind": "plain",

@@ -25,7 +25,6 @@ const googleAppEngineFlexibleAppVersion = `{
         "type": "string"
       },
       "delete_service_on_destroy": {
-        "description": "If set to 'true', the service will be deleted if it is the last version.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -73,7 +72,6 @@ const googleAppEngineFlexibleAppVersion = `{
         "type": "string"
       },
       "noop_on_destroy": {
-        "description": "If set to 'true', the application version will not be deleted.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -92,7 +90,7 @@ const googleAppEngineFlexibleAppVersion = `{
       },
       "runtime_api_version": {
         "computed": true,
-        "description": "The version of the API in the given runtime environment.\nPlease see the app.yaml reference for valid values at 'https://cloud.google.com/appengine/docs/standard/\u003clanguage\u003e/config/appref'\\\nSubstitute '\u003clanguage\u003e' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'.",
+        "description": "The version of the API in the given runtime environment.\nPlease see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard//config/appref",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -113,13 +111,6 @@ const googleAppEngineFlexibleAppVersion = `{
         "description": "AppEngine service resource. Can contain numbers, letters, and hyphens.",
         "description_kind": "plain",
         "required": true,
-        "type": "string"
-      },
-      "service_account": {
-        "computed": true,
-        "description": "The identity that the deployed version will run as. Admin API will use the App Engine Appspot service account as\ndefault if this field is neither provided in app.yaml file nor through CLI flag.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "serving_status": {

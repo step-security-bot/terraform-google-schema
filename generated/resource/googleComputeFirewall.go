@@ -23,7 +23,7 @@ const googleComputeFirewall = `{
       },
       "destination_ranges": {
         "computed": true,
-        "description": "If destination ranges are specified, the firewall will apply only to\ntraffic that has destination IP address in these ranges. These ranges\nmust be expressed in CIDR format. IPv4 or IPv6 ranges are supported.",
+        "description": "If destination ranges are specified, the firewall will apply only to\ntraffic that has destination IP address in these ranges. These ranges\nmust be expressed in CIDR format. Only IPv4 is supported.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -33,7 +33,7 @@ const googleComputeFirewall = `{
       },
       "direction": {
         "computed": true,
-        "description": "Direction of traffic to which this firewall applies; default is\nINGRESS. Note: For INGRESS traffic, one of 'source_ranges',\n'source_tags' or 'source_service_accounts' is required. Possible values: [\"INGRESS\", \"EGRESS\"]",
+        "description": "Direction of traffic to which this firewall applies; default is\nINGRESS. Note: For INGRESS traffic, it is NOT supported to specify\ndestinationRanges; For EGRESS traffic, it is NOT supported to specify\nsourceRanges OR sourceTags. Possible values: [\"INGRESS\", \"EGRESS\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -88,7 +88,8 @@ const googleComputeFirewall = `{
         "type": "string"
       },
       "source_ranges": {
-        "description": "If source ranges are specified, the firewall will apply only to\ntraffic that has source IP address in these ranges. These ranges must\nbe expressed in CIDR format. One or both of sourceRanges and\nsourceTags may be set. If both properties are set, the firewall will\napply to traffic that has source IP address within sourceRanges OR the\nsource IP that belongs to a tag listed in the sourceTags property. The\nconnection does not need to match both properties for the firewall to\napply. IPv4 or IPv6 ranges are supported. For INGRESS traffic, one of\n'source_ranges', 'source_tags' or 'source_service_accounts' is required.",
+        "computed": true,
+        "description": "If source ranges are specified, the firewall will apply only to\ntraffic that has source IP address in these ranges. These ranges must\nbe expressed in CIDR format. One or both of sourceRanges and\nsourceTags may be set. If both properties are set, the firewall will\napply to traffic that has source IP address within sourceRanges OR the\nsource IP that belongs to a tag listed in the sourceTags property. The\nconnection does not need to match both properties for the firewall to\napply. Only IPv4 is supported.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -97,7 +98,7 @@ const googleComputeFirewall = `{
         ]
       },
       "source_service_accounts": {
-        "description": "If source service accounts are specified, the firewall will apply only\nto traffic originating from an instance with a service account in this\nlist. Source service accounts cannot be used to control traffic to an\ninstance's external IP address because service accounts are associated\nwith an instance, not an IP address. sourceRanges can be set at the\nsame time as sourceServiceAccounts. If both are set, the firewall will\napply to traffic that has source IP address within sourceRanges OR the\nsource IP belongs to an instance with service account listed in\nsourceServiceAccount. The connection does not need to match both\nproperties for the firewall to apply. sourceServiceAccounts cannot be\nused at the same time as sourceTags or targetTags. For INGRESS traffic,\none of 'source_ranges', 'source_tags' or 'source_service_accounts' is required.",
+        "description": "If source service accounts are specified, the firewall will apply only\nto traffic originating from an instance with a service account in this\nlist. Source service accounts cannot be used to control traffic to an\ninstance's external IP address because service accounts are associated\nwith an instance, not an IP address. sourceRanges can be set at the\nsame time as sourceServiceAccounts. If both are set, the firewall will\napply to traffic that has source IP address within sourceRanges OR the\nsource IP belongs to an instance with service account listed in\nsourceServiceAccount. The connection does not need to match both\nproperties for the firewall to apply. sourceServiceAccounts cannot be\nused at the same time as sourceTags or targetTags.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -106,7 +107,7 @@ const googleComputeFirewall = `{
         ]
       },
       "source_tags": {
-        "description": "If source tags are specified, the firewall will apply only to traffic\nwith source IP that belongs to a tag listed in source tags. Source\ntags cannot be used to control traffic to an instance's external IP\naddress. Because tags are associated with an instance, not an IP\naddress. One or both of sourceRanges and sourceTags may be set. If\nboth properties are set, the firewall will apply to traffic that has\nsource IP address within sourceRanges OR the source IP that belongs to\na tag listed in the sourceTags property. The connection does not need\nto match both properties for the firewall to apply. For INGRESS traffic,\none of 'source_ranges', 'source_tags' or 'source_service_accounts' is required.",
+        "description": "If source tags are specified, the firewall will apply only to traffic\nwith source IP that belongs to a tag listed in source tags. Source\ntags cannot be used to control traffic to an instance's external IP\naddress. Because tags are associated with an instance, not an IP\naddress. One or both of sourceRanges and sourceTags may be set. If\nboth properties are set, the firewall will apply to traffic that has\nsource IP address within sourceRanges OR the source IP that belongs to\na tag listed in the sourceTags property. The connection does not need\nto match both properties for the firewall to apply.",
         "description_kind": "plain",
         "optional": true,
         "type": [

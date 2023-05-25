@@ -9,12 +9,6 @@ import (
 const googleComputeTargetHttpsProxy = `{
   "block": {
     "attributes": {
-      "certificate_map": {
-        "description": "A reference to the CertificateMap resource uri that identifies a certificate map\nassociated with the given target proxy. This field can only be set for global target proxies.\nAccepted format is '//certificatemanager.googleapis.com/projects/{project}/locations/{location}/certificateMaps/{resourceName}'.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "creation_timestamp": {
         "computed": true,
         "description": "Creation timestamp in RFC3339 text format.",
@@ -59,7 +53,7 @@ const googleComputeTargetHttpsProxy = `{
         "type": "number"
       },
       "quic_override": {
-        "description": "Specifies the QUIC override policy for this resource. This determines\nwhether the load balancer will attempt to negotiate QUIC with clients\nor not. Can specify one of NONE, ENABLE, or DISABLE. If NONE is\nspecified, Google manages whether QUIC is used. Default value: \"NONE\" Possible values: [\"NONE\", \"ENABLE\", \"DISABLE\"]",
+        "description": "Specifies the QUIC override policy for this resource. This determines\nwhether the load balancer will attempt to negotiate QUIC with clients\nor not. Can specify one of NONE, ENABLE, or DISABLE. If NONE is\nspecified, uses the QUIC policy with no user overrides, which is\nequivalent to DISABLE. Default value: \"NONE\" Possible values: [\"NONE\", \"ENABLE\", \"DISABLE\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -72,7 +66,7 @@ const googleComputeTargetHttpsProxy = `{
       "ssl_certificates": {
         "description": "A list of SslCertificate resources that are used to authenticate\nconnections between users and the load balancer. At least one SSL\ncertificate must be specified.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": [
           "list",
           "string"

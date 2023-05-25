@@ -38,7 +38,6 @@ const googleComposerEnvironment = `{
         "type": "string"
       },
       "region": {
-        "computed": true,
         "description": "The location or Compute Engine region for the environment.",
         "description_kind": "plain",
         "optional": true,
@@ -61,13 +60,6 @@ const googleComposerEnvironment = `{
               "description_kind": "plain",
               "type": "string"
             },
-            "environment_size": {
-              "computed": true,
-              "description": "The size of the Cloud Composer environment. This field is supported for Cloud Composer environments in versions composer-2.*.*-airflow-*.*.* and newer.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "gke_cluster": {
               "computed": true,
               "description": "The Kubernetes Engine cluster used to run this environment.",
@@ -83,105 +75,6 @@ const googleComposerEnvironment = `{
             }
           },
           "block_types": {
-            "database_config": {
-              "block": {
-                "attributes": {
-                  "machine_type": {
-                    "description": "Optional. Cloud SQL machine type used by Airflow database. It has to be one of: db-n1-standard-2, db-n1-standard-4, db-n1-standard-8 or db-n1-standard-16. If not specified, db-n1-standard-2 will be used.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The configuration of Cloud SQL instance that is used by the Apache Airflow software. This field is supported for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "encryption_config": {
-              "block": {
-                "attributes": {
-                  "kms_key_name": {
-                    "description": "Optional. Customer-managed Encryption Key available through Google's Key Management Service. Cannot be updated.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The encryption options for the Composer environment and its dependencies.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "maintenance_window": {
-              "block": {
-                "attributes": {
-                  "end_time": {
-                    "description": "Maintenance window end time. It is used only to calculate the duration of the maintenance window. The value for end-time must be in the future, relative to 'start_time'.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "recurrence": {
-                    "description": "Maintenance window recurrence. Format is a subset of RFC-5545 (https://tools.ietf.org/html/rfc5545) 'RRULE'. The only allowed values for 'FREQ' field are 'FREQ=DAILY' and 'FREQ=WEEKLY;BYDAY=...'. Example values: 'FREQ=WEEKLY;BYDAY=TU,WE', 'FREQ=DAILY'.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "start_time": {
-                    "description": "Start time of the first recurrence of the maintenance window.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The configuration for Cloud Composer maintenance window.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "master_authorized_networks_config": {
-              "block": {
-                "attributes": {
-                  "enabled": {
-                    "description": "Whether or not master authorized networks is enabled.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "block_types": {
-                  "cidr_blocks": {
-                    "block": {
-                      "attributes": {
-                        "cidr_block": {
-                          "description": "cidr_block must be specified in CIDR notation.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        },
-                        "display_name": {
-                          "description": "display_name is a field for users to identify CIDR blocks.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "cidr_blocks define up to 50 external networks that could access Kubernetes master through HTTPS.",
-                      "description_kind": "plain"
-                    },
-                    "nesting_mode": "set"
-                  }
-                },
-                "description": "Configuration options for the master authorized networks feature. Enabled master authorized networks will disallow all external traffic to access Kubernetes master through HTTPS except traffic from the given CIDR blocks, Google Compute Engine Public IPs and Google Prod IPs.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "node_config": {
               "block": {
                 "attributes": {
@@ -191,13 +84,6 @@ const googleComposerEnvironment = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "number"
-                  },
-                  "enable_ip_masq_agent": {
-                    "computed": true,
-                    "description": "Deploys 'ip-masq-agent' daemon set in the GKE cluster and defines nonMasqueradeCIDRs equals to pod IP range so IP masquerading is used for all destination addresses, except between pods traffic. See: https://cloud.google.com/kubernetes-engine/docs/how-to/ip-masquerade-agent",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
                   },
                   "ip_allocation_policy": {
                     "computed": true,
@@ -256,7 +142,7 @@ const googleComposerEnvironment = `{
                     "type": "string"
                   },
                   "tags": {
-                    "description": "The list of instance tags applied to all node VMs. Tags are used to identify valid sources or targets for network firewalls. Each tag within the list must comply with RFC1035. Cannot be updated.",
+                    "description": "The list of instance tags applied to all node VMs. Tags are used to identify valid sources or targets for network firewalls. Each tag within the list must comply with RFC1035. Cannot be updated. This field is supported for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": [
@@ -281,20 +167,6 @@ const googleComposerEnvironment = `{
             "private_environment_config": {
               "block": {
                 "attributes": {
-                  "cloud_composer_connection_subnetwork": {
-                    "computed": true,
-                    "description": "When specified, the environment will use Private Service Connect instead of VPC peerings to connect to Cloud SQL in the Tenant Project, and the PSC endpoint in the Customer Project will use an IP address from this subnetwork. This field is supported for Cloud Composer environments in versions composer-2.*.*-airflow-*.*.* and newer.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "cloud_composer_network_ipv4_cidr_block": {
-                    "computed": true,
-                    "description": "The CIDR block from which IP range for Cloud Composer Network in tenant project will be reserved. Needs to be disjoint from private_cluster_config.master_ipv4_cidr_block and cloud_sql_ipv4_cidr_block. This field is supported for Cloud Composer environments in versions composer-2.*.*-airflow-*.*.* and newer.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "cloud_sql_ipv4_cidr_block": {
                     "computed": true,
                     "description": "The CIDR block from which IP range in tenant project will be reserved for Cloud SQL. Needs to be disjoint from web_server_ipv4_cidr_block.",
@@ -304,13 +176,6 @@ const googleComposerEnvironment = `{
                   },
                   "enable_private_endpoint": {
                     "description": "If true, access to the public endpoint of the GKE cluster is denied. If this field is set to true, ip_allocation_policy.use_ip_aliases must be set to true for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "enable_privately_used_public_ips": {
-                    "computed": true,
-                    "description": "When enabled, IPs from public (non-RFC1918) ranges can be used for ip_allocation_policy.cluster_ipv4_cidr_block and ip_allocation_policy.service_ipv4_cidr_block.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
@@ -336,50 +201,6 @@ const googleComposerEnvironment = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
-            "recovery_config": {
-              "block": {
-                "block_types": {
-                  "scheduled_snapshots_config": {
-                    "block": {
-                      "attributes": {
-                        "enabled": {
-                          "description": "When enabled, Cloud Composer periodically saves snapshots of your environment to a Cloud Storage bucket.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "bool"
-                        },
-                        "snapshot_creation_schedule": {
-                          "description": "Snapshot schedule, in the unix-cron format.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "snapshot_location": {
-                          "description": "the URI of a bucket folder where to save the snapshot.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "time_zone": {
-                          "description": "A time zone for the schedule. This value is a time offset and does not take into account daylight saving time changes. Valid values are from UTC-12 to UTC+12. Examples: UTC, UTC-01, UTC+03.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "The configuration settings for scheduled snapshots.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "The recovery configuration settings for the Cloud Composer environment",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "software_config": {
               "block": {
                 "attributes": {
@@ -393,7 +214,7 @@ const googleComposerEnvironment = `{
                     ]
                   },
                   "env_variables": {
-                    "description": "Additional environment variables to provide to the Apache Airflow scheduler, worker, and webserver processes. Environment variable names must match the regular expression [a-zA-Z_][a-zA-Z0-9_]*. They cannot specify Apache Airflow software configuration overrides (they cannot match the regular expression AIRFLOW__[A-Z0-9_]+__[A-Z0-9_]+), and they cannot match any of the following reserved names: AIRFLOW_HOME C_FORCE_ROOT CONTAINER_NAME DAGS_FOLDER GCP_PROJECT GCS_BUCKET GKE_CLUSTER_NAME SQL_DATABASE SQL_INSTANCE SQL_PASSWORD SQL_PROJECT SQL_REGION SQL_USER.",
+                    "description": "Additional environment variables to provide to the Apache Airflow schedulerf, worker, and webserver processes. Environment variable names must match the regular expression [a-zA-Z_][a-zA-Z0-9_]*. They cannot specify Apache Airflow software configuration overrides (they cannot match the regular expression AIRFLOW__[A-Z0-9_]+__[A-Z0-9_]+), and they cannot match any of the following reserved names: AIRFLOW_HOME C_FORCE_ROOT CONTAINER_NAME DAGS_FOLDER GCP_PROJECT GCS_BUCKET GKE_CLUSTER_NAME SQL_DATABASE SQL_INSTANCE SQL_PASSWORD SQL_PROJECT SQL_REGION SQL_USER.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": [
@@ -403,7 +224,7 @@ const googleComposerEnvironment = `{
                   },
                   "image_version": {
                     "computed": true,
-                    "description": "The version of the software running in the environment. This encapsulates both the version of Cloud Composer functionality and the version of Apache Airflow. It must match the regular expression composer-([0-9]+(\\.[0-9]+\\.[0-9]+(-preview\\.[0-9]+)?)?|latest)-airflow-([0-9]+(\\.[0-9]+(\\.[0-9]+)?)?). The Cloud Composer portion of the image version is a full semantic version, or an alias in the form of major version number or 'latest'. The Apache Airflow portion of the image version is a full semantic version that points to one of the supported Apache Airflow versions, or an alias in the form of only major or major.minor versions specified. See documentation for more details and version list.",
+                    "description": "The version of the software running in the environment. This encapsulates both the version of Cloud Composer functionality and the version of Apache Airflow. It must match the regular expression composer-[0-9]+\\.[0-9]+(\\.[0-9]+)?-airflow-[0-9]+\\.[0-9]+(\\.[0-9]+.*)?. The Cloud Composer portion of the version is a semantic version. The portion of the image version following 'airflow-' is an official Apache Airflow repository release name. See documentation for allowed release names.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -433,165 +254,6 @@ const googleComposerEnvironment = `{
                   }
                 },
                 "description": "The configuration settings for software inside the environment.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "web_server_config": {
-              "block": {
-                "attributes": {
-                  "machine_type": {
-                    "description": "Optional. Machine type on which Airflow web server is running. It has to be one of: composer-n1-webserver-2, composer-n1-webserver-4 or composer-n1-webserver-8. If not specified, composer-n1-webserver-2 will be used. Value custom is returned only in response, if Airflow web server parameters were manually changed to a non-standard values.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The configuration settings for the Airflow web server App Engine instance. This field is supported for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "web_server_network_access_control": {
-              "block": {
-                "block_types": {
-                  "allowed_ip_range": {
-                    "block": {
-                      "attributes": {
-                        "description": {
-                          "description": "A description of this ip range.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
-                        },
-                        "value": {
-                          "description": "IP address or range, defined using CIDR notation, of requests that this rule applies to. Examples: 192.168.1.1 or 192.168.0.0/16 or 2001:db8::/32 or 2001:0db8:0000:0042:0000:8a2e:0370:7334. IP range prefixes should be properly truncated. For example, 1.2.3.4/24 should be truncated to 1.2.3.0/24. Similarly, for IPv6, 2001:db8::1/32 should be truncated to 2001:db8::/32.",
-                          "description_kind": "plain",
-                          "required": true,
-                          "type": "string"
-                        }
-                      },
-                      "description": "A collection of allowed IP ranges with descriptions.",
-                      "description_kind": "plain"
-                    },
-                    "nesting_mode": "set"
-                  }
-                },
-                "description": "The network-level access control policy for the Airflow web server. If unspecified, no network-level access restrictions will be applied. This field is supported for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "workloads_config": {
-              "block": {
-                "block_types": {
-                  "scheduler": {
-                    "block": {
-                      "attributes": {
-                        "count": {
-                          "description": "The number of schedulers.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "cpu": {
-                          "description": "CPU request and limit for a single Airflow scheduler replica",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "memory_gb": {
-                          "description": "Memory (GB) request and limit for a single Airflow scheduler replica.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "storage_gb": {
-                          "description": "Storage (GB) request and limit for a single Airflow scheduler replica.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Configuration for resources used by Airflow schedulers.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "web_server": {
-                    "block": {
-                      "attributes": {
-                        "cpu": {
-                          "description": "CPU request and limit for Airflow web server.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "memory_gb": {
-                          "description": "Memory (GB) request and limit for Airflow web server.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "storage_gb": {
-                          "description": "Storage (GB) request and limit for Airflow web server.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Configuration for resources used by Airflow web server.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  },
-                  "worker": {
-                    "block": {
-                      "attributes": {
-                        "cpu": {
-                          "description": "CPU request and limit for a single Airflow worker replica.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "max_count": {
-                          "description": "Maximum number of workers for autoscaling.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "memory_gb": {
-                          "description": "Memory (GB) request and limit for a single Airflow worker replica.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "min_count": {
-                          "description": "Minimum number of workers for autoscaling.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        },
-                        "storage_gb": {
-                          "description": "Storage (GB) request and limit for a single Airflow worker replica.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "number"
-                        }
-                      },
-                      "description": "Configuration for resources used by Airflow workers.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
-                  }
-                },
-                "description": "The workloads configuration settings for the GKE cluster associated with the Cloud Composer environment. Supported for Cloud Composer environments in versions composer-2.*.*-airflow-*.*.* and newer.",
                 "description_kind": "plain"
               },
               "max_items": 1,

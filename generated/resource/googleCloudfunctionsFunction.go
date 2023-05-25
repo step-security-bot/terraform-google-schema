@@ -24,27 +24,8 @@ const googleCloudfunctionsFunction = `{
           "string"
         ]
       },
-      "build_worker_pool": {
-        "description": "Name of the Cloud Build Custom Worker Pool that should be used to build the function.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "description": {
         "description": "Description of the function.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "docker_registry": {
-        "computed": true,
-        "description": "Docker Registry to use for storing the function's Docker images. Allowed values are CONTAINER_REGISTRY (default) and ARTIFACT_REGISTRY.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "docker_repository": {
-        "description": "User managed repository created in Artifact Registry optionally with a customer managed encryption key. If specified, deployments will use Artifact Registry for storing images built with Cloud Build.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -63,13 +44,6 @@ const googleCloudfunctionsFunction = `{
           "map",
           "string"
         ]
-      },
-      "https_trigger_security_level": {
-        "computed": true,
-        "description": "The security level for the function. Defaults to SECURE_OPTIONAL. Valid only if trigger_http is used.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
       },
       "https_trigger_url": {
         "computed": true,
@@ -90,12 +64,6 @@ const googleCloudfunctionsFunction = `{
         "optional": true,
         "type": "string"
       },
-      "kms_key_name": {
-        "description": "Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt function resources.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "labels": {
         "description": "A set of key/value label pairs to assign to the function. Label keys must follow the requirements at https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements.",
         "description_kind": "plain",
@@ -106,14 +74,7 @@ const googleCloudfunctionsFunction = `{
         ]
       },
       "max_instances": {
-        "computed": true,
         "description": "The limit on the maximum number of function instances that may coexist at a given time.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "number"
-      },
-      "min_instances": {
-        "description": "The limit on the minimum number of function instances that may coexist at a given time.",
         "description_kind": "plain",
         "optional": true,
         "type": "number"
@@ -161,12 +122,6 @@ const googleCloudfunctionsFunction = `{
         "description": "The source archive object (file) in archive bucket.",
         "description_kind": "plain",
         "optional": true,
-        "type": "string"
-      },
-      "status": {
-        "computed": true,
-        "description": "Describes the current stage of a deployment.",
-        "description_kind": "plain",
         "type": "string"
       },
       "timeout": {
@@ -234,91 +189,6 @@ const googleCloudfunctionsFunction = `{
           "description_kind": "plain"
         },
         "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "secret_environment_variables": {
-        "block": {
-          "attributes": {
-            "key": {
-              "description": "Name of the environment variable.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "project_id": {
-              "computed": true,
-              "description": "Project identifier (due to a known limitation, only project number is supported by this field) of the project that contains the secret. If not set, it will be populated with the function's project, assuming that the secret exists in the same project as of the function.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "secret": {
-              "description": "ID of the secret in secret manager (not the full resource name).",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "version": {
-              "description": "Version of the secret (version number or the string \"latest\"). It is recommended to use a numeric version for secret environment variables as any updates to the secret value is not reflected until new clones start.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "description": "Secret environment variables configuration",
-          "description_kind": "plain"
-        },
-        "nesting_mode": "list"
-      },
-      "secret_volumes": {
-        "block": {
-          "attributes": {
-            "mount_path": {
-              "description": "The path within the container to mount the secret volume. For example, setting the mount_path as \"/etc/secrets\" would mount the secret value files under the \"/etc/secrets\" directory. This directory will also be completely shadowed and unavailable to mount any other secrets. Recommended mount paths: \"/etc/secrets\" Restricted mount paths: \"/cloudsql\", \"/dev/log\", \"/pod\", \"/proc\", \"/var/log\".",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "project_id": {
-              "computed": true,
-              "description": "Project identifier (due to a known limitation, only project number is supported by this field) of the project that contains the secret. If not set, it will be populated with the function's project, assuming that the secret exists in the same project as of the function.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "secret": {
-              "description": "ID of the secret in secret manager (not the full resource name).",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "versions": {
-              "block": {
-                "attributes": {
-                  "path": {
-                    "description": "Relative path of the file under the mount path where the secret value for this version will be fetched and made available. For example, setting the mount_path as \"/etc/secrets\" and path as \"/secret_foo\" would mount the secret value file at \"/etc/secrets/secret_foo\".",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "version": {
-                    "description": "Version of the secret (version number or the string \"latest\"). It is preferable to use \"latest\" version with secret volumes as secret value changes are reflected immediately.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "List of secret versions to mount for this secret. If empty, the \"latest\" version of the secret will be made available in a file named after the secret under the mount point.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "list"
-            }
-          },
-          "description": "Secret volumes configuration.",
-          "description_kind": "plain"
-        },
         "nesting_mode": "list"
       },
       "source_repository": {

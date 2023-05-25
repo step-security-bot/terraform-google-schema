@@ -23,7 +23,7 @@ const googleComputeInstanceGroup = `{
       },
       "instances": {
         "computed": true,
-        "description": "The list of instances in the group, in self_link format. When adding instances they must all be in the same network and zone as the instance group.",
+        "description": "List of instances in the group. They should be given as self_link URLs. When adding instances they must all be in the same network and zone as the instance group.",
         "description_kind": "plain",
         "optional": true,
         "type": [

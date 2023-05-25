@@ -24,27 +24,9 @@ const googleCloudfunctionsFunction = `{
           "string"
         ]
       },
-      "build_worker_pool": {
-        "computed": true,
-        "description": "Name of the Cloud Build Custom Worker Pool that should be used to build the function.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "description": {
         "computed": true,
         "description": "Description of the function.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "docker_registry": {
-        "computed": true,
-        "description": "Docker Registry to use for storing the function's Docker images. Allowed values are CONTAINER_REGISTRY (default) and ARTIFACT_REGISTRY.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "docker_repository": {
-        "computed": true,
-        "description": "User managed repository created in Artifact Registry optionally with a customer managed encryption key. If specified, deployments will use Artifact Registry for storing images built with Cloud Build.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -87,12 +69,6 @@ const googleCloudfunctionsFunction = `{
           ]
         ]
       },
-      "https_trigger_security_level": {
-        "computed": true,
-        "description": "The security level for the function. Defaults to SECURE_OPTIONAL. Valid only if trigger_http is used.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "https_trigger_url": {
         "computed": true,
         "description": "URL which triggers function execution. Returned only if trigger_http is used.",
@@ -111,12 +87,6 @@ const googleCloudfunctionsFunction = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "kms_key_name": {
-        "computed": true,
-        "description": "Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt function resources.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "labels": {
         "computed": true,
         "description": "A set of key/value label pairs to assign to the function. Label keys must follow the requirements at https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements.",
@@ -129,12 +99,6 @@ const googleCloudfunctionsFunction = `{
       "max_instances": {
         "computed": true,
         "description": "The limit on the maximum number of function instances that may coexist at a given time.",
-        "description_kind": "plain",
-        "type": "number"
-      },
-      "min_instances": {
-        "computed": true,
-        "description": "The limit on the minimum number of function instances that may coexist at a given time.",
         "description_kind": "plain",
         "type": "number"
       },
@@ -161,49 +125,6 @@ const googleCloudfunctionsFunction = `{
         "description": "The runtime in which the function is going to run. Eg. \"nodejs8\", \"nodejs10\", \"python37\", \"go111\".",
         "description_kind": "plain",
         "type": "string"
-      },
-      "secret_environment_variables": {
-        "computed": true,
-        "description": "Secret environment variables configuration",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "key": "string",
-              "project_id": "string",
-              "secret": "string",
-              "version": "string"
-            }
-          ]
-        ]
-      },
-      "secret_volumes": {
-        "computed": true,
-        "description": "Secret volumes configuration.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "mount_path": "string",
-              "project_id": "string",
-              "secret": "string",
-              "versions": [
-                "list",
-                [
-                  "object",
-                  {
-                    "path": "string",
-                    "version": "string"
-                  }
-                ]
-              ]
-            }
-          ]
-        ]
       },
       "service_account_email": {
         "computed": true,
@@ -237,12 +158,6 @@ const googleCloudfunctionsFunction = `{
             }
           ]
         ]
-      },
-      "status": {
-        "computed": true,
-        "description": "Describes the current stage of a deployment.",
-        "description_kind": "plain",
-        "type": "string"
       },
       "timeout": {
         "computed": true,

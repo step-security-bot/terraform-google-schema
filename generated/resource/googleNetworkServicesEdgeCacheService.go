@@ -15,12 +15,6 @@ const googleNetworkServicesEdgeCacheService = `{
         "optional": true,
         "type": "string"
       },
-      "disable_http2": {
-        "description": "Disables HTTP/2.\n\nHTTP/2 (h2) is enabled by default and recommended for performance. HTTP/2 improves connection re-use and reduces connection setup overhead by sending multiple streams over the same connection.\n\nSome legacy HTTP clients may have issues with HTTP/2 connections due to broken HTTP/2 implementations. Setting this to true will prevent HTTP/2 from being advertised and negotiated.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "disable_quic": {
         "computed": true,
         "description": "HTTP/3 (IETF QUIC) and Google QUIC are enabled by default.",
@@ -139,7 +133,7 @@ const googleNetworkServicesEdgeCacheService = `{
                     "type": "string"
                   },
                   "hosts": {
-                    "description": "The list of host patterns to match.\n\nHost patterns must be valid hostnames. Ports are not allowed. Wildcard hosts are supported in the suffix or prefix form. * matches any string of ([a-z0-9-.]*). It does not match the empty string.\n\nWhen multiple hosts are specified, hosts are matched in the following priority:\n\n  1. Exact domain names: ''www.foo.com''.\n  2. Suffix domain wildcards: ''*.foo.com'' or ''*-bar.foo.com''.\n  3. Prefix domain wildcards: ''foo.*'' or ''foo-*''.\n  4. Special wildcard ''*'' matching any domain.\n\n  Notes:\n\n    The wildcard will not match the empty string. e.g. ''*-bar.foo.com'' will match ''baz-bar.foo.com'' but not ''-bar.foo.com''. The longest wildcards match first. Only a single host in the entire service can match on ''*''. A domain must be unique across all configured hosts within a service.\n\n    Hosts are matched against the HTTP Host header, or for HTTP/2 and HTTP/3, the \":authority\" header, from the incoming request.\n\n    You may specify up to 10 hosts.",
+                    "description": "The list of host patterns to match.\n\nHost patterns must be valid hostnames with optional port numbers in the format host:port. * matches any string of ([a-z0-9-.]*).\nThe only accepted ports are :80 and :443.\n\nHosts are matched against the HTTP Host header, or for HTTP/2 and HTTP/3, the \":authority\" header, from the incoming request.",
                     "description_kind": "plain",
                     "required": true,
                     "type": [
@@ -157,7 +151,7 @@ const googleNetworkServicesEdgeCacheService = `{
                 "description": "The list of hostRules to match against. These rules define which hostnames the EdgeCacheService will match against, and which route configurations apply.",
                 "description_kind": "plain"
               },
-              "max_items": 10,
+              "max_items": 5,
               "min_items": 1,
               "nesting_mode": "list"
             },
@@ -230,7 +224,7 @@ const googleNetworkServicesEdgeCacheService = `{
                                   "description": "Describes a header to add.",
                                   "description_kind": "plain"
                                 },
-                                "max_items": 25,
+                                "max_items": 5,
                                 "nesting_mode": "list"
                               },
                               "request_header_to_remove": {
@@ -246,7 +240,7 @@ const googleNetworkServicesEdgeCacheService = `{
                                   "description": "A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin.",
                                   "description_kind": "plain"
                                 },
-                                "max_items": 25,
+                                "max_items": 10,
                                 "nesting_mode": "list"
                               },
                               "response_header_to_add": {
@@ -275,7 +269,7 @@ const googleNetworkServicesEdgeCacheService = `{
                                   "description": "Headers to add to the response prior to sending it back to the client.\n\nResponse headers are only sent to the client, and do not have an effect on the cache serving the response.",
                                   "description_kind": "plain"
                                 },
-                                "max_items": 25,
+                                "max_items": 5,
                                 "nesting_mode": "list"
                               },
                               "response_header_to_remove": {
@@ -291,7 +285,7 @@ const googleNetworkServicesEdgeCacheService = `{
                                   "description": "A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin.",
                                   "description_kind": "plain"
                                 },
-                                "max_items": 25,
+                                "max_items": 10,
                                 "nesting_mode": "list"
                               }
                             },
@@ -428,21 +422,21 @@ const googleNetworkServicesEdgeCacheService = `{
                                       "type": "string"
                                     },
                                     "client_ttl": {
-                                      "description": "Specifies a separate client (e.g. browser client) TTL, separate from the TTL used by the edge caches. Leaving this empty will use the same cache TTL for both the CDN and the client-facing response.\n\n- The TTL must be \u003e 0 and \u003c= 86400s (1 day)\n- The clientTtl cannot be larger than the defaultTtl (if set)\n- Fractions of a second are not allowed.\n\nOmit this field to use the defaultTtl, or the max-age set by the origin, as the client-facing TTL.\n\nWhen the cache mode is set to \"USE_ORIGIN_HEADERS\" or \"BYPASS_CACHE\", you must omit this field.\nA duration in seconds terminated by 's'. Example: \"3s\".",
+                                      "description": "Specifies a separate client (e.g. browser client) TTL, separate from the TTL used by the edge caches. Leaving this empty will use the same cache TTL for both the CDN and the client-facing response.\n\n- The TTL must be \u003e 0 and \u003c= 86400s (1 day)\n- The clientTtl cannot be larger than the defaultTtl (if set)\n- Fractions of a second are not allowed.\n- Omit this field to use the defaultTtl, or the max-age set by the origin, as the client-facing TTL.\n\nWhen the cache mode is set to \"USE_ORIGIN_HEADERS\" or \"BYPASS_CACHE\", you must omit this field.\nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "string"
                                     },
                                     "default_ttl": {
                                       "computed": true,
-                                      "description": "Specifies the default TTL for cached content served by this origin for responses that do not have an existing valid TTL (max-age or s-max-age).\n\nDefaults to 3600s (1 hour).\n\n- The TTL must be \u003e= 0 and \u003c= 31,536,000 seconds (1 year)\n- Setting a TTL of \"0\" means \"always revalidate\" (equivalent to must-revalidate)\n- The value of defaultTTL cannot be set to a value greater than that of maxTTL.\n- Fractions of a second are not allowed.\n- When the cacheMode is set to FORCE_CACHE_ALL, the defaultTTL will overwrite the TTL set in all responses.\n\nNote that infrequently accessed objects may be evicted from the cache before the defined TTL. Objects that expire will be revalidated with the origin.\n\nWhen the cache mode is set to \"USE_ORIGIN_HEADERS\" or \"BYPASS_CACHE\", you must omit this field.\n\nA duration in seconds terminated by 's'. Example: \"3s\".",
+                                      "description": "Specifies the default TTL for cached content served by this origin for responses that do not have an existing valid TTL (max-age or s-max-age).\n\nDefaults to 3600s (1 hour).\n\n- The TTL must be \u003e= 0 and \u003c= 2592000s (1 month)\n- Setting a TTL of \"0\" means \"always revalidate\" (equivalent to must-revalidate)\n- The value of defaultTTL cannot be set to a value greater than that of maxTTL.\n- Fractions of a second are not allowed.\n- When the cacheMode is set to FORCE_CACHE_ALL, the defaultTTL will overwrite the TTL set in all responses.\n\nNote that infrequently accessed objects may be evicted from the cache before the defined TTL. Objects that expire will be revalidated with the origin.\n\nWhen the cache mode is set to \"USE_ORIGIN_HEADERS\" or \"BYPASS_CACHE\", you must omit this field.\n\nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "string"
                                     },
                                     "max_ttl": {
                                       "computed": true,
-                                      "description": "Specifies the maximum allowed TTL for cached content served by this origin.\n\nDefaults to 86400s (1 day).\n\nCache directives that attempt to set a max-age or s-maxage higher than this, or an Expires header more than maxTtl seconds in the future will be capped at the value of maxTTL, as if it were the value of an s-maxage Cache-Control directive.\n\n- The TTL must be \u003e= 0 and \u003c= 31,536,000 seconds (1 year)\n- Setting a TTL of \"0\" means \"always revalidate\"\n- The value of maxTtl must be equal to or greater than defaultTtl.\n- Fractions of a second are not allowed.\n\nWhen the cache mode is set to \"USE_ORIGIN_HEADERS\", \"FORCE_CACHE_ALL\", or \"BYPASS_CACHE\", you must omit this field.\n\nA duration in seconds terminated by 's'. Example: \"3s\".",
+                                      "description": "Specifies the maximum allowed TTL for cached content served by this origin.\n\nDefaults to 86400s (1 day).\n\nCache directives that attempt to set a max-age or s-maxage higher than this, or an Expires header more than maxTtl seconds in the future will be capped at the value of maxTTL, as if it were the value of an s-maxage Cache-Control directive.\n\n- The TTL must be \u003e= 0 and \u003c= 2592000s (1 month)\n- Setting a TTL of \"0\" means \"always revalidate\"\n- The value of maxTtl must be equal to or greater than defaultTtl.\n- Fractions of a second are not allowed.\n- When the cache mode is set to \"USE_ORIGIN_HEADERS\", \"FORCE_CACHE_ALL\", or \"BYPASS_CACHE\", you must omit this field.\n\nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "string"
@@ -469,73 +463,21 @@ const googleNetworkServicesEdgeCacheService = `{
                                       "optional": true,
                                       "type": "string"
                                     },
-                                    "signed_request_maximum_expiration_ttl": {
-                                      "description": "Limit how far into the future the expiration time of a signed request may be.\n\nWhen set, a signed request is rejected if its expiration time is later than now + signedRequestMaximumExpirationTtl, where now is the time at which the signed request is first handled by the CDN.\n\n- The TTL must be \u003e 0.\n- Fractions of a second are not allowed.\n\nBy default, signedRequestMaximumExpirationTtl is not set and the expiration time of a signed request may be arbitrarily far into future.",
-                                      "description_kind": "plain",
-                                      "optional": true,
-                                      "type": "string"
-                                    },
                                     "signed_request_mode": {
                                       "computed": true,
-                                      "description": "Whether to enforce signed requests. The default value is DISABLED, which means all content is public, and does not authorize access.\n\nYou must also set a signedRequestKeyset to enable signed requests.\n\nWhen set to REQUIRE_SIGNATURES, all matching requests will have their signature validated. Requests that were not signed with the corresponding private key, or that are otherwise invalid (expired, do not match the signature, IP address, or header) will be rejected with a HTTP 403 and (if enabled) logged. Possible values: [\"DISABLED\", \"REQUIRE_SIGNATURES\", \"REQUIRE_TOKENS\"]",
+                                      "description": "Whether to enforce signed requests. The default value is DISABLED, which means all content is public, and does not authorize access.\n\nYou must also set a signedRequestKeyset to enable signed requests.\n\nWhen set to REQUIRE_SIGNATURES, all matching requests will have their signature validated. Requests that were not signed with the corresponding private key, or that are otherwise invalid (expired, do not match the signature, IP address, or header) will be rejected with a HTTP 403 and (if enabled) logged. Possible values: [\"DISABLED\", \"REQUIRE_SIGNATURES\"]",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "string"
                                     }
                                   },
                                   "block_types": {
-                                    "add_signatures": {
-                                      "block": {
-                                        "attributes": {
-                                          "actions": {
-                                            "description": "The actions to take to add signatures to responses. Possible values: [\"GENERATE_COOKIE\", \"GENERATE_TOKEN_HLS_COOKIELESS\", \"PROPAGATE_TOKEN_HLS_COOKIELESS\"]",
-                                            "description_kind": "plain",
-                                            "required": true,
-                                            "type": [
-                                              "list",
-                                              "string"
-                                            ]
-                                          },
-                                          "copied_parameters": {
-                                            "description": "The parameters to copy from the verified token to the generated token.\n\nOnly the following parameters may be copied:\n\n  * 'PathGlobs'\n  * 'paths'\n  * 'acl'\n  * 'URLPrefix'\n  * 'IPRanges'\n  * 'SessionID'\n  * 'id'\n  * 'Data'\n  * 'data'\n  * 'payload'\n  * 'Headers'\n\nYou may specify up to 6 parameters to copy.  A given parameter is be copied only if the parameter exists in the verified token.  Parameter names are matched exactly as specified.  The order of the parameters does not matter.  Duplicates are not allowed.\n\nThis field may only be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": [
-                                              "list",
-                                              "string"
-                                            ]
-                                          },
-                                          "keyset": {
-                                            "description": "The keyset to use for signature generation.\n\nThe following are both valid paths to an EdgeCacheKeyset resource:\n\n  * 'projects/project/locations/global/edgeCacheKeysets/yourKeyset'\n  * 'yourKeyset'\n\nThis must be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified.  This field may not be specified otherwise.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          },
-                                          "token_query_parameter": {
-                                            "description": "The query parameter in which to put the generated token.\n\nIf not specified, defaults to 'edge-cache-token'.\n\nIf specified, the name must be 1-64 characters long and match the regular expression '[a-zA-Z]([a-zA-Z0-9_-])*' which means the first character must be a letter, and all following characters must be a dash, underscore, letter or digit.\n\nThis field may only be set when the GENERATE_TOKEN_HLS_COOKIELESS or PROPAGATE_TOKEN_HLS_COOKIELESS actions are specified.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          },
-                                          "token_ttl": {
-                                            "description": "The duration the token is valid starting from the moment the token is first generated.\n\nDefaults to '86400s' (1 day).\n\nThe TTL must be \u003e= 0 and \u003c= 604,800 seconds (1 week).\n\nThis field may only be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified.\n\nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          }
-                                        },
-                                        "description": "Enable signature generation or propagation on this route.\n\nThis field may only be specified when signedRequestMode is set to REQUIRE_TOKENS.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "nesting_mode": "list"
-                                    },
                                     "cache_key_policy": {
                                       "block": {
                                         "attributes": {
                                           "exclude_host": {
                                             "computed": true,
-                                            "description": "If true, requests to different hosts will be cached separately.\n\nNote: this should only be enabled if hosts share the same origin and content. Removing the host from the cache key may inadvertently result in different objects being cached than intended, depending on which route the first user matched.",
+                                            "description": "If true, requests to different hosts will be cached separately.\n\nNote: this should only be enabled if hosts share the same origin and content Removing the host from the cache key may inadvertently result in different objects being cached than intended, depending on which route the first user matched.",
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "bool"
@@ -562,15 +504,6 @@ const googleNetworkServicesEdgeCacheService = `{
                                             "optional": true,
                                             "type": "bool"
                                           },
-                                          "included_cookie_names": {
-                                            "description": "Names of Cookies to include in cache keys.  The cookie name and cookie value of each cookie named will be used as part of the cache key.\n\nCookie names:\n  - must be valid RFC 6265 \"cookie-name\" tokens\n  - are case sensitive\n  - cannot start with \"Edge-Cache-\" (case insensitive)\n\n  Note that specifying several cookies, and/or cookies that have a large range of values (e.g., per-user) will dramatically impact the cache hit rate, and may result in a higher eviction rate and reduced performance.\n\n  You may specify up to three cookie names.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": [
-                                              "list",
-                                              "string"
-                                            ]
-                                          },
                                           "included_header_names": {
                                             "description": "Names of HTTP request headers to include in cache keys. The value of the header field will be used as part of the cache key.\n\n- Header names must be valid HTTP RFC 7230 header field values.\n- Header field names are case insensitive\n- To include the HTTP method, use \":method\"\n\nNote that specifying several headers, and/or headers that have a large range of values (e.g. per-user) will dramatically impact the cache hit rate, and may result in a higher eviction rate and reduced performance.",
                                             "description_kind": "plain",
@@ -591,31 +524,6 @@ const googleNetworkServicesEdgeCacheService = `{
                                           }
                                         },
                                         "description": "Defines the request parameters that contribute to the cache key.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "nesting_mode": "list"
-                                    },
-                                    "signed_token_options": {
-                                      "block": {
-                                        "attributes": {
-                                          "allowed_signature_algorithms": {
-                                            "description": "The allowed signature algorithms to use.\n\nDefaults to using only ED25519.\n\nYou may specify up to 3 signature algorithms to use. Possible values: [\"ED25519\", \"HMAC_SHA_256\", \"HMAC_SHA1\"]",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": [
-                                              "list",
-                                              "string"
-                                            ]
-                                          },
-                                          "token_query_parameter": {
-                                            "description": "The query parameter in which to find the token.\n\nThe name must be 1-64 characters long and match the regular expression '[a-zA-Z]([a-zA-Z0-9_-])*' which means the first character must be a letter, and all following characters must be a dash, underscore, letter or digit.\n\nDefaults to 'edge-cache-token'.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "string"
-                                          }
-                                        },
-                                        "description": "Additional options for signed tokens.\n\nsignedTokenOptions may only be specified when signedRequestMode is REQUIRE_TOKENS.",
                                         "description_kind": "plain"
                                       },
                                       "max_items": 1,
@@ -780,7 +688,7 @@ const googleNetworkServicesEdgeCacheService = `{
                       "description": "The routeRules to match against. routeRules support advanced routing behaviour, and can match on paths, headers and query parameters, as well as status codes and HTTP methods.",
                       "description_kind": "plain"
                     },
-                    "max_items": 200,
+                    "max_items": 64,
                     "min_items": 1,
                     "nesting_mode": "list"
                   }

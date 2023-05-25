@@ -110,7 +110,7 @@ const googleLoggingProjectSink = `{
               "type": "string"
             }
           },
-          "description": "Log entries that match any of the exclusion filters will not be exported. If a log entry is matched by both filter and one of exclusion's filters, it will not be exported.",
+          "description": "Log entries that match any of the exclusion filters will not be exported. If a log entry is matched by both filter and one of exclusion_filters it will not be exported.",
           "description_kind": "plain"
         },
         "nesting_mode": "list"

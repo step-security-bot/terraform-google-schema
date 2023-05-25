@@ -15,12 +15,6 @@ const googleComputeTargetSslProxy = `{
         "required": true,
         "type": "string"
       },
-      "certificate_map": {
-        "description": "A reference to the CertificateMap resource uri that identifies a certificate map\nassociated with the given target proxy. This field can only be set for global target proxies.\nAccepted format is '//certificatemanager.googleapis.com/projects/{project}/locations/{location}/certificateMaps/{resourceName}'.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "creation_timestamp": {
         "computed": true,
         "description": "Creation timestamp in RFC3339 text format.",
@@ -71,7 +65,7 @@ const googleComputeTargetSslProxy = `{
       "ssl_certificates": {
         "description": "A list of SslCertificate resources that are used to authenticate\nconnections between users and the load balancer. At least one\nSSL certificate must be specified.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": [
           "list",
           "string"

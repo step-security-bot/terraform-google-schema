@@ -33,12 +33,6 @@ const googleComputeRegionSslCertificate = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "expire_time": {
-        "computed": true,
-        "description": "Expire time of the certificate in RFC3339 text format.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",

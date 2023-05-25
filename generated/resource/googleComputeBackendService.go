@@ -15,12 +15,6 @@ const googleComputeBackendService = `{
         "optional": true,
         "type": "number"
       },
-      "compression_mode": {
-        "description": "Compress text responses using Brotli or gzip compression, based on the client's Accept-Encoding header. Possible values: [\"AUTOMATIC\", \"DISABLED\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "connection_draining_timeout_sec": {
         "description": "Time for which instance will be drained (not accept new\nconnections, but still work to finish started).",
         "description_kind": "plain",
@@ -57,12 +51,6 @@ const googleComputeBackendService = `{
         "optional": true,
         "type": "string"
       },
-      "edge_security_policy": {
-        "description": "The resource URL for the edge security policy associated with this backend service.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "enable_cdn": {
         "description": "If true, enable Cloud CDN for this BackendService.",
         "description_kind": "plain",
@@ -74,12 +62,6 @@ const googleComputeBackendService = `{
         "description": "Fingerprint of this resource. A hash of the contents stored in this\nobject. This field is used in optimistic locking.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "generated_id": {
-        "computed": true,
-        "description": "The unique identifier for the resource. This identifier is defined by the server.",
-        "description_kind": "plain",
-        "type": "number"
       },
       "health_checks": {
         "description": "The set of URLs to the HttpHealthCheck or HttpsHealthCheck resource\nfor health checking this BackendService. Currently at most one health\ncheck can be specified.\n\nA health check must be specified unless the backend service uses an internet\nor serverless NEG as a backend.\n\nFor internal load balancing, a URL to a HealthCheck resource must be specified instead.",
@@ -97,13 +79,13 @@ const googleComputeBackendService = `{
         "type": "string"
       },
       "load_balancing_scheme": {
-        "description": "Indicates whether the backend service will be used with internal or\nexternal load balancing. A backend service created for one type of\nload balancing cannot be used with the other. For more information, refer to\n[Choosing a load balancer](https://cloud.google.com/load-balancing/docs/backend-service). Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"INTERNAL_SELF_MANAGED\", \"EXTERNAL_MANAGED\"]",
+        "description": "Indicates whether the backend service will be used with internal or\nexternal load balancing. A backend service created for one type of\nload balancing cannot be used with the other. Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"INTERNAL_SELF_MANAGED\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "locality_lb_policy": {
-        "description": "The load balancing algorithm used within the scope of the locality.\nThe possible values are:\n\n* 'ROUND_ROBIN': This is a simple policy in which each healthy backend\n                 is selected in round robin order.\n\n* 'LEAST_REQUEST': An O(1) algorithm which selects two random healthy\n                   hosts and picks the host which has fewer active requests.\n\n* 'RING_HASH': The ring/modulo hash load balancer implements consistent\n               hashing to backends. The algorithm has the property that the\n               addition/removal of a host from a set of N hosts only affects\n               1/N of the requests.\n\n* 'RANDOM': The load balancer selects a random healthy host.\n\n* 'ORIGINAL_DESTINATION': Backend host is selected based on the client\n                          connection metadata, i.e., connections are opened\n                          to the same address as the destination address of\n                          the incoming connection before the connection\n                          was redirected to the load balancer.\n\n* 'MAGLEV': used as a drop in replacement for the ring hash load balancer.\n            Maglev is not as stable as ring hash but has faster table lookup\n            build times and host selection times. For more information about\n            Maglev, refer to https://ai.google/research/pubs/pub44824\n\n* 'WEIGHTED_MAGLEV': Per-instance weighted Load Balancing via health check\n                     reported weights. If set, the Backend Service must\n                     configure a non legacy HTTP-based Health Check, and\n                     health check replies are expected to contain\n                     non-standard HTTP response header field\n                     X-Load-Balancing-Endpoint-Weight to specify the\n                     per-instance weights. If set, Load Balancing is weight\n                     based on the per-instance weights reported in the last\n                     processed health check replies, as long as every\n                     instance either reported a valid weight or had\n                     UNAVAILABLE_WEIGHT. Otherwise, Load Balancing remains\n                     equal-weight.\n\n\nThis field is applicable to either:\n\n* A regional backend service with the service_protocol set to HTTP, HTTPS, or HTTP2,\n  and loadBalancingScheme set to INTERNAL_MANAGED.\n* A global backend service with the load_balancing_scheme set to INTERNAL_SELF_MANAGED.\n* A regional backend service with loadBalancingScheme set to EXTERNAL (External Network\n  Load Balancing). Only MAGLEV and WEIGHTED_MAGLEV values are possible for External\n  Network Load Balancing. The default is MAGLEV.\n\n\nIf session_affinity is not NONE, and this field is not set to MAGLEV, WEIGHTED_MAGLEV,\nor RING_HASH, session affinity settings will not take effect.\n\nOnly ROUND_ROBIN and RING_HASH are supported when the backend service is referenced\nby a URL map that is bound to target gRPC proxy that has validate_for_proxyless\nfield set to true. Possible values: [\"ROUND_ROBIN\", \"LEAST_REQUEST\", \"RING_HASH\", \"RANDOM\", \"ORIGINAL_DESTINATION\", \"MAGLEV\", \"WEIGHTED_MAGLEV\"]",
+        "description": "The load balancing algorithm used within the scope of the locality.\nThe possible values are -\n\n* ROUND_ROBIN - This is a simple policy in which each healthy backend\n                is selected in round robin order.\n\n* LEAST_REQUEST - An O(1) algorithm which selects two random healthy\n                  hosts and picks the host which has fewer active requests.\n\n* RING_HASH - The ring/modulo hash load balancer implements consistent\n              hashing to backends. The algorithm has the property that the\n              addition/removal of a host from a set of N hosts only affects\n              1/N of the requests.\n\n* RANDOM - The load balancer selects a random healthy host.\n\n* ORIGINAL_DESTINATION - Backend host is selected based on the client\n                         connection metadata, i.e., connections are opened\n                         to the same address as the destination address of\n                         the incoming connection before the connection\n                         was redirected to the load balancer.\n\n* MAGLEV - used as a drop in replacement for the ring hash load balancer.\n           Maglev is not as stable as ring hash but has faster table lookup\n           build times and host selection times. For more information about\n           Maglev, refer to https://ai.google/research/pubs/pub44824\n\nThis field is applicable only when the load_balancing_scheme is set to\nINTERNAL_SELF_MANAGED. Possible values: [\"ROUND_ROBIN\", \"LEAST_REQUEST\", \"RING_HASH\", \"RANDOM\", \"ORIGINAL_DESTINATION\", \"MAGLEV\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -165,7 +147,7 @@ const googleComputeBackendService = `{
         "block": {
           "attributes": {
             "balancing_mode": {
-              "description": "Specifies the balancing mode for this backend.\n\nFor global HTTP(S) or TCP/SSL load balancing, the default is\nUTILIZATION. Valid values are UTILIZATION, RATE (for HTTP(S))\nand CONNECTION (for TCP/SSL).\n\nSee the [Backend Services Overview](https://cloud.google.com/load-balancing/docs/backend-service#balancing-mode)\nfor an explanation of load balancing modes. Default value: \"UTILIZATION\" Possible values: [\"UTILIZATION\", \"RATE\", \"CONNECTION\"]",
+              "description": "Specifies the balancing mode for this backend.\n\nFor global HTTP(S) or TCP/SSL load balancing, the default is\nUTILIZATION. Valid values are UTILIZATION, RATE (for HTTP(S))\nand CONNECTION (for TCP/SSL). Default value: \"UTILIZATION\" Possible values: [\"UTILIZATION\", \"RATE\", \"CONNECTION\"]",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -296,21 +278,6 @@ const googleComputeBackendService = `{
             }
           },
           "block_types": {
-            "bypass_cache_on_request_headers": {
-              "block": {
-                "attributes": {
-                  "header_name": {
-                    "description": "The header field name to match on when bypassing cache. Values are case-insensitive.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Bypass the cache when the specified request headers are matched - e.g. Pragma or Authorization headers. Up to 5 headers can be specified.\nThe cache is bypassed for all cdnPolicy.cacheMode settings.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "list"
-            },
             "cache_key_policy": {
               "block": {
                 "attributes": {
@@ -319,24 +286,6 @@ const googleComputeBackendService = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
-                  },
-                  "include_http_headers": {
-                    "description": "Allows HTTP request headers (by name) to be used in the\ncache key.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  },
-                  "include_named_cookies": {
-                    "description": "Names of cookies to include in cache keys.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
                   },
                   "include_protocol": {
                     "description": "If true, http and https requests will be cached separately.",
@@ -543,53 +492,6 @@ const googleComputeBackendService = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
-      "locality_lb_policies": {
-        "block": {
-          "block_types": {
-            "custom_policy": {
-              "block": {
-                "attributes": {
-                  "data": {
-                    "description": "An optional, arbitrary JSON object with configuration data, understood\nby a locally installed custom policy implementation.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "name": {
-                    "description": "Identifies the custom policy.\n\nThe value should match the type the custom implementation is registered\nwith on the gRPC clients. It should follow protocol buffer\nmessage naming conventions and include the full path (e.g.\nmyorg.CustomLbPolicy). The maximum length is 256 characters.\n\nNote that specifying the same custom policy more than once for a\nbackend is not a valid configuration and will be rejected.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The configuration for a custom policy implemented by the user and\ndeployed with the client.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "policy": {
-              "block": {
-                "attributes": {
-                  "name": {
-                    "description": "The name of a locality load balancer policy to be used. The value\nshould be one of the predefined ones as supported by localityLbPolicy,\nalthough at the moment only ROUND_ROBIN is supported.\n\nThis field should only be populated when the customPolicy field is not\nused.\n\nNote that specifying the same policy more than once for a backend is\nnot a valid configuration and will be rejected.\n\nThe possible values are:\n\n* 'ROUND_ROBIN': This is a simple policy in which each healthy backend\n                is selected in round robin order.\n\n* 'LEAST_REQUEST': An O(1) algorithm which selects two random healthy\n                  hosts and picks the host which has fewer active requests.\n\n* 'RING_HASH': The ring/modulo hash load balancer implements consistent\n              hashing to backends. The algorithm has the property that the\n              addition/removal of a host from a set of N hosts only affects\n              1/N of the requests.\n\n* 'RANDOM': The load balancer selects a random healthy host.\n\n* 'ORIGINAL_DESTINATION': Backend host is selected based on the client\n                          connection metadata, i.e., connections are opened\n                          to the same address as the destination address of\n                          the incoming connection before the connection\n                          was redirected to the load balancer.\n\n* 'MAGLEV': used as a drop in replacement for the ring hash load balancer.\n            Maglev is not as stable as ring hash but has faster table lookup\n            build times and host selection times. For more information about\n            Maglev, refer to https://ai.google/research/pubs/pub44824 Possible values: [\"ROUND_ROBIN\", \"LEAST_REQUEST\", \"RING_HASH\", \"RANDOM\", \"ORIGINAL_DESTINATION\", \"MAGLEV\"]",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "The configuration for a built-in load balancing policy.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            }
-          },
-          "description": "A list of locality load balancing policies to be used in order of\npreference. Either the policy or the customPolicy field should be set.\nOverrides any value set in the localityLbPolicy field.\n\nlocalityLbPolicies is only supported when the BackendService is referenced\nby a URL Map that is referenced by a target gRPC proxy that has the\nvalidateForProxyless field set to true.",
-          "description_kind": "plain"
-        },
-        "nesting_mode": "list"
-      },
       "log_config": {
         "block": {
           "attributes": {
@@ -717,31 +619,6 @@ const googleComputeBackendService = `{
             }
           },
           "description": "Settings controlling eviction of unhealthy hosts from the load balancing pool.\nThis field is applicable only when the load_balancing_scheme is set\nto INTERNAL_SELF_MANAGED.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "security_settings": {
-        "block": {
-          "attributes": {
-            "client_tls_policy": {
-              "description": "ClientTlsPolicy is a resource that specifies how a client should authenticate\nconnections to backends of a service. This resource itself does not affect\nconfiguration unless it is attached to a backend service resource.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "subject_alt_names": {
-              "description": "A list of alternate names to verify the subject identity in the certificate.\nIf specified, the client will verify that the server certificate's subject\nalt name matches one of the specified values.",
-              "description_kind": "plain",
-              "required": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            }
-          },
-          "description": "The security settings that apply to this backend service. This field is applicable to either\na regional backend service with the service_protocol set to HTTP, HTTPS, or HTTP2, and\nload_balancing_scheme set to INTERNAL_MANAGED; or a global backend service with the\nload_balancing_scheme set to INTERNAL_SELF_MANAGED.",
           "description_kind": "plain"
         },
         "max_items": 1,

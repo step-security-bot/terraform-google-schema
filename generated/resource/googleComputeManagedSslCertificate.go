@@ -30,7 +30,7 @@ const googleComputeManagedSslCertificate = `{
       },
       "expire_time": {
         "computed": true,
-        "description": "Expire time of the certificate in RFC3339 text format.",
+        "description": "Expire time of the certificate.",
         "description_kind": "plain",
         "type": "string"
       },

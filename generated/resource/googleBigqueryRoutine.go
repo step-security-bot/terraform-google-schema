@@ -72,12 +72,6 @@ const googleBigqueryRoutine = `{
         "optional": true,
         "type": "string"
       },
-      "return_table_type": {
-        "description": "Optional. Can be set only if routineType = \"TABLE_VALUED_FUNCTION\".\n\nIf absent, the return table type is inferred from definitionBody at query time in each query\nthat references this routine. If present, then the columns in the evaluated table result will\nbe cast to match the column types specificed in return table type, at query time.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "return_type": {
         "description": "A JSON schema for the return type. Optional if language = \"SQL\"; required otherwise.\nIf absent, the return type is inferred from definitionBody at query time in each query\nthat references this routine. If present, then the evaluated result will be cast to\nthe specified returned type at query time. ~\u003e**NOTE**: Because this field expects a JSON\nstring, any changes to the string will create a diff, even if the JSON itself hasn't\nchanged. If the API returns a different value for the same schema, e.g. it switche\nd the order of values or replaced STRUCT field type with RECORD field type, we currently\ncannot suppress the recurring diff this causes. As a workaround, we recommend using\nthe schema as returned by the API.",
         "description_kind": "plain",
@@ -91,7 +85,7 @@ const googleBigqueryRoutine = `{
         "type": "string"
       },
       "routine_type": {
-        "description": "The type of routine. Possible values: [\"SCALAR_FUNCTION\", \"PROCEDURE\", \"TABLE_VALUED_FUNCTION\"]",
+        "description": "The type of routine. Possible values: [\"SCALAR_FUNCTION\", \"PROCEDURE\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

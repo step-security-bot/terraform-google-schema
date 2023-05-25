@@ -143,12 +143,6 @@ const googleDataLossPreventionInspectTemplate = `{
                           "description_kind": "plain",
                           "required": true,
                           "type": "string"
-                        },
-                        "version": {
-                          "description": "Version name for this InfoType.",
-                          "description_kind": "plain",
-                          "optional": true,
-                          "type": "string"
                         }
                       },
                       "description": "CustomInfoType can either be a new infoType, or an extension of built-in infoType, when the name matches one of existing\ninfoTypes and that infoType is specified in 'info_types' field. Specifying the latter adds findings to the\none detected by the system. If built-in info type is not specified in 'info_types' list then the name is\ntreated as a custom info type.",
@@ -198,14 +192,6 @@ const googleDataLossPreventionInspectTemplate = `{
                     },
                     "max_items": 1,
                     "nesting_mode": "list"
-                  },
-                  "surrogate_type": {
-                    "block": {
-                      "description": "Message for detecting output from deidentification transformations that support reversing.",
-                      "description_kind": "plain"
-                    },
-                    "max_items": 1,
-                    "nesting_mode": "list"
                   }
                 },
                 "description": "Custom info types to be used. See https://cloud.google.com/dlp/docs/creating-custom-infotypes to learn more.",
@@ -220,12 +206,6 @@ const googleDataLossPreventionInspectTemplate = `{
                     "description": "Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed\nat https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type.",
                     "description_kind": "plain",
                     "required": true,
-                    "type": "string"
-                  },
-                  "version": {
-                    "description": "Version of the information type to use. By default, the version is set to stable",
-                    "description_kind": "plain",
-                    "optional": true,
                     "type": "string"
                   }
                 },
@@ -270,12 +250,6 @@ const googleDataLossPreventionInspectTemplate = `{
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
-                              },
-                              "version": {
-                                "description": "Version name for this InfoType.",
-                                "description_kind": "plain",
-                                "optional": true,
-                                "type": "string"
                               }
                             },
                             "description": "Type of information the findings limit applies to. Only one limit per infoType should be provided. If InfoTypeLimit does\nnot have an infoType, the DLP API applies the limit against all infoTypes that are found but not\nspecified in another InfoTypeLimit.",
@@ -308,12 +282,6 @@ const googleDataLossPreventionInspectTemplate = `{
                           "description": "Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed\nat https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type.",
                           "description_kind": "plain",
                           "required": true,
-                          "type": "string"
-                        },
-                        "version": {
-                          "description": "Version name for this InfoType.",
-                          "description_kind": "plain",
-                          "optional": true,
                           "type": "string"
                         }
                       },
@@ -382,65 +350,6 @@ const googleDataLossPreventionInspectTemplate = `{
                                 "max_items": 1,
                                 "nesting_mode": "list"
                               },
-                              "exclude_by_hotword": {
-                                "block": {
-                                  "block_types": {
-                                    "hotword_regex": {
-                                      "block": {
-                                        "attributes": {
-                                          "group_indexes": {
-                                            "description": "The index of the submatch to extract as findings. When not specified,\nthe entire match is returned. No more than 3 may be included.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": [
-                                              "list",
-                                              "number"
-                                            ]
-                                          },
-                                          "pattern": {
-                                            "description": "Pattern defining the regular expression. Its syntax\n(https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub.",
-                                            "description_kind": "plain",
-                                            "required": true,
-                                            "type": "string"
-                                          }
-                                        },
-                                        "description": "Regular expression pattern defining what qualifies as a hotword.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "min_items": 1,
-                                      "nesting_mode": "list"
-                                    },
-                                    "proximity": {
-                                      "block": {
-                                        "attributes": {
-                                          "window_after": {
-                                            "description": "Number of characters after the finding to consider.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "number"
-                                          },
-                                          "window_before": {
-                                            "description": "Number of characters before the finding to consider.",
-                                            "description_kind": "plain",
-                                            "optional": true,
-                                            "type": "number"
-                                          }
-                                        },
-                                        "description": "Proximity of the finding within which the entire hotword must reside. The total length of the window cannot\nexceed 1000 characters. Note that the finding itself will be included in the window, so that hotwords may be\nused to match substrings of the finding itself. For example, the certainty of a phone number regex\n'(\\d{3}) \\d{3}-\\d{4}' could be adjusted upwards if the area code is known to be the local area code of a company\noffice using the hotword regex '(xxx)', where 'xxx' is the area code in question.",
-                                        "description_kind": "plain"
-                                      },
-                                      "max_items": 1,
-                                      "min_items": 1,
-                                      "nesting_mode": "list"
-                                    }
-                                  },
-                                  "description": "Drop if the hotword rule is contained in the proximate context.\nFor tabular data, the context includes the column name.",
-                                  "description_kind": "plain"
-                                },
-                                "max_items": 1,
-                                "nesting_mode": "list"
-                              },
                               "exclude_info_types": {
                                 "block": {
                                   "block_types": {
@@ -451,12 +360,6 @@ const googleDataLossPreventionInspectTemplate = `{
                                             "description": "Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed\nat https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type.",
                                             "description_kind": "plain",
                                             "required": true,
-                                            "type": "string"
-                                          },
-                                          "version": {
-                                            "description": "Version name for this InfoType.",
-                                            "description_kind": "plain",
-                                            "optional": true,
                                             "type": "string"
                                           }
                                         },

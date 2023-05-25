@@ -16,7 +16,7 @@ const googleNotebooksInstance = `{
         "type": "number"
       },
       "boot_disk_type": {
-        "description": "Possible disk types for notebook instances. Possible values: [\"DISK_TYPE_UNSPECIFIED\", \"PD_STANDARD\", \"PD_SSD\", \"PD_BALANCED\", \"PD_EXTREME\"]",
+        "description": "Possible disk types for notebook instances. Possible values: [\"DISK_TYPE_UNSPECIFIED\", \"PD_STANDARD\", \"PD_SSD\", \"PD_BALANCED\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -41,7 +41,7 @@ const googleNotebooksInstance = `{
         "type": "number"
       },
       "data_disk_type": {
-        "description": "Possible disk types for notebook instances. Possible values: [\"DISK_TYPE_UNSPECIFIED\", \"PD_STANDARD\", \"PD_SSD\", \"PD_BALANCED\", \"PD_EXTREME\"]",
+        "description": "Possible disk types for notebook instances. Possible values: [\"DISK_TYPE_UNSPECIFIED\", \"PD_STANDARD\", \"PD_SSD\", \"PD_BALANCED\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -123,12 +123,6 @@ const googleNotebooksInstance = `{
         "optional": true,
         "type": "string"
       },
-      "nic_type": {
-        "description": "The type of vNIC driver. Possible values: [\"UNSPECIFIED_NIC_TYPE\", \"VIRTIO_NET\", \"GVNIC\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "no_proxy_access": {
         "description": "The notebook instance will not register with the proxy..",
         "description_kind": "plain",
@@ -161,7 +155,7 @@ const googleNotebooksInstance = `{
       },
       "proxy_uri": {
         "computed": true,
-        "description": "The proxy endpoint that is used to access the Jupyter notebook.\nOnly returned when the resource is in a 'PROVISIONED' state. If\nneeded you can utilize 'terraform apply -refresh-only' to await\nthe population of this value.",
+        "description": "The proxy endpoint that is used to access the Jupyter notebook.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -195,7 +189,7 @@ const googleNotebooksInstance = `{
         "type": "string"
       },
       "tags": {
-        "description": "The Compute Engine tags to add to instance.",
+        "description": "The Compute Engine tags to add to runtime.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -251,37 +245,6 @@ const googleNotebooksInstance = `{
             }
           },
           "description": "Use a container image to start the notebook instance.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "reservation_affinity": {
-        "block": {
-          "attributes": {
-            "consume_reservation_type": {
-              "description": "The type of Compute Reservation. Possible values: [\"NO_RESERVATION\", \"ANY_RESERVATION\", \"SPECIFIC_RESERVATION\"]",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "key": {
-              "description": "Corresponds to the label key of reservation resource.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "values": {
-              "description": "Corresponds to the label values of reservation resource.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            }
-          },
-          "description": "Reservation Affinity for consuming Zonal reservation.",
           "description_kind": "plain"
         },
         "max_items": 1,

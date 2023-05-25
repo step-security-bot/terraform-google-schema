@@ -36,12 +36,6 @@ const googleComputeRouterPeer = `{
         "optional": true,
         "type": "bool"
       },
-      "enable_ipv6": {
-        "description": "Enable IPv6 traffic over BGP Peer. If not specified, it is disabled by default.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -57,13 +51,6 @@ const googleComputeRouterPeer = `{
       "ip_address": {
         "computed": true,
         "description": "IP address of the interface inside Google Cloud Platform.\nOnly IPv4 is supported.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "ipv6_nexthop_address": {
-        "computed": true,
-        "description": "IPv6 address of the interface inside Google Cloud Platform.\nThe address must be in the range 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64.\nIf you do not specify the next hop addresses, Google Cloud automatically\nassigns unused addresses from the 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64 range for you.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -92,13 +79,6 @@ const googleComputeRouterPeer = `{
         "required": true,
         "type": "string"
       },
-      "peer_ipv6_nexthop_address": {
-        "computed": true,
-        "description": "IPv6 address of the BGP interface outside Google Cloud Platform.\nThe address must be in the range 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64.\nIf you do not specify the next hop addresses, Google Cloud automatically\nassigns unused addresses from the 2600:2d00:0:2::/64 or 2600:2d00:0:3::/64 range for you.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "project": {
         "computed": true,
         "description_kind": "plain",
@@ -116,12 +96,6 @@ const googleComputeRouterPeer = `{
         "description": "The name of the Cloud Router in which this BgpPeer will be configured.",
         "description_kind": "plain",
         "required": true,
-        "type": "string"
-      },
-      "router_appliance_instance": {
-        "description": "The URI of the VM instance that is used as third-party router appliances\nsuch as Next Gen Firewalls, Virtual Routers, or Router Appliances.\nThe VM instance must be located in zones contained in the same region as\nthis Cloud Router. The VM instance is the peer side of the BGP session.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       }
     },
@@ -145,40 +119,6 @@ const googleComputeRouterPeer = `{
           "description": "User-specified list of individual IP ranges to advertise in\ncustom mode. This field can only be populated if advertiseMode\nis 'CUSTOM' and is advertised to all peers of the router. These IP\nranges will be advertised in addition to any specified groups.\nLeave this field blank to advertise no custom IP ranges.",
           "description_kind": "plain"
         },
-        "nesting_mode": "list"
-      },
-      "bfd": {
-        "block": {
-          "attributes": {
-            "min_receive_interval": {
-              "description": "The minimum interval, in milliseconds, between BFD control packets\nreceived from the peer router. The actual value is negotiated\nbetween the two routers and is equal to the greater of this value\nand the transmit interval of the other router. If set, this value\nmust be between 1000 and 30000.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "min_transmit_interval": {
-              "description": "The minimum interval, in milliseconds, between BFD control packets\ntransmitted to the peer router. The actual value is negotiated\nbetween the two routers and is equal to the greater of this value\nand the corresponding receive interval of the other router. If set,\nthis value must be between 1000 and 30000.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "multiplier": {
-              "description": "The number of consecutive BFD packets that must be missed before\nBFD declares that a peer is unavailable. If set, the value must\nbe a value between 5 and 16.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "session_initialization_mode": {
-              "description": "The BFD session initialization mode for this BGP peer.\nIf set to 'ACTIVE', the Cloud Router will initiate the BFD session\nfor this BGP peer. If set to 'PASSIVE', the Cloud Router will wait\nfor the peer router to initiate the BFD session for this BGP peer.\nIf set to 'DISABLED', BFD is disabled for this BGP peer. Possible values: [\"ACTIVE\", \"DISABLED\", \"PASSIVE\"]",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "description": "BFD configuration for the BGP peering.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
         "nesting_mode": "list"
       },
       "timeouts": {

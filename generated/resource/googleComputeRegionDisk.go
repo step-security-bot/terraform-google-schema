@@ -107,18 +107,6 @@ const googleComputeRegionDisk = `{
         "optional": true,
         "type": "string"
       },
-      "source_disk": {
-        "description": "The source disk used to create this disk. You can provide this as a partial or full URL to the resource.\nFor example, the following are valid values:\n\n* https://www.googleapis.com/compute/v1/projects/{project}/zones/{zone}/disks/{disk}\n* https://www.googleapis.com/compute/v1/projects/{project}/regions/{region}/disks/{disk}\n* projects/{project}/zones/{zone}/disks/{disk}\n* projects/{project}/regions/{region}/disks/{disk}\n* zones/{zone}/disks/{disk}\n* regions/{region}/disks/{disk}",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "source_disk_id": {
-        "computed": true,
-        "description": "The ID value of the disk used to create this image. This value may\nbe used to determine whether the image was taken from the current\nor a previous instance of a given disk name.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "source_snapshot_id": {
         "computed": true,
         "description": "The unique ID of the snapshot used to create this disk. This value\nidentifies the exact snapshot that was used to create this persistent\ndisk. For example, if you created the persistent disk from a snapshot\nthat was later deleted and recreated under the same name, the source\nsnapshot ID would identify the exact version of the snapshot that was\nused.",
@@ -145,12 +133,6 @@ const googleComputeRegionDisk = `{
       "disk_encryption_key": {
         "block": {
           "attributes": {
-            "kms_key_name": {
-              "description": "The name of the encryption key that is stored in Google Cloud KMS.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "raw_key": {
               "description": "Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
               "description_kind": "plain",

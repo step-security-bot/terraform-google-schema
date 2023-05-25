@@ -15,12 +15,6 @@ const googleComputeBackendBucket = `{
         "required": true,
         "type": "string"
       },
-      "compression_mode": {
-        "description": "Compress text responses using Brotli or gzip compression, based on the client's Accept-Encoding header. Possible values: [\"AUTOMATIC\", \"DISABLED\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "creation_timestamp": {
         "computed": true,
         "description": "Creation timestamp in RFC3339 text format.",
@@ -38,12 +32,6 @@ const googleComputeBackendBucket = `{
       },
       "description": {
         "description": "An optional textual description of the resource; provided by the\nclient when the resource is created.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "edge_security_policy": {
-        "description": "The security policy associated with this backend bucket.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -117,12 +105,6 @@ const googleComputeBackendBucket = `{
               "optional": true,
               "type": "bool"
             },
-            "request_coalescing": {
-              "description": "If true then Cloud CDN will combine multiple concurrent cache fill requests into a small number of requests to the origin.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
             "serve_while_stale": {
               "computed": true,
               "description": "Serve existing content from the cache (if available) when revalidating content with the origin, or when an error is encountered when refreshing the cache.",
@@ -138,50 +120,6 @@ const googleComputeBackendBucket = `{
             }
           },
           "block_types": {
-            "bypass_cache_on_request_headers": {
-              "block": {
-                "attributes": {
-                  "header_name": {
-                    "description": "The header field name to match on when bypassing cache. Values are case-insensitive.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Bypass the cache when the specified request headers are matched - e.g. Pragma or Authorization headers. Up to 5 headers can be specified. The cache is bypassed for all cdnPolicy.cacheMode settings.",
-                "description_kind": "plain"
-              },
-              "max_items": 5,
-              "nesting_mode": "list"
-            },
-            "cache_key_policy": {
-              "block": {
-                "attributes": {
-                  "include_http_headers": {
-                    "description": "Allows HTTP request headers (by name) to be used in the\ncache key.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  },
-                  "query_string_whitelist": {
-                    "description": "Names of query string parameters to include in cache keys.\nDefault parameters are always included. '\u0026' and '=' will\nbe percent encoded and not treated as delimiters.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  }
-                },
-                "description": "The CacheKeyPolicy for this CdnPolicy.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "negative_caching_policy": {
               "block": {
                 "attributes": {

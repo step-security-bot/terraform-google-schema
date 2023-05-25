@@ -33,12 +33,6 @@ const googleFilestoreInstance = `{
         "optional": true,
         "type": "string"
       },
-      "kms_key_name": {
-        "description": "KMS key name used for data encryption.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "labels": {
         "description": "Resource labels to represent user-provided metadata.",
         "description_kind": "plain",
@@ -47,13 +41,6 @@ const googleFilestoreInstance = `{
           "map",
           "string"
         ]
-      },
-      "location": {
-        "computed": true,
-        "description": "The name of the location of the instance. This can be a region for ENTERPRISE tier instances.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
       },
       "name": {
         "description": "The resource name of the instance.",
@@ -68,17 +55,15 @@ const googleFilestoreInstance = `{
         "type": "string"
       },
       "tier": {
-        "description": "The service tier of the instance.\nPossible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD and ENTERPRISE",
+        "description": "The service tier of the instance. Possible values: [\"TIER_UNSPECIFIED\", \"STANDARD\", \"PREMIUM\", \"BASIC_HDD\", \"BASIC_SSD\", \"HIGH_SCALE_SSD\"]",
         "description_kind": "plain",
         "required": true,
         "type": "string"
       },
       "zone": {
-        "computed": true,
-        "deprecated": true,
         "description": "The name of the Filestore zone of the instance.",
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": "string"
       }
     },
@@ -97,57 +82,6 @@ const googleFilestoreInstance = `{
               "description_kind": "plain",
               "required": true,
               "type": "string"
-            },
-            "source_backup": {
-              "computed": true,
-              "description": "The resource name of the backup, in the format\nprojects/{projectId}/locations/{locationId}/backups/{backupId},\nthat this file share has been restored from.",
-              "description_kind": "plain",
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "nfs_export_options": {
-              "block": {
-                "attributes": {
-                  "access_mode": {
-                    "description": "Either READ_ONLY, for allowing only read requests on the exported directory,\nor READ_WRITE, for allowing both read and write requests. The default is READ_WRITE. Default value: \"READ_WRITE\" Possible values: [\"READ_ONLY\", \"READ_WRITE\"]",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "anon_gid": {
-                    "description": "An integer representing the anonymous group id with a default value of 65534.\nAnon_gid may only be set with squashMode of ROOT_SQUASH. An error will be returned\nif this field is specified for other squashMode settings.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "anon_uid": {
-                    "description": "An integer representing the anonymous user id with a default value of 65534.\nAnon_uid may only be set with squashMode of ROOT_SQUASH. An error will be returned\nif this field is specified for other squashMode settings.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "ip_ranges": {
-                    "description": "List of either IPv4 addresses, or ranges in CIDR notation which may mount the file share.\nOverlapping IP ranges are not allowed, both within and across NfsExportOptions. An error will be returned.\nThe limit is 64 IP ranges/addresses for each FileShareConfig among all NfsExportOptions.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": [
-                      "list",
-                      "string"
-                    ]
-                  },
-                  "squash_mode": {
-                    "description": "Either NO_ROOT_SQUASH, for allowing root access on the exported directory, or ROOT_SQUASH,\nfor not allowing root access. The default is NO_ROOT_SQUASH. Default value: \"NO_ROOT_SQUASH\" Possible values: [\"NO_ROOT_SQUASH\", \"ROOT_SQUASH\"]",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Nfs Export Options. There is a limit of 10 export options per file share.",
-                "description_kind": "plain"
-              },
-              "max_items": 10,
-              "nesting_mode": "list"
             }
           },
           "description": "File system shares on the instance. For this version, only a\nsingle file share is supported.",
@@ -160,12 +94,6 @@ const googleFilestoreInstance = `{
       "networks": {
         "block": {
           "attributes": {
-            "connect_mode": {
-              "description": "The network connect mode of the Filestore instance.\nIf not provided, the connect mode defaults to\nDIRECT_PEERING. Default value: \"DIRECT_PEERING\" Possible values: [\"DIRECT_PEERING\", \"PRIVATE_SERVICE_ACCESS\"]",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "ip_addresses": {
               "computed": true,
               "description": "A list of IPv4 or IPv6 addresses.",
@@ -230,7 +158,7 @@ const googleFilestoreInstance = `{
     },
     "description_kind": "plain"
   },
-  "version": 1
+  "version": 0
 }`
 
 func GoogleFilestoreInstanceSchema() *tfjson.Schema {

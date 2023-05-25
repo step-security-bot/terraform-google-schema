@@ -33,8 +33,7 @@ const googleComputeRouter = `{
                   }
                 ]
               ],
-              "asn": "number",
-              "keepalive_interval": "number"
+              "asn": "number"
             }
           ]
         ]
@@ -50,12 +49,6 @@ const googleComputeRouter = `{
         "description": "An optional description of this resource.",
         "description_kind": "plain",
         "type": "string"
-      },
-      "encrypted_interconnect_router": {
-        "computed": true,
-        "description": "Indicates if a router is dedicated for use with encrypted VLAN\nattachments (interconnectAttachments).",
-        "description_kind": "plain",
-        "type": "bool"
       },
       "id": {
         "computed": true,

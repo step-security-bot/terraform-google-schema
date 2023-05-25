@@ -45,15 +45,6 @@ const googleComputeServiceAttachment = `{
         "optional": true,
         "type": "string"
       },
-      "domain_names": {
-        "description": "If specified, the domain name will be used during the integration between\nthe PSC connected endpoints and the Cloud DNS. For example, this is a\nvalid domain name: \"p.mycompany.com.\". Current max number of domain names\nsupported is 1.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "enable_proxy_protocol": {
         "description": "If true, enable the proxy protocol which is for supplying client TCP/IP\naddress data in TCP connections that traverse proxies on their way to\ndestination servers.",
         "description_kind": "plain",

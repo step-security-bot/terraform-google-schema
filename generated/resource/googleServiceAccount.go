@@ -45,12 +45,6 @@ const googleServiceAccount = `{
         "optional": true,
         "type": "string"
       },
-      "member": {
-        "computed": true,
-        "description": "The Identity of the service account in the form 'serviceAccount:{email}'. This value is often used to refer to the service account in order to grant IAM permissions.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "name": {
         "computed": true,
         "description": "The fully-qualified name of the service account.",

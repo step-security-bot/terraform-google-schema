@@ -29,7 +29,7 @@ const googleDialogflowFulfillment = `{
       },
       "name": {
         "computed": true,
-        "description": "The unique identifier of the fulfillment.\nFormat: projects/\u003cProject ID\u003e/agent/fulfillment - projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agent/fulfillment",
+        "description": "The unique identifier of the fulfillment. \nFormat: projects/\u003cProject ID\u003e/agent/fulfillment - projects/\u003cProject ID\u003e/locations/\u003cLocation ID\u003e/agent/fulfillment",
         "description_kind": "plain",
         "type": "string"
       },

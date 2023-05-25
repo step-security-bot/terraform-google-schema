@@ -22,13 +22,11 @@ const googleComputePerInstanceConfig = `{
         "type": "string"
       },
       "minimal_action": {
-        "description": "The minimal action to perform on the instance during an update.\nDefault is 'NONE'. Possible values are:\n* REPLACE\n* RESTART\n* REFRESH\n* NONE",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "most_disruptive_allowed_action": {
-        "description": "The most disruptive action to perform on the instance during an update.\nDefault is 'REPLACE'. Possible values are:\n* REPLACE\n* RESTART\n* REFRESH\n* NONE",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -46,7 +44,6 @@ const googleComputePerInstanceConfig = `{
         "type": "string"
       },
       "remove_instance_state_on_destroy": {
-        "description": "When true, deleting this config will immediately remove any specified state from the underlying instance.\nWhen false, deleting this config will *not* immediately remove any state from the underlying instance.\nState will be removed on the next instance recreation or update.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"

@@ -23,7 +23,7 @@ const googleIapBrand = `{
       },
       "name": {
         "computed": true,
-        "description": "Output only. Identifier of the brand, in the format 'projects/{project_number}/brands/{brand_id}'\nNOTE: The name can also be expressed as 'projects/{project_id}/brands/{brand_id}', e.g. when importing.\nNOTE: The brand identification corresponds to the project number as only one\nbrand can be created per project.",
+        "description": "Output only. Identifier of the brand, in the format\n'projects/{project_number}/brands/{brand_id}'. NOTE: The brand\nidentification corresponds to the project number as only one\nbrand per project can be created.",
         "description_kind": "plain",
         "type": "string"
       },

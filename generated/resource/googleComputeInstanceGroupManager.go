@@ -39,12 +39,6 @@ const googleComputeInstanceGroupManager = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "list_managed_instances_results": {
-        "description": "Pagination behavior of the listManagedInstances API method for this managed instance group. Valid values are: \"PAGELESS\", \"PAGINATED\". If PAGELESS (default), Pagination is disabled for the group's listManagedInstances API method. maxResults and pageToken query parameters are ignored and all instances are returned in a single response. If PAGINATED, pagination is enabled, maxResults and pageToken query parameters are respected.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "name": {
         "description": "The name of the instance group manager. Must be 1-63 characters long and comply with RFC1035. Supported characters include lowercase letters, numbers, and hyphens.",
         "description_kind": "plain",
@@ -263,16 +257,17 @@ const googleComputeInstanceGroupManager = `{
               "optional": true,
               "type": "number"
             },
-            "minimal_action": {
-              "description": "Minimal action to be taken on an instance. You can specify either REFRESH to update without stopping instances, RESTART to restart existing instances or REPLACE to delete and create new instances from the target template. If you specify a REFRESH, the Updater will attempt to perform that action only. However, if the Updater determines that the minimal action you specify is not enough to perform the update, it might perform a more disruptive action.",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "most_disruptive_allowed_action": {
-              "description": "Most disruptive action that is allowed to be taken on an instance. You can specify either NONE to forbid any actions, REFRESH to allow actions that do not need instance restart, RESTART to allow actions that can be applied without instance replacing or REPLACE to allow all possible actions. If the Updater determines that the minimal update action needed is more disruptive than most disruptive allowed action you specify it will not perform the update at all.",
+            "min_ready_sec": {
+              "deprecated": true,
+              "description": "Minimum number of seconds to wait for after a newly created instance becomes available. This value must be from range [0, 3600].",
               "description_kind": "plain",
               "optional": true,
+              "type": "number"
+            },
+            "minimal_action": {
+              "description": "Minimal action to be taken on an instance. You can specify either RESTART to restart existing instances or REPLACE to delete and create new instances from the target template. If you specify a RESTART, the Updater will attempt to perform that action only. However, if the Updater determines that the minimal action you specify is not enough to perform the update, it might perform a more disruptive action.",
+              "description_kind": "plain",
+              "required": true,
               "type": "string"
             },
             "replacement_method": {

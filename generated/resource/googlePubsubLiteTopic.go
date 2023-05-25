@@ -107,7 +107,7 @@ const googlePubsubLiteTopic = `{
               "type": "string"
             },
             "period": {
-              "description": "How long a published message is retained. If unset, messages will be retained as\nlong as the bytes retained for each partition is below perPartitionBytes. A\nduration in seconds with up to nine fractional digits, terminated by 's'.\nExample: \"3.5s\".",
+              "description": "How long a published message is retained. If unset, messages will be retained as\nlong as the bytes retained for each partition is below perPartitionBytes.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

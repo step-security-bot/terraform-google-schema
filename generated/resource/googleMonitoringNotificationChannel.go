@@ -27,12 +27,6 @@ const googleMonitoringNotificationChannel = `{
         "optional": true,
         "type": "bool"
       },
-      "force_delete": {
-        "description": "If true, the notification channel will be deleted regardless\nof its use in alert policies (the policies will be updated\nto remove the channel). If false, channels that are still\nreferenced by an existing alerting policy will fail to be\ndeleted in a delete operation.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",

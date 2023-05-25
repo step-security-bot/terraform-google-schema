@@ -31,6 +31,12 @@ const googleKmsKeyRing = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
+      },
+      "self_link": {
+        "computed": true,
+        "description": "The self link of the created KeyRing in the format projects/{project}/locations/{location}/keyRings/{name}.",
+        "description_kind": "plain",
+        "type": "string"
       }
     },
     "description_kind": "plain"

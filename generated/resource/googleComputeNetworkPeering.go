@@ -55,12 +55,6 @@ const googleComputeNetworkPeering = `{
         "required": true,
         "type": "string"
       },
-      "stack_type": {
-        "description": "Which IP version(s) of traffic and routes are allowed to be imported or exported between peer networks. The default value is IPV4_ONLY. Possible values: [\"IPV4_ONLY\", \"IPV4_IPV6\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "state": {
         "computed": true,
         "description": "State for the peering, either ACTIVE or INACTIVE. The peering is ACTIVE when there's a matching configuration in the peer network.",

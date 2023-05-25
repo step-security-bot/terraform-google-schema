@@ -85,7 +85,7 @@ const googleComputePacketMirroring = `{
               "type": "string"
             },
             "ip_protocols": {
-              "description": "Possible IP protocols including tcp, udp, icmp and esp",
+              "description": "Protocols that apply as a filter on mirrored traffic. Possible values: [\"tcp\", \"udp\", \"icmp\"]",
               "description_kind": "plain",
               "optional": true,
               "type": [

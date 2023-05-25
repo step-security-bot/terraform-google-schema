@@ -27,26 +27,14 @@ const googleComputeRegionNetworkEndpointGroup = `{
         "required": true,
         "type": "string"
       },
-      "network": {
-        "description": "This field is only used for PSC.\nThe URL of the network to which all network endpoints in the NEG belong. Uses\n\"default\" project network if unspecified.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "network_endpoint_type": {
-        "description": "Type of network endpoints in this network endpoint group. Defaults to SERVERLESS Default value: \"SERVERLESS\" Possible values: [\"SERVERLESS\", \"PRIVATE_SERVICE_CONNECT\"]",
+        "description": "Type of network endpoints in this network endpoint group. Defaults to SERVERLESS Default value: \"SERVERLESS\" Possible values: [\"SERVERLESS\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "project": {
         "computed": true,
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "psc_target_service": {
-        "description": "The target service url used to set up private service connection to\na Google API or a PSC Producer Service Attachment.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -60,12 +48,6 @@ const googleComputeRegionNetworkEndpointGroup = `{
       "self_link": {
         "computed": true,
         "description_kind": "plain",
-        "type": "string"
-      },
-      "subnetwork": {
-        "description": "This field is only used for PSC.\nOptional URL of the subnetwork to which all network endpoints in the NEG belong.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       }
     },
@@ -92,7 +74,7 @@ const googleComputeRegionNetworkEndpointGroup = `{
               "type": "string"
             }
           },
-          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine, cloud_function or serverless_deployment may be set.",
+          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine or cloud_function may be set.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -114,7 +96,7 @@ const googleComputeRegionNetworkEndpointGroup = `{
               "type": "string"
             }
           },
-          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine, cloud_function or serverless_deployment may be set.",
+          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine or cloud_function may be set.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -142,7 +124,7 @@ const googleComputeRegionNetworkEndpointGroup = `{
               "type": "string"
             }
           },
-          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine, cloud_function or serverless_deployment may be set.",
+          "description": "Only valid when networkEndpointType is \"SERVERLESS\".\nOnly one of cloud_run, app_engine or cloud_function may be set.",
           "description_kind": "plain"
         },
         "max_items": 1,

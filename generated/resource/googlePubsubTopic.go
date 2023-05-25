@@ -30,12 +30,6 @@ const googlePubsubTopic = `{
           "string"
         ]
       },
-      "message_retention_duration": {
-        "description": "Indicates the minimum duration to retain a message after it is published\nto the topic. If this field is set, messages published to the topic in\nthe last messageRetentionDuration are always available to subscribers.\nFor instance, it allows any attached subscription to seek to a timestamp\nthat is up to messageRetentionDuration in the past. If this field is not\nset, message retention is controlled by settings on individual subscriptions.\nCannot be more than 31 days or less than 10 minutes.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "name": {
         "description": "Name of the topic.",
         "description_kind": "plain",

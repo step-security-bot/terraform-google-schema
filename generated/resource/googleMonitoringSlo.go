@@ -63,15 +63,6 @@ const googleMonitoringSlo = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "user_labels": {
-        "description": "This field is intended to be used for organizing and identifying the AlertPolicy\nobjects.The field can contain up to 64 entries. Each key and value is limited\nto 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values\ncan contain only lowercase letters, numerals, underscores, and dashes. Keys\nmust begin with a letter.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": [
-          "map",
-          "string"
-        ]
       }
     },
     "block_types": {
@@ -164,13 +155,13 @@ const googleMonitoringSlo = `{
                     "block": {
                       "attributes": {
                         "max": {
-                          "description": "max value for the range (inclusive). If not given,\nwill be set to 0",
+                          "description": "max value for the range (inclusive). If not given,\nwill be set to \"infinity\", defining an open range\n\"\u003e= range.min\"",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "number"
                         },
                         "min": {
-                          "description": "Min value for the range (inclusive). If not given,\nwill be set to 0",
+                          "description": "Min value for the range (inclusive). If not given,\nwill be set to \"-infinity\", defining an open range\n\"\u003c range.max\"",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "number"
@@ -365,13 +356,13 @@ const googleMonitoringSlo = `{
                                 "block": {
                                   "attributes": {
                                     "max": {
-                                      "description": "max value for the range (inclusive). If not given,\nwill be set to 0",
+                                      "description": "max value for the range (inclusive). If not given,\nwill be set to \"infinity\", defining an open range\n\"\u003e= range.min\"",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "number"
                                     },
                                     "min": {
-                                      "description": "Min value for the range (inclusive). If not given,\nwill be set to 0",
+                                      "description": "Min value for the range (inclusive). If not given,\nwill be set to \"-infinity\", defining an open range\n\"\u003c range.max\"",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "number"

@@ -10,7 +10,7 @@ const googleActiveDirectoryDomain = `{
   "block": {
     "attributes": {
       "admin": {
-        "description": "The name of delegated administrator account used to perform Active Directory operations.\nIf not specified, setupadmin will be used.",
+        "description": "The name of delegated administrator account used to perform Active Directory operations. \nIf not specified, setupadmin will be used.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -25,14 +25,14 @@ const googleActiveDirectoryDomain = `{
         ]
       },
       "domain_name": {
-        "description": "The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,\nhttps://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains.",
+        "description": "The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions, \nhttps://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
       },
       "fqdn": {
         "computed": true,
-        "description": "The fully-qualified domain name of the exposed domain used by clients to connect to the service.\nSimilar to what would be chosen for an Active Directory set up on an internal network.",
+        "description": "The fully-qualified domain name of the exposed domain used by clients to connect to the service. \nSimilar to what would be chosen for an Active Directory set up on an internal network.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -52,7 +52,7 @@ const googleActiveDirectoryDomain = `{
         ]
       },
       "locations": {
-        "description": "Locations where domain needs to be provisioned. [regions][compute/docs/regions-zones/]\ne.g. us-west1 or us-east4 Service supports up to 4 locations at once. Each location will use a /26 block.",
+        "description": "Locations where domain needs to be provisioned. [regions][compute/docs/regions-zones/] \ne.g. us-west1 or us-east4 Service supports up to 4 locations at once. Each location will use a /26 block.",
         "description_kind": "plain",
         "required": true,
         "type": [
@@ -73,7 +73,7 @@ const googleActiveDirectoryDomain = `{
         "type": "string"
       },
       "reserved_ip_range": {
-        "description": "The CIDR range of internal addresses that are reserved for this domain. Reserved networks must be /24 or larger.\nRanges must be unique and non-overlapping with existing subnets in authorizedNetworks",
+        "description": "The CIDR range of internal addresses that are reserved for this domain. Reserved networks must be /24 or larger. \nRanges must be unique and non-overlapping with existing subnets in authorizedNetworks",
         "description_kind": "plain",
         "required": true,
         "type": "string"

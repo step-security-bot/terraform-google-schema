@@ -19,8 +19,7 @@ const googleComputeInstance = `{
             "object",
             {
               "enable_nested_virtualization": "bool",
-              "threads_per_core": "number",
-              "visible_core_count": "number"
+              "threads_per_core": "number"
             }
           ]
         ]
@@ -113,7 +112,7 @@ const googleComputeInstance = `{
       },
       "current_status": {
         "computed": true,
-        "description": "\n\t\t\t\t\tCurrent status of the instance.\n\t\t\t\t\tThis could be one of the following values: PROVISIONING, STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, REPAIRING, and TERMINATED.\n\t\t\t\t\tFor more information about the status of the instance, see [Instance life cycle](https://cloud.google.com/compute/docs/instances/instance-life-cycle).",
+        "description": "Current status of the instance.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -275,7 +274,6 @@ const googleComputeInstance = `{
               "network": "string",
               "network_ip": "string",
               "nic_type": "string",
-              "queue_count": "number",
               "stack_type": "string",
               "subnetwork": "string",
               "subnetwork_project": "string"
@@ -318,7 +316,7 @@ const googleComputeInstance = `{
       },
       "resource_policies": {
         "computed": true,
-        "description": "A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
+        "description": "A list of short names or self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
         "description_kind": "plain",
         "type": [
           "list",
@@ -335,7 +333,6 @@ const googleComputeInstance = `{
             "object",
             {
               "automatic_restart": "bool",
-              "instance_termination_action": "string",
               "min_node_cpus": "number",
               "node_affinities": [
                 "set",
@@ -352,8 +349,7 @@ const googleComputeInstance = `{
                 ]
               ],
               "on_host_maintenance": "string",
-              "preemptible": "bool",
-              "provisioning_model": "string"
+              "preemptible": "bool"
             }
           ]
         ]
@@ -367,8 +363,7 @@ const googleComputeInstance = `{
           [
             "object",
             {
-              "interface": "string",
-              "size": "number"
+              "interface": "string"
             }
           ]
         ]

@@ -15,12 +15,6 @@ const googleWorkflowsWorkflow = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "crypto_key_name": {
-        "description": "The KMS key used to encrypt workflow and execution data.\n\nFormat: projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "description": {
         "computed": true,
         "description": "Description of the workflow provided by the user. Must be at most 1000 unicode characters long.",
@@ -76,7 +70,7 @@ const googleWorkflowsWorkflow = `{
       },
       "service_account": {
         "computed": true,
-        "description": "Name of the service account associated with the latest workflow version. This service\naccount represents the identity of the workflow and determines what permissions the workflow has.\nFormat: projects/{project}/serviceAccounts/{account} or {account}.\nUsing - as a wildcard for the {project} or not providing one at all will infer the project from the account.\nThe {account} value can be the email address or the unique_id of the service account.\nIf not provided, workflow will use the project's default service account.\nModifying this field for an existing workflow results in a new workflow revision.",
+        "description": "Name of the service account associated with the latest workflow version. This service\naccount represents the identity of the workflow and determines what permissions the workflow has.\n\nFormat: projects/{project}/serviceAccounts/{account}.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

@@ -54,23 +54,6 @@ const googleSqlUser = `{
         "optional": true,
         "type": "string"
       },
-      "sql_server_user_details": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "disabled": "bool",
-              "server_roles": [
-                "list",
-                "string"
-              ]
-            }
-          ]
-        ]
-      },
       "type": {
         "description": "The user type. It determines the method to authenticate the user during login.\n                The default is the database's built-in user type. Flags include \"BUILT_IN\", \"CLOUD_IAM_USER\", or \"CLOUD_IAM_SERVICE_ACCOUNT\".",
         "description_kind": "plain",
@@ -79,53 +62,6 @@ const googleSqlUser = `{
       }
     },
     "block_types": {
-      "password_policy": {
-        "block": {
-          "attributes": {
-            "allowed_failed_attempts": {
-              "description": "Number of failed attempts allowed before the user get locked.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "enable_failed_attempts_check": {
-              "description": "If true, the check that will lock user after too many failed login attempts will be enabled.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
-            "enable_password_verification": {
-              "description": "If true, the user must specify the current password before changing the password. This flag is supported only for MySQL.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
-            "password_expiration_duration": {
-              "description": "Password expiration duration with one week grace period.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "status": {
-              "computed": true,
-              "description_kind": "plain",
-              "type": [
-                "list",
-                [
-                  "object",
-                  {
-                    "locked": "bool",
-                    "password_expiration_time": "string"
-                  }
-                ]
-              ]
-            }
-          },
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "timeouts": {
         "block": {
           "attributes": {

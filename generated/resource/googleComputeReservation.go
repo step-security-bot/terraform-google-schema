@@ -70,45 +70,6 @@ const googleComputeReservation = `{
       }
     },
     "block_types": {
-      "share_settings": {
-        "block": {
-          "attributes": {
-            "share_type": {
-              "computed": true,
-              "description": "Type of sharing for this shared-reservation Possible values: [\"LOCAL\", \"SPECIFIC_PROJECTS\"]",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            }
-          },
-          "block_types": {
-            "project_map": {
-              "block": {
-                "attributes": {
-                  "id": {
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "project_id": {
-                    "description": "The project id/number, should be same as the key of this project config in the project map.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "A map of project number and project config. This is only valid when shareType's value is SPECIFIC_PROJECTS.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "set"
-            }
-          },
-          "description": "The share setting for reservations.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "specific_reservation": {
         "block": {
           "attributes": {

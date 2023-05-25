@@ -9,14 +9,7 @@ import (
 const googleAppEngineStandardAppVersion = `{
   "block": {
     "attributes": {
-      "app_engine_apis": {
-        "description": "Allows App Engine second generation runtimes to access the legacy bundled services.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "delete_service_on_destroy": {
-        "description": "If set to 'true', the service will be deleted if it is the last version.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -59,7 +52,6 @@ const googleAppEngineStandardAppVersion = `{
         "type": "string"
       },
       "noop_on_destroy": {
-        "description": "If set to 'true', the application version will not be deleted.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -77,7 +69,7 @@ const googleAppEngineStandardAppVersion = `{
         "type": "string"
       },
       "runtime_api_version": {
-        "description": "The version of the API in the given runtime environment.\nPlease see the app.yaml reference for valid values at 'https://cloud.google.com/appengine/docs/standard/\u003clanguage\u003e/config/appref'\\\nSubstitute '\u003clanguage\u003e' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'.",
+        "description": "The version of the API in the given runtime environment.\nPlease see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard//config/appref",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -86,13 +78,6 @@ const googleAppEngineStandardAppVersion = `{
         "description": "AppEngine service resource",
         "description_kind": "plain",
         "required": true,
-        "type": "string"
-      },
-      "service_account": {
-        "computed": true,
-        "description": "The identity that the deployed version will run as. Admin API will use the App Engine Appspot service account as default if this field is neither provided in app.yaml file nor through CLI flag.",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "threadsafe": {
@@ -280,7 +265,6 @@ const googleAppEngineStandardAppVersion = `{
           "description_kind": "plain"
         },
         "max_items": 1,
-        "min_items": 1,
         "nesting_mode": "list"
       },
       "handlers": {
@@ -458,12 +442,6 @@ const googleAppEngineStandardAppVersion = `{
       "vpc_access_connector": {
         "block": {
           "attributes": {
-            "egress_setting": {
-              "description": "The egress setting for the connector, controlling what traffic is diverted through it.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "name": {
               "description": "Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1.",
               "description_kind": "plain",

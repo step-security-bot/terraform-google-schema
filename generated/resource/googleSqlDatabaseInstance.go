@@ -9,15 +9,6 @@ import (
 const googleSqlDatabaseInstance = `{
   "block": {
     "attributes": {
-      "available_maintenance_versions": {
-        "computed": true,
-        "description": "Available Maintenance versions.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "connection_name": {
         "computed": true,
         "description": "The connection name of the instance to be used in connection strings. For example, when connecting with Cloud SQL Proxy.",
@@ -25,22 +16,16 @@ const googleSqlDatabaseInstance = `{
         "type": "string"
       },
       "database_version": {
-        "description": "The MySQL, PostgreSQL or SQL Server (beta) version to use. Supported values include MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. Database Version Policies includes an up-to-date reference of supported versions.",
+        "description": "The MySQL, PostgreSQL or SQL Server (beta) version to use. Supported values include MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. Database Version Policies includes an up-to-date reference of supported versions.",
         "description_kind": "plain",
-        "required": true,
+        "optional": true,
         "type": "string"
       },
       "deletion_protection": {
-        "description": "Used to block Terraform from deleting a SQL Instance. Defaults to true.",
+        "description": "Used to block Terraform from deleting a SQL Instance.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
-      },
-      "encryption_key_name": {
-        "computed": true,
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
       },
       "first_ip_address": {
         "computed": true,
@@ -50,13 +35,6 @@ const googleSqlDatabaseInstance = `{
       },
       "id": {
         "computed": true,
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "instance_type": {
-        "computed": true,
-        "description": "The type of the instance. The valid values are:- 'SQL_INSTANCE_TYPE_UNSPECIFIED', 'CLOUD_SQL_INSTANCE', 'ON_PREMISES_INSTANCE' and 'READ_REPLICA_INSTANCE'.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -75,13 +53,6 @@ const googleSqlDatabaseInstance = `{
             }
           ]
         ]
-      },
-      "maintenance_version": {
-        "computed": true,
-        "description": "Maintenance version.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
       },
       "master_instance_name": {
         "computed": true,
@@ -124,7 +95,7 @@ const googleSqlDatabaseInstance = `{
         "type": "string"
       },
       "root_password": {
-        "description": "Initial root password. Required for MS SQL Server.",
+        "description": "Initial root password. Required for MS SQL Server, ignored by MySQL and PostgreSQL.",
         "description_kind": "plain",
         "optional": true,
         "sensitive": true,
@@ -164,21 +135,6 @@ const googleSqlDatabaseInstance = `{
       "clone": {
         "block": {
           "attributes": {
-            "allocated_ip_range": {
-              "description": "The name of the allocated ip range for the private ip CloudSQL instance. For example: \"google-managed-services-default\". If set, the cloned instance ip will be created in the allocated range. The range name must comply with [RFC 1035](https://tools.ietf.org/html/rfc1035). Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "database_names": {
-              "description": "(SQL Server only, use with point_in_time) clone only the specified databases from the source instance. Clone all databases if empty.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
             "point_in_time": {
               "description": "The timestamp of the point in time that should be restored.",
               "description_kind": "plain",
@@ -220,7 +176,7 @@ const googleSqlDatabaseInstance = `{
               "type": "string"
             },
             "connect_retry_interval": {
-              "description": "The number of seconds between connect retries. MySQL's default is 60 seconds.",
+              "description": "The number of seconds between connect retries.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -306,13 +262,26 @@ const googleSqlDatabaseInstance = `{
         "block": {
           "attributes": {
             "activation_policy": {
+              "computed": true,
               "description": "This specifies when the instance should be active. Can be either ALWAYS, NEVER or ON_DEMAND.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
+            "authorized_gae_applications": {
+              "computed": true,
+              "deprecated": true,
+              "description": "This property is only applicable to First Generation instances. First Generation instances are now deprecated, see https://cloud.google.com/sql/docs/mysql/deprecation-notice for information on how to upgrade to Second Generation instances. A list of Google App Engine project names that are allowed to access this instance.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": [
+                "list",
+                "string"
+              ]
+            },
             "availability_type": {
-              "description": "The availability type of the Cloud SQL instance, high availability\n(REGIONAL) or single zone (ZONAL). For all instances, ensure that\nsettings.backup_configuration.enabled is set to true.\nFor MySQL instances, ensure that settings.backup_configuration.binary_log_enabled is set to true.\nFor Postgres instances, ensure that settings.backup_configuration.point_in_time_recovery_enabled\nis set to true. Defaults to ZONAL.",
+              "computed": true,
+              "description": "The availability type of the Cloud SQL instance, high availability\n(REGIONAL) or single zone (ZONAL). For MySQL instances, ensure that\nsettings.backup_configuration.enabled and\nsettings.backup_configuration.binary_log_enabled are both set to true.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -323,21 +292,16 @@ const googleSqlDatabaseInstance = `{
               "optional": true,
               "type": "string"
             },
-            "connector_enforcement": {
+            "crash_safe_replication": {
               "computed": true,
-              "description": "Specifies if connections must use Cloud SQL connectors.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "deletion_protection_enabled": {
-              "description": "Configuration to protect against accidental instance deletion.",
+              "deprecated": true,
+              "description": "This property is only applicable to First Generation instances. First Generation instances are now deprecated, see here for information on how to upgrade to Second Generation instances. Specific to read instances, indicates when crash-safe replication flags are enabled.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
             },
             "disk_autoresize": {
-              "description": "Enables auto-resizing of the storage size. Defaults to true.",
+              "description": "Configuration to increase storage size automatically.  Note that future terraform apply calls will attempt to resize the disk to the value specified in disk_size - if this is set, do not set disk_size.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
@@ -350,13 +314,14 @@ const googleSqlDatabaseInstance = `{
             },
             "disk_size": {
               "computed": true,
-              "description": "The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased. The minimum value is 10GB.",
+              "description": "The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
             },
             "disk_type": {
-              "description": "The type of data disk: PD_SSD or PD_HDD. Defaults to PD_SSD.",
+              "computed": true,
+              "description": "The type of data disk: PD_SSD or PD_HDD.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -367,16 +332,18 @@ const googleSqlDatabaseInstance = `{
               "optional": true,
               "type": "string"
             },
+            "replication_type": {
+              "computed": true,
+              "deprecated": true,
+              "description": "This property is only applicable to First Generation instances. First Generation instances are now deprecated, see here for information on how to upgrade to Second Generation instances. Replication type for this instance, can be one of ASYNCHRONOUS or SYNCHRONOUS.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "tier": {
               "description": "The machine type to use. See tiers for more details and supported versions. Postgres supports only shared-core machine types, and custom machine types such as db-custom-2-13312. See the Custom Machine Type Documentation to learn about specifying custom machine types.",
               "description_kind": "plain",
               "required": true,
-              "type": "string"
-            },
-            "time_zone": {
-              "description": "The time_zone to be used by the database engine (supported only for SQL Server), in SQL Server timezone format.",
-              "description_kind": "plain",
-              "optional": true,
               "type": "string"
             },
             "user_labels": {
@@ -397,41 +364,11 @@ const googleSqlDatabaseInstance = `{
             }
           },
           "block_types": {
-            "active_directory_config": {
-              "block": {
-                "attributes": {
-                  "domain": {
-                    "description": "Domain name of the Active Directory for SQL Server (e.g., mydomain.com).",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "advanced_machine_features": {
-              "block": {
-                "attributes": {
-                  "threads_per_core": {
-                    "description": "The number of threads per physical core. Can be 1 or 2.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  }
-                },
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "backup_configuration": {
               "block": {
                 "attributes": {
                   "binary_log_enabled": {
-                    "description": "True if binary logging is enabled. If settings.backup_configuration.enabled is false, this must be as well. Can only be used with MySQL.",
+                    "description": "True if binary logging is enabled. If settings.backup_configuration.enabled is false, this must be as well. Cannot be used with Postgres.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
@@ -517,33 +454,6 @@ const googleSqlDatabaseInstance = `{
               },
               "nesting_mode": "list"
             },
-            "deny_maintenance_period": {
-              "block": {
-                "attributes": {
-                  "end_date": {
-                    "description": "End date before which maintenance will not take place. The date is in format yyyy-mm-dd i.e., 2020-11-01, or mm-dd, i.e., 11-01",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "start_date": {
-                    "description": "Start date after which maintenance will not take place. The date is in format yyyy-mm-dd i.e., 2020-11-01, or mm-dd, i.e., 11-01",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  },
-                  "time": {
-                    "description": "Time in UTC when the \"deny maintenance period\" starts on start_date and ends on end_date. The time is in format: HH:mm:SS, i.e., 00:00:00",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "insights_config": {
               "block": {
                 "attributes": {
@@ -552,13 +462,6 @@ const googleSqlDatabaseInstance = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
-                  },
-                  "query_plans_per_minute": {
-                    "computed": true,
-                    "description": "Number of query execution plans captured by Insights per minute for all queries combined. Between 0 and 20. Default to 5.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
                   },
                   "query_string_length": {
                     "description": "Maximum query length stored in bytes. Between 256 and 4500. Default to 1024.",
@@ -588,18 +491,6 @@ const googleSqlDatabaseInstance = `{
             "ip_configuration": {
               "block": {
                 "attributes": {
-                  "allocated_ip_range": {
-                    "description": "The name of the allocated ip range for the private ip CloudSQL instance. For example: \"google-managed-services-default\". If set, the instance ip will be created in the allocated range. The range name must comply with RFC 1035. Specifically, the name must be 1-63 characters long and match the regular expression [a-z]([-a-z0-9]*[a-z0-9])?.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "enable_private_path_for_google_cloud_services": {
-                    "description": "Whether Google Cloud services such as BigQuery are allowed to access data in this Cloud SQL instance over a private IP connection. SQLSERVER database type is not supported.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
                   "ipv4_enabled": {
                     "description": "Whether this Cloud SQL instance should be assigned a public IPV4 address. At least ipv4_enabled must be enabled or a private_network must be configured.",
                     "description_kind": "plain",
@@ -657,12 +548,6 @@ const googleSqlDatabaseInstance = `{
                     "optional": true,
                     "type": "string"
                   },
-                  "secondary_zone": {
-                    "description": "The preferred Compute Engine zone for the secondary/failover",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "zone": {
                     "description": "The preferred compute engine zone.",
                     "description_kind": "plain",
@@ -698,78 +583,6 @@ const googleSqlDatabaseInstance = `{
                   }
                 },
                 "description": "Declares a one-hour maintenance window when an Instance can automatically restart to apply updates. The maintenance window is specified in UTC time.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "password_validation_policy": {
-              "block": {
-                "attributes": {
-                  "complexity": {
-                    "description": "Password complexity.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "disallow_username_substring": {
-                    "description": "Disallow username as a part of the password.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "enable_password_policy": {
-                    "description": "Whether the password policy is enabled or not.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  },
-                  "min_length": {
-                    "description": "Minimum number of characters allowed.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  },
-                  "password_change_interval": {
-                    "description": "Minimum interval after which the password can be changed. This flag is only supported for PostgresSQL.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "reuse_interval": {
-                    "description": "Number of previous passwords that cannot be reused.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  }
-                },
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
-            "sql_server_audit_config": {
-              "block": {
-                "attributes": {
-                  "bucket": {
-                    "description": "The name of the destination bucket (e.g., gs://mybucket).",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "retention_interval": {
-                    "description": "How long to keep generated audit files. A duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\"..",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "upload_interval": {
-                    "description": "How often to upload generated audit files. A duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
                 "description_kind": "plain"
               },
               "max_items": 1,

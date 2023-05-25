@@ -80,7 +80,6 @@ const googleComputeDisk = `{
         "type": "string"
       },
       "provisioned_iops": {
-        "computed": true,
         "description": "Indicates how many IOPS must be provisioned for the disk.",
         "description_kind": "plain",
         "optional": true,
@@ -102,18 +101,6 @@ const googleComputeDisk = `{
         "description": "The source snapshot used to create this disk. You can provide this as\na partial or full URL to the resource. If the snapshot is in another\nproject than this disk, you must supply a full URL. For example, the\nfollowing are valid values:\n\n* 'https://www.googleapis.com/compute/v1/projects/project/global/snapshots/snapshot'\n* 'projects/project/global/snapshots/snapshot'\n* 'global/snapshots/snapshot'\n* 'snapshot'",
         "description_kind": "plain",
         "optional": true,
-        "type": "string"
-      },
-      "source_disk": {
-        "description": "The source disk used to create this disk. You can provide this as a partial or full URL to the resource.\nFor example, the following are valid values:\n\n* https://www.googleapis.com/compute/v1/projects/{project}/zones/{zone}/disks/{disk}\n* https://www.googleapis.com/compute/v1/projects/{project}/regions/{region}/disks/{disk}\n* projects/{project}/zones/{zone}/disks/{disk}\n* projects/{project}/regions/{region}/disks/{disk}\n* zones/{zone}/disks/{disk}\n* regions/{region}/disks/{disk}",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "source_disk_id": {
-        "computed": true,
-        "description": "The ID value of the disk used to create this image. This value may\nbe used to determine whether the image was taken from the current\nor a previous instance of a given disk name.",
-        "description_kind": "plain",
         "type": "string"
       },
       "source_image_id": {
@@ -169,13 +156,6 @@ const googleComputeDisk = `{
             },
             "raw_key": {
               "description": "Specifies a 256-bit customer-supplied encryption key, encoded in\nRFC 4648 base64 to either encrypt or decrypt this resource.",
-              "description_kind": "plain",
-              "optional": true,
-              "sensitive": true,
-              "type": "string"
-            },
-            "rsa_encrypted_key": {
-              "description": "Specifies an RFC 4648 base64 encoded, RSA-wrapped 2048-bit\ncustomer-supplied encryption key to either encrypt or decrypt\nthis resource. You can provide either the rawKey or the rsaEncryptedKey.",
               "description_kind": "plain",
               "optional": true,
               "sensitive": true,

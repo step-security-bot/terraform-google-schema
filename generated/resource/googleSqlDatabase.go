@@ -23,12 +23,6 @@ const googleSqlDatabase = `{
         "optional": true,
         "type": "string"
       },
-      "deletion_policy": {
-        "description": "The deletion policy for the database. Setting ABANDON allows the resource\nto be abandoned rather than deleted. This is useful for Postgres, where databases cannot be\ndeleted from the API if there are users other than cloudsqlsuperuser with access. Possible\nvalues are: \"ABANDON\", \"DELETE\". Defaults to \"DELETE\".",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",

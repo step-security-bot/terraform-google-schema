@@ -163,7 +163,6 @@ const googleComputeResourcePolicy = `{
                 [
                   "object",
                   {
-                    "chain_name": "string",
                     "guest_flush": "bool",
                     "labels": [
                       "map",

@@ -103,7 +103,7 @@ const googleHealthcareHl7V2Store = `{
               "type": "string"
             },
             "version": {
-              "description": "The version of the unschematized parser to be used when a custom 'schema' is not set. Default value: \"V1\" Possible values: [\"V1\", \"V2\", \"V3\"]",
+              "description": "The version of the unschematized parser to be used when a custom 'schema' is not set. Default value: \"V1\" Possible values: [\"V1\", \"V2\"]",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

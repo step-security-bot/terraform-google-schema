@@ -11,14 +11,13 @@ const googleDnsKeys = `{
     "attributes": {
       "id": {
         "computed": true,
-        "description": "DNS keys identifier",
-        "description_kind": "markdown",
+        "description_kind": "plain",
+        "optional": true,
         "type": "string"
       },
       "key_signing_keys": {
         "computed": true,
-        "description": "A list of Key-signing key (KSK) records.",
-        "description_kind": "markdown",
+        "description_kind": "plain",
         "type": [
           "list",
           [
@@ -48,22 +47,19 @@ const googleDnsKeys = `{
         ]
       },
       "managed_zone": {
-        "description": "The Name of the zone.",
-        "description_kind": "markdown",
+        "description_kind": "plain",
         "required": true,
         "type": "string"
       },
       "project": {
         "computed": true,
-        "description": "The ID of the project for the Google Cloud.",
-        "description_kind": "markdown",
+        "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "zone_signing_keys": {
         "computed": true,
-        "description": "A list of Zone-signing key (ZSK) records.",
-        "description_kind": "markdown",
+        "description_kind": "plain",
         "type": [
           "list",
           [
@@ -92,8 +88,7 @@ const googleDnsKeys = `{
         ]
       }
     },
-    "description": "Get the DNSKEY and DS records of DNSSEC-signed managed zones",
-    "description_kind": "markdown"
+    "description_kind": "plain"
   },
   "version": 0
 }`

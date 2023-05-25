@@ -9,12 +9,6 @@ import (
 const googleComputeSnapshot = `{
   "block": {
     "attributes": {
-      "chain_name": {
-        "description": "Creates the new snapshot in the snapshot chain labeled with the\nspecified name. The chain name must be 1-63 characters long and\ncomply with RFC1035. This is an uncommon option only for advanced\nservice owners who needs to create separate snapshot chains, for\nexample, for chargeback tracking.  When you describe your snapshot\nresource, this field is visible only if it has a non-empty value.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "creation_timestamp": {
         "computed": true,
         "description": "Creation timestamp in RFC3339 text format.",
@@ -92,6 +86,12 @@ const googleComputeSnapshot = `{
         "required": true,
         "type": "string"
       },
+      "source_disk_link": {
+        "computed": true,
+        "deprecated": true,
+        "description_kind": "plain",
+        "type": "string"
+      },
       "storage_bytes": {
         "computed": true,
         "description": "A size of the storage used by the snapshot. As snapshots share\nstorage, this number is expected to change with snapshot\ncreation/deletion.",
@@ -146,7 +146,7 @@ const googleComputeSnapshot = `{
               "type": "string"
             }
           },
-          "description": "Encrypts the snapshot using a customer-supplied encryption key.\n\nAfter you encrypt a snapshot using a customer-supplied key, you must\nprovide the same key if you use the snapshot later. For example, you\nmust provide the encryption key when you create a disk from the\nencrypted snapshot in a future request.\n\nCustomer-supplied encryption keys do not protect access to metadata of\nthe snapshot.\n\nIf you do not provide an encryption key when creating the snapshot,\nthen the snapshot will be encrypted using an automatically generated\nkey and you do not need to provide a key to use the snapshot later.",
+          "description": "The customer-supplied encryption key of the snapshot. Required if the\nsource snapshot is protected by a customer-supplied encryption key.",
           "description_kind": "plain"
         },
         "max_items": 1,

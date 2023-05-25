@@ -14,11 +14,6 @@ const googleComputeAddress = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "address_type": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -30,30 +25,10 @@ const googleComputeAddress = `{
         "required": true,
         "type": "string"
       },
-      "network": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "network_tier": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "prefix_length": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "number"
-      },
       "project": {
         "computed": true,
         "description_kind": "plain",
         "optional": true,
-        "type": "string"
-      },
-      "purpose": {
-        "computed": true,
-        "description_kind": "plain",
         "type": "string"
       },
       "region": {
@@ -68,16 +43,6 @@ const googleComputeAddress = `{
         "type": "string"
       },
       "status": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "subnetwork": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "users": {
         "computed": true,
         "description_kind": "plain",
         "type": "string"

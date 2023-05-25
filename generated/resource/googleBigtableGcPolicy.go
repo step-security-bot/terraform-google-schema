@@ -15,18 +15,6 @@ const googleBigtableGcPolicy = `{
         "required": true,
         "type": "string"
       },
-      "deletion_policy": {
-        "description": "The deletion policy for the GC policy. Setting ABANDON allows the resource\n\t\t\t\tto be abandoned rather than deleted. This is useful for GC policy as it cannot be deleted\n\t\t\t\tin a replicated instance. Possible values are: \"ABANDON\".",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "gc_rules": {
-        "description": "Serialized JSON string for garbage collection policy. Conflicts with \"mode\", \"max_age\" and \"max_version\".",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -40,7 +28,7 @@ const googleBigtableGcPolicy = `{
         "type": "string"
       },
       "mode": {
-        "description": "NOTE: 'gc_rules' is more flexible, and should be preferred over this field for new resources. This field may be deprecated in the future. If multiple policies are set, you should choose between UNION OR INTERSECTION.",
+        "description": "If multiple policies are set, you should choose between UNION OR INTERSECTION.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -79,7 +67,7 @@ const googleBigtableGcPolicy = `{
               "type": "string"
             }
           },
-          "description": "NOTE: 'gc_rules' is more flexible, and should be preferred over this field for new resources. This field may be deprecated in the future. GC policy that applies to all cells older than the given age.",
+          "description": "GC policy that applies to all cells older than the given age.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -95,7 +83,7 @@ const googleBigtableGcPolicy = `{
               "type": "number"
             }
           },
-          "description": "NOTE: 'gc_rules' is more flexible, and should be preferred over this field for new resources. This field may be deprecated in the future. GC policy that applies to all versions of a cell except for the most recent.",
+          "description": "GC policy that applies to all versions of a cell except for the most recent.",
           "description_kind": "plain"
         },
         "nesting_mode": "list"

@@ -50,7 +50,7 @@ const googleKmsCryptoKey = `{
       },
       "purpose": {
         "computed": true,
-        "description": "The immutable purpose of this CryptoKey. See the\n[purpose reference](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys#CryptoKeyPurpose)\nfor possible inputs. Default value: \"ENCRYPT_DECRYPT\" Possible values: [\"ENCRYPT_DECRYPT\", \"ASYMMETRIC_SIGN\", \"ASYMMETRIC_DECRYPT\", \"MAC\"]",
+        "description": "The immutable purpose of this CryptoKey. See the\n[purpose reference](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys#CryptoKeyPurpose)\nfor possible inputs. Default value: \"ENCRYPT_DECRYPT\" Possible values: [\"ENCRYPT_DECRYPT\", \"ASYMMETRIC_SIGN\", \"ASYMMETRIC_DECRYPT\"]",
         "description_kind": "plain",
         "type": "string"
       },
@@ -60,9 +60,15 @@ const googleKmsCryptoKey = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "self_link": {
+        "computed": true,
+        "description": "The self link of the created KeyRing in the format projects/{project}/locations/{location}/keyRings/{name}.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "skip_initial_version_creation": {
         "computed": true,
-        "description": "If set to true, the request will create a CryptoKey without any CryptoKeyVersions.\nYou must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion.",
+        "description": "If set to true, the request will create a CryptoKey without any CryptoKeyVersions. \nYou must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion.",
         "description_kind": "plain",
         "type": "bool"
       },

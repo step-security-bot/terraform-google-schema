@@ -35,7 +35,7 @@ const googleDialogflowEntityType = `{
       },
       "name": {
         "computed": true,
-        "description": "The unique identifier of the entity type.\nFormat: projects/\u003cProject ID\u003e/agent/entityTypes/\u003cEntity type ID\u003e.",
+        "description": "The unique identifier of the entity type. \nFormat: projects/\u003cProject ID\u003e/agent/entityTypes/\u003cEntity type ID\u003e.",
         "description_kind": "plain",
         "type": "string"
       },

@@ -51,7 +51,7 @@ const googleKmsCryptoKey = `{
         "type": "string"
       },
       "purpose": {
-        "description": "The immutable purpose of this CryptoKey. See the\n[purpose reference](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys#CryptoKeyPurpose)\nfor possible inputs. Default value: \"ENCRYPT_DECRYPT\" Possible values: [\"ENCRYPT_DECRYPT\", \"ASYMMETRIC_SIGN\", \"ASYMMETRIC_DECRYPT\", \"MAC\"]",
+        "description": "The immutable purpose of this CryptoKey. See the\n[purpose reference](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys#CryptoKeyPurpose)\nfor possible inputs. Default value: \"ENCRYPT_DECRYPT\" Possible values: [\"ENCRYPT_DECRYPT\", \"ASYMMETRIC_SIGN\", \"ASYMMETRIC_DECRYPT\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -62,8 +62,15 @@ const googleKmsCryptoKey = `{
         "optional": true,
         "type": "string"
       },
+      "self_link": {
+        "computed": true,
+        "deprecated": true,
+        "description": "The self link of the created KeyRing in the format projects/{project}/locations/{location}/keyRings/{name}.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "skip_initial_version_creation": {
-        "description": "If set to true, the request will create a CryptoKey without any CryptoKeyVersions.\nYou must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion.",
+        "description": "If set to true, the request will create a CryptoKey without any CryptoKeyVersions. \nYou must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -103,7 +110,7 @@ const googleKmsCryptoKey = `{
               "type": "string"
             },
             "protection_level": {
-              "description": "The protection level to use when creating a version based on this template. Possible values include \"SOFTWARE\", \"HSM\", \"EXTERNAL\", \"EXTERNAL_VPC\". Defaults to \"SOFTWARE\".",
+              "description": "The protection level to use when creating a version based on this template. Default value: \"SOFTWARE\" Possible values: [\"SOFTWARE\", \"HSM\"]",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

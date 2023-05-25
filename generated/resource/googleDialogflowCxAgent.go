@@ -16,7 +16,7 @@ const googleDialogflowCxAgent = `{
         "type": "string"
       },
       "default_language_code": {
-        "description": "The default language of the agent as a language tag. [See Language Support](https://cloud.google.com/dialogflow/cx/docs/reference/language)\nfor a list of the currently supported language codes. This field cannot be updated after creation.",
+        "description": "The default language of the agent as a language tag. [See Language Support](https://cloud.google.com/dialogflow/cx/docs/reference/language) \nfor a list of the currently supported language codes. This field cannot be updated after creation.",
         "description_kind": "plain",
         "required": true,
         "type": "string"

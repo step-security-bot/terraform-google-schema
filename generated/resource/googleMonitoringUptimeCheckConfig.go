@@ -9,13 +9,6 @@ import (
 const googleMonitoringUptimeCheckConfig = `{
   "block": {
     "attributes": {
-      "checker_type": {
-        "computed": true,
-        "description": "The checker type to use for the check. If the monitored resource type is servicedirectory_service, checkerType must be set to VPC_CHECKERS. Possible values: [\"STATIC_IP_CHECKERS\", \"VPC_CHECKERS\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "display_name": {
         "description": "A human-friendly name for the uptime check configuration. The display name should be unique within a Stackdriver Workspace in order to make it easier to identify; however, uniqueness is not enforced.",
         "description_kind": "plain",
@@ -79,34 +72,10 @@ const googleMonitoringUptimeCheckConfig = `{
               "type": "string"
             },
             "matcher": {
-              "description": "The type of content matcher that will be applied to the server output, compared to the content string when the check is run. Default value: \"CONTAINS_STRING\" Possible values: [\"CONTAINS_STRING\", \"NOT_CONTAINS_STRING\", \"MATCHES_REGEX\", \"NOT_MATCHES_REGEX\", \"MATCHES_JSON_PATH\", \"NOT_MATCHES_JSON_PATH\"]",
+              "description": "The type of content matcher that will be applied to the server output, compared to the content string when the check is run. Default value: \"CONTAINS_STRING\" Possible values: [\"CONTAINS_STRING\", \"NOT_CONTAINS_STRING\", \"MATCHES_REGEX\", \"NOT_MATCHES_REGEX\"]",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            }
-          },
-          "block_types": {
-            "json_path_matcher": {
-              "block": {
-                "attributes": {
-                  "json_matcher": {
-                    "description": "Options to perform JSONPath content matching. Default value: \"EXACT_MATCH\" Possible values: [\"EXACT_MATCH\", \"REGEX_MATCH\"]",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "json_path": {
-                    "description": "JSONPath within the response output pointing to the expected 'ContentMatcher::content' to match against.",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "string"
-                  }
-                },
-                "description": "Information needed to perform a JSONPath content match. Used for 'ContentMatcherOption::MATCHES_JSON_PATH' and 'ContentMatcherOption::NOT_MATCHES_JSON_PATH'.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
             }
           },
           "description": "The expected content on the page the check is run against. Currently, only the first entry in the list is supported, and other entries will be ignored. The server will look for an exact match of the string in the page response's content. This field is optional and should only be specified if a content match is required.",
@@ -146,7 +115,7 @@ const googleMonitoringUptimeCheckConfig = `{
               "type": "bool"
             },
             "path": {
-              "description": "The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full URL. If the provided path does not begin with \"/\", a \"/\" will be prepended automatically. Optional (defaults to \"/\").",
+              "description": "The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full URL. Optional (defaults to \"/\").",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -178,27 +147,6 @@ const googleMonitoringUptimeCheckConfig = `{
             }
           },
           "block_types": {
-            "accepted_response_status_codes": {
-              "block": {
-                "attributes": {
-                  "status_class": {
-                    "description": "A class of status codes to accept. Possible values: [\"STATUS_CLASS_1XX\", \"STATUS_CLASS_2XX\", \"STATUS_CLASS_3XX\", \"STATUS_CLASS_4XX\", \"STATUS_CLASS_5XX\", \"STATUS_CLASS_ANY\"]",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "status_value": {
-                    "description": "A status code to accept.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "number"
-                  }
-                },
-                "description": "If present, the check will only pass if the HTTP response status code is in this set of status codes. If empty, the HTTP status code will only pass if the HTTP status code is 200-299.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "list"
-            },
             "auth_info": {
               "block": {
                 "attributes": {
@@ -248,7 +196,7 @@ const googleMonitoringUptimeCheckConfig = `{
               "type": "string"
             }
           },
-          "description": "The monitored resource (https://cloud.google.com/monitoring/api/resources) associated with the configuration. The following monitored resource types are supported for uptime checks:  uptime_url  gce_instance  gae_app  aws_ec2_instance aws_elb_load_balancer  k8s_service  servicedirectory_service",
+          "description": "The monitored resource (https://cloud.google.com/monitoring/api/resources) associated with the configuration. The following monitored resource types are supported for uptime checks:  uptime_url  gce_instance  gae_app  aws_ec2_instance  aws_elb_load_balancer",
           "description_kind": "plain"
         },
         "max_items": 1,

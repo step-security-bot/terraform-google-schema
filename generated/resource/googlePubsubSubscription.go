@@ -16,12 +16,6 @@ const googlePubsubSubscription = `{
         "optional": true,
         "type": "number"
       },
-      "enable_exactly_once_delivery": {
-        "description": "If 'true', Pub/Sub provides the following guarantees for the delivery\nof a message with a given value of messageId on this Subscriptions':\n\n- The message sent to a subscriber is guaranteed not to be resent before the message's acknowledgement deadline expires.\n\n- An acknowledged message will not be resent to a subscriber.\n\nNote that subscribers may still receive multiple copies of a message when 'enable_exactly_once_delivery'\nis true if the message was published multiple times by a publisher client. These copies are considered distinct by Pub/Sub and have distinct messageId values",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "enable_message_ordering": {
         "description": "If 'true', messages published with the same orderingKey in PubsubMessage will be delivered to\nthe subscribers in the order in which they are received by the Pub/Sub system. Otherwise, they\nmay be delivered in any order.",
         "description_kind": "plain",
@@ -29,7 +23,7 @@ const googlePubsubSubscription = `{
         "type": "bool"
       },
       "filter": {
-        "description": "The subscription only delivers the messages that match the filter.\nPub/Sub automatically acknowledges the messages that don't match the filter. You can filter messages\nby their attributes. The maximum length of a filter is 256 bytes. After creating the subscription,\nyou can't modify the filter.",
+        "description": "The subscription only delivers the messages that match the filter. \nPub/Sub automatically acknowledges the messages that don't match the filter. You can filter messages\nby their attributes. The maximum length of a filter is 256 bytes. After creating the subscription, \nyou can't modify the filter.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -50,7 +44,7 @@ const googlePubsubSubscription = `{
         ]
       },
       "message_retention_duration": {
-        "description": "How long to retain unacknowledged messages in the subscription's\nbacklog, from the moment a message is published. If\nretain_acked_messages is true, then this also configures the retention\nof acknowledged messages, and thus configures how far back in time a\nsubscriptions.seek can be done. Defaults to 7 days. Cannot be more\nthan 7 days ('\"604800s\"') or less than 10 minutes ('\"600s\"').\n\nA duration in seconds with up to nine fractional digits, terminated\nby 's'. Example: '\"600.5s\"'.",
+        "description": "How long to retain unacknowledged messages in the subscription's\nbacklog, from the moment a message is published. If\nretainAckedMessages is true, then this also configures the retention\nof acknowledged messages, and thus configures how far back in time a\nsubscriptions.seek can be done. Defaults to 7 days. Cannot be more\nthan 7 days ('\"604800s\"') or less than 10 minutes ('\"600s\"').\n\nA duration in seconds with up to nine fractional digits, terminated\nby 's'. Example: '\"600.5s\"'.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -59,6 +53,13 @@ const googlePubsubSubscription = `{
         "description": "Name of the subscription.",
         "description_kind": "plain",
         "required": true,
+        "type": "string"
+      },
+      "path": {
+        "computed": true,
+        "deprecated": true,
+        "description": " Path of the subscription in the format projects/{project}/subscriptions/{name}",
+        "description_kind": "plain",
         "type": "string"
       },
       "project": {
@@ -81,51 +82,17 @@ const googlePubsubSubscription = `{
       }
     },
     "block_types": {
-      "bigquery_config": {
-        "block": {
-          "attributes": {
-            "drop_unknown_fields": {
-              "description": "When true and useTopicSchema is true, any fields that are a part of the topic schema that are not part of the BigQuery table schema are dropped when writing to BigQuery.\nOtherwise, the schemas must be kept in sync and any messages with extra fields are not written and remain in the subscription's backlog.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
-            "table": {
-              "description": "The name of the table to which to write data, of the form {projectId}:{datasetId}.{tableId}",
-              "description_kind": "plain",
-              "required": true,
-              "type": "string"
-            },
-            "use_topic_schema": {
-              "description": "When true, use the topic's schema as the columns to write to in BigQuery, if it exists.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            },
-            "write_metadata": {
-              "description": "When true, write the subscription name, messageId, publishTime, attributes, and orderingKey to additional columns in the table.\nThe subscription name, messageId, and publishTime fields are put in their own columns while all other message properties (other than data) are written to a JSON object in the attributes column.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "bool"
-            }
-          },
-          "description": "If delivery to BigQuery is used with this subscription, this field is used to configure it.\nEither pushConfig or bigQueryConfig can be set, but not both.\nIf both are empty, then the subscriber will pull and ack messages using API methods.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "dead_letter_policy": {
         "block": {
           "attributes": {
             "dead_letter_topic": {
-              "description": "The name of the topic to which dead letter messages should be published.\nFormat is 'projects/{project}/topics/{topic}'.\n\nThe Cloud Pub/Sub service account associated with the enclosing subscription's\nparent project (i.e.,\nservice-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com) must have\npermission to Publish() to this topic.\n\nThe operation will fail if the topic does not exist.\nUsers should ensure that there is a subscription attached to this topic\nsince messages published to a topic with no subscriptions are lost.",
+              "description": "The name of the topic to which dead letter messages should be published.\nFormat is 'projects/{project}/topics/{topic}'.\n\nThe Cloud Pub/Sub service account associated with the enclosing subscription's\nparent project (i.e., \nservice-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com) must have\npermission to Publish() to this topic.\n\nThe operation will fail if the topic does not exist.\nUsers should ensure that there is a subscription attached to this topic\nsince messages published to a topic with no subscriptions are lost.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
             },
             "max_delivery_attempts": {
-              "description": "The maximum number of delivery attempts for any message. The value must be\nbetween 5 and 100.\n\nThe number of delivery attempts is defined as 1 + (the sum of number of\nNACKs and number of times the acknowledgement deadline has been exceeded for the message).\n\nA NACK is any call to ModifyAckDeadline with a 0 deadline. Note that\nclient libraries may automatically extend ack_deadlines.\n\nThis field will be honored on a best effort basis.\n\nIf this parameter is 0, a default value of 5 is used.",
+              "description": "The maximum number of delivery attempts for any message. The value must be\nbetween 5 and 100.\n\nThe number of delivery attempts is defined as 1 + (the sum of number of \nNACKs and number of times the acknowledgement deadline has been exceeded for the message).\n\nA NACK is any call to ModifyAckDeadline with a 0 deadline. Note that\nclient libraries may automatically extend ack_deadlines.\n\nThis field will be honored on a best effort basis.\n\nIf this parameter is 0, a default value of 5 is used.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -141,7 +108,7 @@ const googlePubsubSubscription = `{
         "block": {
           "attributes": {
             "ttl": {
-              "description": "Specifies the \"time-to-live\" duration for an associated resource. The\nresource expires if it is not active for a period of ttl.\nIf ttl is set to \"\", the associated resource never expires.\nA duration in seconds with up to nine fractional digits, terminated by 's'.\nExample - \"3.5s\".",
+              "description": "Specifies the \"time-to-live\" duration for an associated resource. The\nresource expires if it is not active for a period of ttl.\nIf ttl is not set, the associated resource never expires.\nA duration in seconds with up to nine fractional digits, terminated by 's'.\nExample - \"3.5s\".",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -207,7 +174,7 @@ const googlePubsubSubscription = `{
           "attributes": {
             "maximum_backoff": {
               "computed": true,
-              "description": "The maximum delay between consecutive deliveries of a given message. Value should be between 0 and 600 seconds. Defaults to 600 seconds.\nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
+              "description": "The maximum delay between consecutive deliveries of a given message. Value should be between 0 and 600 seconds. Defaults to 600 seconds. \nA duration in seconds with up to nine fractional digits, terminated by 's'. Example: \"3.5s\".",
               "description_kind": "plain",
               "optional": true,
               "type": "string"
@@ -220,7 +187,7 @@ const googlePubsubSubscription = `{
               "type": "string"
             }
           },
-          "description": "A policy that specifies how Pub/Sub retries message delivery for this subscription.\n\nIf not set, the default retry policy is applied. This generally implies that messages will be retried as soon as possible for healthy subscribers.\nRetryPolicy will be triggered on NACKs or acknowledgement deadline exceeded events for a given message",
+          "description": "A policy that specifies how Pub/Sub retries message delivery for this subscription.\n\nIf not set, the default retry policy is applied. This generally implies that messages will be retried as soon as possible for healthy subscribers. \nRetryPolicy will be triggered on NACKs or acknowledgement deadline exceeded events for a given message",
           "description_kind": "plain"
         },
         "max_items": 1,

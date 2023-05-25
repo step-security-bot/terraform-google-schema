@@ -10,7 +10,7 @@ const googleActiveDirectoryDomainTrust = `{
   "block": {
     "attributes": {
       "domain": {
-        "description": "The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,\nhttps://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains.",
+        "description": "The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions, \nhttps://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains.",
         "description_kind": "plain",
         "required": true,
         "type": "string"

@@ -51,12 +51,6 @@ const googleSecretManagerSecretVersion = `{
         "required": true,
         "sensitive": true,
         "type": "string"
-      },
-      "version": {
-        "computed": true,
-        "description": "The version of the Secret.",
-        "description_kind": "plain",
-        "type": "string"
       }
     },
     "block_types": {

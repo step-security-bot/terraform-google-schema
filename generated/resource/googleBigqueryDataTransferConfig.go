@@ -64,7 +64,7 @@ const googleBigqueryDataTransferConfig = `{
         "type": "string"
       },
       "params": {
-        "description": "Parameters specific to each data source. For more information see the bq tab in the 'Setting up a data transfer'\nsection for each data source. For example the parameters for Cloud Storage transfers are listed here:\nhttps://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer#bq\n\n**NOTE** : If you are attempting to update a parameter that cannot be updated (due to api limitations) [please force recreation of the resource](https://www.terraform.io/cli/state/taint#forcing-re-creation-of-resources).",
+        "description": "These parameters are specific to each data source.",
         "description_kind": "plain",
         "required": true,
         "type": [
@@ -85,7 +85,7 @@ const googleBigqueryDataTransferConfig = `{
         "type": "string"
       },
       "service_account_name": {
-        "description": "Service account email. If this field is set, transfer config will\nbe created with this service account credentials. It requires that\nrequesting user calling this API has permissions to act as this service account.",
+        "description": "Optional service account name. If this field is set, transfer config will\nbe created with this service account credentials. It requires that\nrequesting user calling this API has permissions to act as this service account.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

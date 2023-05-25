@@ -21,12 +21,6 @@ const googleComputeRouter = `{
         "optional": true,
         "type": "string"
       },
-      "encrypted_interconnect_router": {
-        "description": "Indicates if a router is dedicated for use with encrypted VLAN\nattachments (interconnectAttachments).",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -87,12 +81,6 @@ const googleComputeRouter = `{
               "description": "Local BGP Autonomous System Number (ASN). Must be an RFC6996\nprivate ASN, either 16-bit or 32-bit. The value will be fixed for\nthis router resource. All VPN tunnels that link to this router\nwill have the same local ASN.",
               "description_kind": "plain",
               "required": true,
-              "type": "number"
-            },
-            "keepalive_interval": {
-              "description": "The interval in seconds between BGP keepalive messages that are sent\nto the peer. Hold time is three times the interval at which keepalive\nmessages are sent, and the hold time is the maximum number of seconds\nallowed to elapse between successive keepalive messages that BGP\nreceives from a peer.\n\nBGP will use the smaller of either the local hold time value or the\npeer's hold time value as the hold time for the BGP connection\nbetween the two peers. If set, this value must be between 20 and 60.\nThe default is 20.",
-              "description_kind": "plain",
-              "optional": true,
               "type": "number"
             }
           },

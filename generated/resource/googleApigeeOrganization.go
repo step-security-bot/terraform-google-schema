@@ -21,13 +21,6 @@ const googleApigeeOrganization = `{
         "optional": true,
         "type": "string"
       },
-      "billing_type": {
-        "computed": true,
-        "description": "Billing type of the Apigee organization. See [Apigee pricing](https://cloud.google.com/apigee/pricing).",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "ca_certificate": {
         "computed": true,
         "description": "Output only. Base64-encoded public certificate for the root CA of the Apigee organization.\nValid only when 'RuntimeType' is CLOUD. A base64-encoded string.",
@@ -64,12 +57,6 @@ const googleApigeeOrganization = `{
         "required": true,
         "type": "string"
       },
-      "retention": {
-        "description": "Optional. This setting is applicable only for organizations that are soft-deleted (i.e., BillingType\nis not EVALUATION). It controls how long Organization data will be retained after the initial delete\noperation completes. During this period, the Organization may be restored to its last known state.\nAfter this period, the Organization will no longer be able to be restored. Default value: \"DELETION_RETENTION_UNSPECIFIED\" Possible values: [\"DELETION_RETENTION_UNSPECIFIED\", \"MINIMUM\"]",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "runtime_database_encryption_key_name": {
         "description": "Cloud KMS key name used for encrypting the data that is stored and replicated across runtime instances.\nUpdate is not allowed after the organization is created.\nIf not specified, a Google-Managed encryption key will be used.\nValid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/keyRings/bar/cryptoKeys/baz'.",
         "description_kind": "plain",
@@ -90,37 +77,6 @@ const googleApigeeOrganization = `{
       }
     },
     "block_types": {
-      "properties": {
-        "block": {
-          "block_types": {
-            "property": {
-              "block": {
-                "attributes": {
-                  "name": {
-                    "description": "Name of the property.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
-                  "value": {
-                    "description": "Value of the property.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  }
-                },
-                "description": "List of all properties in the object.",
-                "description_kind": "plain"
-              },
-              "nesting_mode": "list"
-            }
-          },
-          "description": "Properties defined in the Apigee organization profile.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
       "timeouts": {
         "block": {
           "attributes": {

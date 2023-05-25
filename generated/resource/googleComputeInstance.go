@@ -29,7 +29,7 @@ const googleComputeInstance = `{
       },
       "current_status": {
         "computed": true,
-        "description": "\n\t\t\t\t\tCurrent status of the instance.\n\t\t\t\t\tThis could be one of the following values: PROVISIONING, STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, REPAIRING, and TERMINATED.\n\t\t\t\t\tFor more information about the status of the instance, see [Instance life cycle](https://cloud.google.com/compute/docs/instances/instance-life-cycle).",
+        "description": "Current status of the instance.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -154,7 +154,7 @@ const googleComputeInstance = `{
         "type": "string"
       },
       "resource_policies": {
-        "description": "A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
+        "description": "A list of short names or self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -203,12 +203,6 @@ const googleComputeInstance = `{
             },
             "threads_per_core": {
               "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "visible_core_count": {
-              "description": "The number of physical cores to expose to an instance. Multiply by the number of threads per core to compute the total number of virtual CPUs to expose to the instance. If unset, the number of cores is inferred from the instance\\'s nominal CPU count and the underlying platform\\'s SMT width.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -348,7 +342,7 @@ const googleComputeInstance = `{
                   },
                   "type": {
                     "computed": true,
-                    "description": "The Google Compute Engine disk type. Such as pd-standard, pd-ssd or pd-balanced.",
+                    "description": "The Google Compute Engine disk type. One of pd-standard, pd-ssd or pd-balanced.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -418,12 +412,6 @@ const googleComputeInstance = `{
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            },
-            "queue_count": {
-              "description": "The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It will be empty if not specified.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
             },
             "stack_type": {
               "computed": true,
@@ -590,12 +578,6 @@ const googleComputeInstance = `{
               "optional": true,
               "type": "bool"
             },
-            "instance_termination_action": {
-              "description": "Specifies the action GCE should take when SPOT VM is preempted.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "min_node_cpus": {
               "description_kind": "plain",
               "optional": true,
@@ -613,13 +595,6 @@ const googleComputeInstance = `{
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
-            },
-            "provisioning_model": {
-              "computed": true,
-              "description": "Whether the instance is spot. If this is set as SPOT.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
             }
           },
           "block_types": {
@@ -665,12 +640,6 @@ const googleComputeInstance = `{
               "description_kind": "plain",
               "required": true,
               "type": "string"
-            },
-            "size": {
-              "description": "The size of the disk in gigabytes. One of 375 or 3000.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
             }
           },
           "description": "The scratch disks attached to the instance.",

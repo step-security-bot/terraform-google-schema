@@ -9,18 +9,6 @@ import (
 const googleOrganizationAccessApprovalSettings = `{
   "block": {
     "attributes": {
-      "active_key_version": {
-        "description": "The asymmetric crypto key version to use for signing approval requests.\nEmpty active_key_version indicates that a Google-managed key should be used for signing.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
-      "ancestor_has_active_key_version": {
-        "computed": true,
-        "description": "This field will always be unset for the organization since organizations do not have ancestors.",
-        "description_kind": "plain",
-        "type": "bool"
-      },
       "enrolled_ancestor": {
         "computed": true,
         "description": "This field will always be unset for the organization since organizations do not have ancestors.",
@@ -32,12 +20,6 @@ const googleOrganizationAccessApprovalSettings = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "invalid_key_version": {
-        "computed": true,
-        "description": "If the field is true, that indicates that there is some configuration issue with the active_key_version\nconfigured on this Organization (e.g. it doesn't exist or the Access Approval service account doesn't have the\ncorrect permissions on it, etc.).",
-        "description_kind": "plain",
-        "type": "bool"
       },
       "name": {
         "computed": true,

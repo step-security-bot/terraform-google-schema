@@ -9,15 +9,6 @@ import (
 const googleSqlDatabaseInstance = `{
   "block": {
     "attributes": {
-      "available_maintenance_versions": {
-        "computed": true,
-        "description": "Available Maintenance versions.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          "string"
-        ]
-      },
       "clone": {
         "computed": true,
         "description": "Configuration for creating a new instance as a clone of another instance.",
@@ -27,11 +18,6 @@ const googleSqlDatabaseInstance = `{
           [
             "object",
             {
-              "allocated_ip_range": "string",
-              "database_names": [
-                "list",
-                "string"
-              ],
               "point_in_time": "string",
               "source_instance_name": "string"
             }
@@ -46,20 +32,15 @@ const googleSqlDatabaseInstance = `{
       },
       "database_version": {
         "computed": true,
-        "description": "The MySQL, PostgreSQL or SQL Server (beta) version to use. Supported values include MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. Database Version Policies includes an up-to-date reference of supported versions.",
+        "description": "The MySQL, PostgreSQL or SQL Server (beta) version to use. Supported values include MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. Database Version Policies includes an up-to-date reference of supported versions.",
         "description_kind": "plain",
         "type": "string"
       },
       "deletion_protection": {
         "computed": true,
-        "description": "Used to block Terraform from deleting a SQL Instance. Defaults to true.",
+        "description": "Used to block Terraform from deleting a SQL Instance.",
         "description_kind": "plain",
         "type": "bool"
-      },
-      "encryption_key_name": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
       },
       "first_ip_address": {
         "computed": true,
@@ -71,12 +52,6 @@ const googleSqlDatabaseInstance = `{
         "computed": true,
         "description_kind": "plain",
         "optional": true,
-        "type": "string"
-      },
-      "instance_type": {
-        "computed": true,
-        "description": "The type of the instance. The valid values are:- 'SQL_INSTANCE_TYPE_UNSPECIFIED', 'CLOUD_SQL_INSTANCE', 'ON_PREMISES_INSTANCE' and 'READ_REPLICA_INSTANCE'.",
-        "description_kind": "plain",
         "type": "string"
       },
       "ip_address": {
@@ -93,12 +68,6 @@ const googleSqlDatabaseInstance = `{
             }
           ]
         ]
-      },
-      "maintenance_version": {
-        "computed": true,
-        "description": "Maintenance version.",
-        "description_kind": "plain",
-        "type": "string"
       },
       "master_instance_name": {
         "computed": true,
@@ -177,7 +146,7 @@ const googleSqlDatabaseInstance = `{
       },
       "root_password": {
         "computed": true,
-        "description": "Initial root password. Required for MS SQL Server.",
+        "description": "Initial root password. Required for MS SQL Server, ignored by MySQL and PostgreSQL.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -220,23 +189,9 @@ const googleSqlDatabaseInstance = `{
             "object",
             {
               "activation_policy": "string",
-              "active_directory_config": [
+              "authorized_gae_applications": [
                 "list",
-                [
-                  "object",
-                  {
-                    "domain": "string"
-                  }
-                ]
-              ],
-              "advanced_machine_features": [
-                "list",
-                [
-                  "object",
-                  {
-                    "threads_per_core": "number"
-                  }
-                ]
+                "string"
               ],
               "availability_type": "string",
               "backup_configuration": [
@@ -264,7 +219,7 @@ const googleSqlDatabaseInstance = `{
                 ]
               ],
               "collation": "string",
-              "connector_enforcement": "string",
+              "crash_safe_replication": "bool",
               "database_flags": [
                 "list",
                 [
@@ -272,18 +227,6 @@ const googleSqlDatabaseInstance = `{
                   {
                     "name": "string",
                     "value": "string"
-                  }
-                ]
-              ],
-              "deletion_protection_enabled": "bool",
-              "deny_maintenance_period": [
-                "list",
-                [
-                  "object",
-                  {
-                    "end_date": "string",
-                    "start_date": "string",
-                    "time": "string"
                   }
                 ]
               ],
@@ -297,7 +240,6 @@ const googleSqlDatabaseInstance = `{
                   "object",
                   {
                     "query_insights_enabled": "bool",
-                    "query_plans_per_minute": "number",
                     "query_string_length": "number",
                     "record_application_tags": "bool",
                     "record_client_address": "bool"
@@ -309,7 +251,6 @@ const googleSqlDatabaseInstance = `{
                 [
                   "object",
                   {
-                    "allocated_ip_range": "string",
                     "authorized_networks": [
                       "set",
                       [
@@ -321,7 +262,6 @@ const googleSqlDatabaseInstance = `{
                         }
                       ]
                     ],
-                    "enable_private_path_for_google_cloud_services": "bool",
                     "ipv4_enabled": "bool",
                     "private_network": "string",
                     "require_ssl": "bool"
@@ -334,7 +274,6 @@ const googleSqlDatabaseInstance = `{
                   "object",
                   {
                     "follow_gae_application": "string",
-                    "secondary_zone": "string",
                     "zone": "string"
                   }
                 ]
@@ -350,34 +289,9 @@ const googleSqlDatabaseInstance = `{
                   }
                 ]
               ],
-              "password_validation_policy": [
-                "list",
-                [
-                  "object",
-                  {
-                    "complexity": "string",
-                    "disallow_username_substring": "bool",
-                    "enable_password_policy": "bool",
-                    "min_length": "number",
-                    "password_change_interval": "string",
-                    "reuse_interval": "number"
-                  }
-                ]
-              ],
               "pricing_plan": "string",
-              "sql_server_audit_config": [
-                "list",
-                [
-                  "object",
-                  {
-                    "bucket": "string",
-                    "retention_interval": "string",
-                    "upload_interval": "string"
-                  }
-                ]
-              ],
+              "replication_type": "string",
               "tier": "string",
-              "time_zone": "string",
               "user_labels": [
                 "map",
                 "string"

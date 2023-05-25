@@ -30,11 +30,6 @@ const googleServiceAccount = `{
         "optional": true,
         "type": "string"
       },
-      "member": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": "string"
-      },
       "name": {
         "computed": true,
         "description_kind": "plain",

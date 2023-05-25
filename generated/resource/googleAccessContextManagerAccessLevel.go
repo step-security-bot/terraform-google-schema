@@ -219,7 +219,7 @@ const googleAccessContextManagerAccessLevel = `{
                     "type": "string"
                   }
                 },
-                "description": "Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language.\nThis page details the objects and attributes that are used to the build the CEL expressions for\ncustom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec.",
+                "description": "Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language.\nThis page details the objects and attributes that are used to the build the CEL expressions for \ncustom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -227,7 +227,7 @@ const googleAccessContextManagerAccessLevel = `{
               "nesting_mode": "list"
             }
           },
-          "description": "Custom access level conditions are set using the Cloud Common Expression Language to represent the necessary conditions for the level to apply to a request.\nSee CEL spec at: https://github.com/google/cel-spec.",
+          "description": "Custom access level conditions are set using the Cloud Common Expression Language to represent the necessary conditions for the level to apply to a request. \nSee CEL spec at: https://github.com/google/cel-spec.",
           "description_kind": "plain"
         },
         "max_items": 1,

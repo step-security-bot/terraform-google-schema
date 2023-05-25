@@ -40,7 +40,7 @@ const googleCloudIdentityGroup = `{
         "type": "string"
       },
       "labels": {
-        "description": "One or more label entries that apply to the Group. Currently supported labels contain a key with an empty value.\n\nGoogle Groups are the default type of group and have a label with a key of cloudidentity.googleapis.com/groups.discussion_forum and an empty value.\n\nExisting Google Groups can have an additional label with a key of cloudidentity.googleapis.com/groups.security and an empty value added to them. This is an immutable change and the security label cannot be removed once added.\n\nDynamic groups have a label with a key of cloudidentity.googleapis.com/groups.dynamic.\n\nIdentity-mapped groups for Cloud Search have a label with a key of system/groups/external and an empty value.",
+        "description": "The labels that apply to the Group.\n\nMust not contain more than one entry. Must contain the entry\n'cloudidentity.googleapis.com/groups.discussion_forum': '' if the Group is a Google Group or\n'system/groups/external': '' if the Group is an external-identity-mapped group.",
         "description_kind": "plain",
         "required": true,
         "type": [

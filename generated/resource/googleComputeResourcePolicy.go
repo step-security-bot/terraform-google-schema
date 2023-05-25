@@ -63,7 +63,7 @@ const googleComputeResourcePolicy = `{
               "type": "string"
             },
             "vm_count": {
-              "description": "Number of VMs in this placement group. Google does not recommend that you use this field\nunless you use a compact policy and you want your policy to work only if it contains this\nexact number of VMs.",
+              "description": "Number of vms in this placement group.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -253,12 +253,6 @@ const googleComputeResourcePolicy = `{
             "snapshot_properties": {
               "block": {
                 "attributes": {
-                  "chain_name": {
-                    "description": "Creates the new snapshot in the snapshot chain labeled with the\nspecified name. The chain name must be 1-63 characters long and comply\nwith RFC1035.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "string"
-                  },
                   "guest_flush": {
                     "description": "Whether to perform a 'guest aware' snapshot.",
                     "description_kind": "plain",

@@ -177,12 +177,6 @@ const googleBigqueryTable = `{
               "optional": true,
               "type": "string"
             },
-            "connection_id": {
-              "description": "The connection specifying the credentials to be used to read external storage, such as Azure Blob, Cloud Storage, or S3. The connectionId can have the form \"{{project}}.{{location}}.{{connection_id}}\" or \"projects/{{project}}/locations/{{location}}/connections/{{connection_id}}\".",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "ignore_unknown_values": {
               "description": "Indicates if BigQuery should allow extra values that are not represented in the table schema. If true, the extra values are ignored. If false, records with extra columns are treated as bad records, and if there are too many bad records, an invalid error is returned in the job result. The default value is false.",
               "description_kind": "plain",
@@ -195,12 +189,6 @@ const googleBigqueryTable = `{
               "optional": true,
               "type": "number"
             },
-            "reference_file_schema_uri": {
-              "description": "When creating an external table, the user can provide a reference file with the table schema. This is enabled for the following formats: AVRO, PARQUET, ORC.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "schema": {
               "computed": true,
               "description": "A JSON schema for the external table. Schema is required for CSV and JSON formats and is disallowed for Google Cloud Bigtable, Cloud Datastore backups, and Avro formats when using external tables.",
@@ -209,7 +197,7 @@ const googleBigqueryTable = `{
               "type": "string"
             },
             "source_format": {
-              "description": " Please see sourceFormat under ExternalDataConfiguration in Bigquery's public API documentation (https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#externaldataconfiguration) for supported formats. To use \"GOOGLE_SHEETS\" the scopes must include \"googleapis.com/auth/drive.readonly\".",
+              "description": "The data format. Supported values are: \"CSV\", \"GOOGLE_SHEETS\", \"NEWLINE_DELIMITED_JSON\", \"AVRO\", \"PARQUET\", \"ORC\" and \"DATASTORE_BACKUP\". To use \"GOOGLE_SHEETS\" the scopes must include \"googleapis.com/auth/drive.readonly\".",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -225,22 +213,6 @@ const googleBigqueryTable = `{
             }
           },
           "block_types": {
-            "avro_options": {
-              "block": {
-                "attributes": {
-                  "use_avro_logical_types": {
-                    "description": "If sourceFormat is set to \"AVRO\", indicates whether to interpret logical types as the corresponding BigQuery data type (for example, TIMESTAMP), instead of using the raw type (for example, INTEGER).",
-                    "description_kind": "plain",
-                    "required": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Additional options if source_format is set to \"AVRO\"",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
-              "nesting_mode": "list"
-            },
             "csv_options": {
               "block": {
                 "attributes": {

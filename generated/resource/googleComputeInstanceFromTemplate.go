@@ -51,7 +51,7 @@ const googleComputeInstanceFromTemplate = `{
       },
       "current_status": {
         "computed": true,
-        "description": "\n\t\t\t\t\tCurrent status of the instance.\n\t\t\t\t\tThis could be one of the following values: PROVISIONING, STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, REPAIRING, and TERMINATED.\n\t\t\t\t\tFor more information about the status of the instance, see [Instance life cycle](https://cloud.google.com/compute/docs/instances/instance-life-cycle).",
+        "description": "Current status of the instance.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -186,7 +186,7 @@ const googleComputeInstanceFromTemplate = `{
       },
       "resource_policies": {
         "computed": true,
-        "description": "A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
+        "description": "A list of short names or self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -204,8 +204,7 @@ const googleComputeInstanceFromTemplate = `{
           [
             "object",
             {
-              "interface": "string",
-              "size": "number"
+              "interface": "string"
             }
           ]
         ]
@@ -279,13 +278,6 @@ const googleComputeInstanceFromTemplate = `{
             "threads_per_core": {
               "computed": true,
               "description": "The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
-            },
-            "visible_core_count": {
-              "computed": true,
-              "description": "The number of physical cores to expose to an instance. Multiply by the number of threads per core to compute the total number of virtual CPUs to expose to the instance. If unset, the number of cores is inferred from the instance\\'s nominal CPU count and the underlying platform\\'s SMT width.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
@@ -380,7 +372,7 @@ const googleComputeInstanceFromTemplate = `{
                   },
                   "type": {
                     "computed": true,
-                    "description": "The Google Compute Engine disk type. Such as pd-standard, pd-ssd or pd-balanced.",
+                    "description": "The Google Compute Engine disk type. One of pd-standard, pd-ssd or pd-balanced.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -483,13 +475,6 @@ const googleComputeInstanceFromTemplate = `{
               "description_kind": "plain",
               "optional": true,
               "type": "string"
-            },
-            "queue_count": {
-              "computed": true,
-              "description": "The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It will be empty if not specified.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "number"
             },
             "stack_type": {
               "computed": true,
@@ -607,13 +592,6 @@ const googleComputeInstanceFromTemplate = `{
               "optional": true,
               "type": "bool"
             },
-            "instance_termination_action": {
-              "computed": true,
-              "description": "Specifies the action GCE should take when SPOT VM is preempted.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "min_node_cpus": {
               "computed": true,
               "description_kind": "plain",
@@ -633,13 +611,6 @@ const googleComputeInstanceFromTemplate = `{
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
-            },
-            "provisioning_model": {
-              "computed": true,
-              "description": "Whether the instance is spot. If this is set as SPOT.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
             }
           },
           "block_types": {

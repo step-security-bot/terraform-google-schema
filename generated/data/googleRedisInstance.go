@@ -51,12 +51,6 @@ const googleRedisInstance = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "customer_managed_key": {
-        "computed": true,
-        "description": "Optional. The KMS key reference that you want to use to encrypt the data at rest for this Redis\ninstance. If this is provided, CMEK is enabled.",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "display_name": {
         "computed": true,
         "description": "An arbitrary and optional user-provided name for the instance.",
@@ -90,60 +84,6 @@ const googleRedisInstance = `{
         "description_kind": "plain",
         "type": "string"
       },
-      "maintenance_policy": {
-        "computed": true,
-        "description": "Maintenance policy for an instance.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "create_time": "string",
-              "description": "string",
-              "update_time": "string",
-              "weekly_maintenance_window": [
-                "list",
-                [
-                  "object",
-                  {
-                    "day": "string",
-                    "duration": "string",
-                    "start_time": [
-                      "list",
-                      [
-                        "object",
-                        {
-                          "hours": "number",
-                          "minutes": "number",
-                          "nanos": "number",
-                          "seconds": "number"
-                        }
-                      ]
-                    ]
-                  }
-                ]
-              ]
-            }
-          ]
-        ]
-      },
-      "maintenance_schedule": {
-        "computed": true,
-        "description": "Upcoming maintenance schedule.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "end_time": "string",
-              "schedule_deadline_time": "string",
-              "start_time": "string"
-            }
-          ]
-        ]
-      },
       "memory_size_gb": {
         "computed": true,
         "description": "Redis memory size in GiB.",
@@ -155,38 +95,6 @@ const googleRedisInstance = `{
         "description_kind": "plain",
         "required": true,
         "type": "string"
-      },
-      "nodes": {
-        "computed": true,
-        "description": "Output only. Info per node.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "id": "string",
-              "zone": "string"
-            }
-          ]
-        ]
-      },
-      "persistence_config": {
-        "computed": true,
-        "description": "Persistence configuration for an instance.",
-        "description_kind": "plain",
-        "type": [
-          "list",
-          [
-            "object",
-            {
-              "persistence_mode": "string",
-              "rdb_next_snapshot_time": "string",
-              "rdb_snapshot_period": "string",
-              "rdb_snapshot_start_time": "string"
-            }
-          ]
-        ]
       },
       "persistence_iam_identity": {
         "computed": true,
@@ -205,24 +113,6 @@ const googleRedisInstance = `{
         "optional": true,
         "type": "string"
       },
-      "read_endpoint": {
-        "computed": true,
-        "description": "Output only. Hostname or IP address of the exposed readonly Redis endpoint. Standard tier only.\nTargets all healthy replica nodes in instance. Replication is asynchronous and replica nodes\nwill exhibit some lag behind the primary. Write requests must target 'host'.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "read_endpoint_port": {
-        "computed": true,
-        "description": "Output only. The port number of the exposed readonly redis endpoint. Standard tier only.\nWrite requests should target 'port'.",
-        "description_kind": "plain",
-        "type": "number"
-      },
-      "read_replicas_mode": {
-        "computed": true,
-        "description": "Optional. Read replica mode. Can only be specified when trying to create the instance.\nIf not set, Memorystore Redis backend will default to READ_REPLICAS_DISABLED.\n- READ_REPLICAS_DISABLED: If disabled, read endpoint will not be provided and the\ninstance cannot scale up or down the number of replicas.\n- READ_REPLICAS_ENABLED: If enabled, read endpoint will be provided and the instance\ncan scale up and down the number of replicas. Possible values: [\"READ_REPLICAS_DISABLED\", \"READ_REPLICAS_ENABLED\"]",
-        "description_kind": "plain",
-        "type": "string"
-      },
       "redis_configs": {
         "computed": true,
         "description": "Redis configuration parameters, according to http://redis.io/topics/config.\nPlease check Memorystore documentation for the list of supported parameters:\nhttps://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#Instance.FIELDS.redis_configs",
@@ -234,7 +124,7 @@ const googleRedisInstance = `{
       },
       "redis_version": {
         "computed": true,
-        "description": "The version of Redis software. If not provided, latest supported\nversion will be used. Please check the API documentation linked\nat the top for the latest valid values.",
+        "description": "The version of Redis software. If not provided, latest supported\nversion will be used. Please check the API documentation linked \nat the top for the latest valid values.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -244,21 +134,9 @@ const googleRedisInstance = `{
         "optional": true,
         "type": "string"
       },
-      "replica_count": {
-        "computed": true,
-        "description": "Optional. The number of replica nodes. The valid range for the Standard Tier with\nread replicas enabled is [1-5] and defaults to 2. If read replicas are not enabled\nfor a Standard Tier instance, the only valid value is 1 and the default is 1.\nThe valid value for basic tier is 0 and the default is also 0.",
-        "description_kind": "plain",
-        "type": "number"
-      },
       "reserved_ip_range": {
         "computed": true,
         "description": "The CIDR range of internal addresses that are reserved for this\ninstance. If not provided, the service will choose an unused /29\nblock, for example, 10.0.0.0/29 or 192.168.0.0/29. Ranges must be\nunique and non-overlapping with existing subnets in an authorized\nnetwork.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "secondary_ip_range": {
-        "computed": true,
-        "description": "Optional. Additional IP range for node placement. Required when enabling read replicas on\nan existing instance. For DIRECT_PEERING mode value must be a CIDR range of size /28, or\n\"auto\". For PRIVATE_SERVICE_ACCESS mode value must be the name of an allocated address\nrange associated with the private service access connection, or \"auto\".",
         "description_kind": "plain",
         "type": "string"
       },
@@ -288,7 +166,7 @@ const googleRedisInstance = `{
       },
       "transit_encryption_mode": {
         "computed": true,
-        "description": "The TLS mode of the Redis instance, If not provided, TLS is disabled for the instance.\n\n- SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentication Default value: \"DISABLED\" Possible values: [\"SERVER_AUTHENTICATION\", \"DISABLED\"]",
+        "description": "The TLS mode of the Redis instance, If not provided, TLS is disabled for the instance.\n\n- SERVER_AUTHENTICATION: Client to Server traffic encryption enabled with server authentcation Default value: \"DISABLED\" Possible values: [\"SERVER_AUTHENTICATION\", \"DISABLED\"]",
         "description_kind": "plain",
         "type": "string"
       }

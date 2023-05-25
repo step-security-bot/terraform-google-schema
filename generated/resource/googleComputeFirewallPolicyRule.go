@@ -10,7 +10,7 @@ const googleComputeFirewallPolicyRule = `{
   "block": {
     "attributes": {
       "action": {
-        "description": "The Action to perform when the client connection triggers the rule. Valid actions are \"allow\", \"deny\" and \"goto_next\".",
+        "description": "The Action to perform when the client connection triggers the rule. Can currently be either \"allow\" or \"deny()\" where valid values for status are 403, 404, and 502.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -92,24 +92,6 @@ const googleComputeFirewallPolicyRule = `{
       "match": {
         "block": {
           "attributes": {
-            "dest_address_groups": {
-              "description": "Address groups which should be matched against the traffic destination. Maximum number of destination address groups is 10. Destination address groups is only supported in Egress rules.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "dest_fqdns": {
-              "description": "Domain names that will be used to match against the resolved domain name of destination of traffic. Can only be specified if DIRECTION is egress.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
             "dest_ip_ranges": {
               "description": "CIDR IP address range. Maximum number of destination CIDR IP ranges allowed is 256.",
               "description_kind": "plain",
@@ -119,62 +101,8 @@ const googleComputeFirewallPolicyRule = `{
                 "string"
               ]
             },
-            "dest_region_codes": {
-              "description": "The Unicode country codes whose IP addresses will be used to match against the source of traffic. Can only be specified if DIRECTION is egress.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "dest_threat_intelligences": {
-              "description": "Name of the Google Cloud Threat Intelligence list.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "src_address_groups": {
-              "description": "Address groups which should be matched against the traffic source. Maximum number of source address groups is 10. Source address groups is only supported in Ingress rules.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "src_fqdns": {
-              "description": "Domain names that will be used to match against the resolved domain name of source of traffic. Can only be specified if DIRECTION is ingress.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
             "src_ip_ranges": {
               "description": "CIDR IP address range. Maximum number of source CIDR IP ranges allowed is 256.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "src_region_codes": {
-              "description": "The Unicode country codes whose IP addresses will be used to match against the source of traffic. Can only be specified if DIRECTION is ingress.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": [
-                "list",
-                "string"
-              ]
-            },
-            "src_threat_intelligences": {
-              "description": "Name of the Google Cloud Threat Intelligence list.",
               "description_kind": "plain",
               "optional": true,
               "type": [

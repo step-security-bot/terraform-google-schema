@@ -24,31 +24,6 @@ const googleComputeBackendBucket = `{
           [
             "object",
             {
-              "bypass_cache_on_request_headers": [
-                "list",
-                [
-                  "object",
-                  {
-                    "header_name": "string"
-                  }
-                ]
-              ],
-              "cache_key_policy": [
-                "list",
-                [
-                  "object",
-                  {
-                    "include_http_headers": [
-                      "list",
-                      "string"
-                    ],
-                    "query_string_whitelist": [
-                      "list",
-                      "string"
-                    ]
-                  }
-                ]
-              ],
               "cache_mode": "string",
               "client_ttl": "number",
               "default_ttl": "number",
@@ -64,18 +39,11 @@ const googleComputeBackendBucket = `{
                   }
                 ]
               ],
-              "request_coalescing": "bool",
               "serve_while_stale": "number",
               "signed_url_cache_max_age_sec": "number"
             }
           ]
         ]
-      },
-      "compression_mode": {
-        "computed": true,
-        "description": "Compress text responses using Brotli or gzip compression, based on the client's Accept-Encoding header. Possible values: [\"AUTOMATIC\", \"DISABLED\"]",
-        "description_kind": "plain",
-        "type": "string"
       },
       "creation_timestamp": {
         "computed": true,
@@ -95,12 +63,6 @@ const googleComputeBackendBucket = `{
       "description": {
         "computed": true,
         "description": "An optional textual description of the resource; provided by the\nclient when the resource is created.",
-        "description_kind": "plain",
-        "type": "string"
-      },
-      "edge_security_policy": {
-        "computed": true,
-        "description": "The security policy associated with this backend bucket.",
         "description_kind": "plain",
         "type": "string"
       },

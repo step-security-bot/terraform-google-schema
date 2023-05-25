@@ -125,7 +125,7 @@ const googleHealthcareFhirStore = `{
                           "type": "number"
                         },
                         "schema_type": {
-                          "description": "Specifies the output schema type.\n * ANALYTICS: Analytics schema defined by the FHIR community.\n  See https://github.com/FHIR/sql-on-fhir/blob/master/sql-on-fhir.md.\n * ANALYTICS_V2: Analytics V2, similar to schema defined by the FHIR community, with added support for extensions with one or more occurrences and contained resources in stringified JSON.\n * LOSSLESS: A data-driven schema generated from the fields present in the FHIR data being exported, with no additional simplification. Default value: \"ANALYTICS\" Possible values: [\"ANALYTICS\", \"ANALYTICS_V2\", \"LOSSLESS\"]",
+                          "description": "Specifies the output schema type. Only ANALYTICS is supported at this time.\n * ANALYTICS: Analytics schema defined by the FHIR community.\n  See https://github.com/FHIR/sql-on-fhir/blob/master/sql-on-fhir.md. Default value: \"ANALYTICS\" Possible values: [\"ANALYTICS\"]",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"

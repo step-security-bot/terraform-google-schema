@@ -28,7 +28,7 @@ const googleSourcerepoRepository = `{
       },
       "pubsub_configs": {
         "computed": true,
-        "description": "How this repository publishes a change in the repository through Cloud Pub/Sub.\nKeyed by the topic names.",
+        "description": "How this repository publishes a change in the repository through Cloud Pub/Sub. \nKeyed by the topic names.",
         "description_kind": "plain",
         "type": [
           "set",

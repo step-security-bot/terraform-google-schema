@@ -361,12 +361,6 @@ const googleBigqueryJob = `{
               "optional": true,
               "type": "bool"
             },
-            "json_extension": {
-              "description": "If sourceFormat is set to newline-delimited JSON, indicates whether it should be processed as a JSON variant such as GeoJSON.\nFor a sourceFormat other than JSON, omit this field. If the sourceFormat is newline-delimited JSON: - for newline-delimited\nGeoJSON: set to GEOJSON.",
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
             "max_bad_records": {
               "description": "The maximum number of bad records that BigQuery can ignore when running the job. If the number of bad records exceeds this value,\nan invalid error is returned in the job result. The default value is 0, which requires that all records are valid.",
               "description_kind": "plain",
@@ -417,7 +411,7 @@ const googleBigqueryJob = `{
               "type": "string"
             },
             "source_uris": {
-              "description": "The fully-qualified URIs that point to your data in Google Cloud.\nFor Google Cloud Storage URIs: Each URI can contain one '\\*' wildcard character\nand it must come after the 'bucket' name. Size limits related to load jobs apply\nto external data sources. For Google Cloud Bigtable URIs: Exactly one URI can be\nspecified and it has be a fully specified and valid HTTPS URL for a Google Cloud Bigtable table.\nFor Google Cloud Datastore backups: Exactly one URI can be specified. Also, the '\\*' wildcard character is not allowed.",
+              "description": "The fully-qualified URIs that point to your data in Google Cloud.\nFor Google Cloud Storage URIs: Each URI can contain one '*' wildcard character\nand it must come after the 'bucket' name. Size limits related to load jobs apply\nto external data sources. For Google Cloud Bigtable URIs: Exactly one URI can be\nspecified and it has be a fully specified and valid HTTPS URL for a Google Cloud Bigtable table.\nFor Google Cloud Datastore backups: Exactly one URI can be specified. Also, the '*' wildcard character is not allowed.",
               "description_kind": "plain",
               "required": true,
               "type": [
@@ -484,28 +478,6 @@ const googleBigqueryJob = `{
               },
               "max_items": 1,
               "min_items": 1,
-              "nesting_mode": "list"
-            },
-            "parquet_options": {
-              "block": {
-                "attributes": {
-                  "enable_list_inference": {
-                    "description": "If sourceFormat is set to PARQUET, indicates whether to use schema inference specifically for Parquet LIST logical type.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  },
-                  "enum_as_string": {
-                    "description": "If sourceFormat is set to PARQUET, indicates whether to infer Parquet ENUM logical type as STRING instead of BYTES by default.",
-                    "description_kind": "plain",
-                    "optional": true,
-                    "type": "bool"
-                  }
-                },
-                "description": "Parquet Options for load and make external tables.",
-                "description_kind": "plain"
-              },
-              "max_items": 1,
               "nesting_mode": "list"
             },
             "time_partitioning": {

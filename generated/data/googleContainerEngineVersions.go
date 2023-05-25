@@ -48,14 +48,6 @@ const googleContainerEngineVersions = `{
           "string"
         ]
       },
-      "release_channel_latest_version": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": [
-          "map",
-          "string"
-        ]
-      },
       "valid_master_versions": {
         "computed": true,
         "description_kind": "plain",

@@ -57,15 +57,6 @@ const googleMonitoringAppEngineService = `{
             }
           ]
         ]
-      },
-      "user_labels": {
-        "computed": true,
-        "description": "Labels which have been used to annotate the service. Label keys must start\nwith a letter. Label keys and values may contain lowercase letters,\nnumbers, underscores, and dashes. Label keys and values have a maximum\nlength of 63 characters, and must be less than 128 bytes in size. Up to 64\nlabel entries may be stored. For labels which do not have a semantic value,\nthe empty string may be supplied for the label value.",
-        "description_kind": "plain",
-        "type": [
-          "map",
-          "string"
-        ]
       }
     },
     "description_kind": "plain"

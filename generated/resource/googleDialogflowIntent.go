@@ -32,7 +32,7 @@ const googleDialogflowIntent = `{
         "type": "string"
       },
       "events": {
-        "description": "The collection of event names that trigger the intent. If the collection of input contexts is not empty, all of\nthe contexts must be present in the active user session for an event to trigger this intent. See the\n[events reference](https://cloud.google.com/dialogflow/docs/events-overview) for more details.",
+        "description": "The collection of event names that trigger the intent. If the collection of input contexts is not empty, all of\nthe contexts must be present in the active user session for an event to trigger this intent. See the \n[events reference](https://cloud.google.com/dialogflow/docs/events-overview) for more details.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -86,7 +86,7 @@ const googleDialogflowIntent = `{
       },
       "name": {
         "computed": true,
-        "description": "The unique identifier of this intent.\nFormat: projects/\u003cProject ID\u003e/agent/intents/\u003cIntent ID\u003e.",
+        "description": "The unique identifier of this intent. \nFormat: projects/\u003cProject ID\u003e/agent/intents/\u003cIntent ID\u003e.",
         "description_kind": "plain",
         "type": "string"
       },

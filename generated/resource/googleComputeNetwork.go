@@ -16,7 +16,6 @@ const googleComputeNetwork = `{
         "type": "bool"
       },
       "delete_default_routes_on_create": {
-        "description": "If set to 'true', default routes ('0.0.0.0/0') will be deleted\nimmediately after network creation. Defaults to 'false'.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"
@@ -26,12 +25,6 @@ const googleComputeNetwork = `{
         "description_kind": "plain",
         "optional": true,
         "type": "string"
-      },
-      "enable_ula_internal_ipv6": {
-        "description": "Enable ULA internal ipv6 on this network. Enabling this feature will assign\na /48 from google defined ULA prefix fd20::/20.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
       },
       "gateway_ipv4": {
         "computed": true,
@@ -45,16 +38,9 @@ const googleComputeNetwork = `{
         "optional": true,
         "type": "string"
       },
-      "internal_ipv6_range": {
-        "computed": true,
-        "description": "When enabling ula internal ipv6, caller optionally can specify the /48 range\nthey want from the google defined ULA prefix fd20::/20. The input must be a\nvalid /48 ULA IPv6 address and must be within the fd20::/20. Operation will\nfail if the speficied /48 is already in used by another resource.\nIf the field is not speficied, then a /48 range will be randomly allocated from fd20::/20 and returned via this field.",
-        "description_kind": "plain",
-        "optional": true,
-        "type": "string"
-      },
       "mtu": {
         "computed": true,
-        "description": "Maximum Transmission Unit in bytes. The default value is 1460 bytes.\nThe minimum value for this field is 1300 and the maximum value is 8896 bytes (jumbo frames).\nNote that packets larger than 1500 bytes (standard Ethernet) can be subject to TCP-MSS clamping or dropped\nwith an ICMP 'Fragmentation-Needed' message if the packets are routed to the Internet or other VPCs\nwith varying MTUs.",
+        "description": "Maximum Transmission Unit in bytes. The minimum value for this field is 1460\nand the maximum value is 1500 bytes.",
         "description_kind": "plain",
         "optional": true,
         "type": "number"
@@ -63,12 +49,6 @@ const googleComputeNetwork = `{
         "description": "Name of the resource. Provided by the client when the resource is\ncreated. The name must be 1-63 characters long, and comply with\nRFC1035. Specifically, the name must be 1-63 characters long and match\nthe regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the\nfirst character must be a lowercase letter, and all following\ncharacters must be a dash, lowercase letter, or digit, except the last\ncharacter, which cannot be a dash.",
         "description_kind": "plain",
         "required": true,
-        "type": "string"
-      },
-      "network_firewall_policy_enforcement_order": {
-        "description": "Set the order that Firewall Rules and Firewall Policies are evaluated. Default value: \"AFTER_CLASSIC_FIREWALL\" Possible values: [\"BEFORE_CLASSIC_FIREWALL\", \"AFTER_CLASSIC_FIREWALL\"]",
-        "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "project": {
