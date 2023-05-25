@@ -1,4 +1,4 @@
-module github.com/lonegunmanb/terraform-google-schema/v3
+module github.com/lonegunmanb/terraform-google-schema/v2
 
 go 1.20
 

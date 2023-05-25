@@ -38,7 +38,7 @@ import (
 	"testing"
 
 	tfjson "github.com/hashicorp/terraform-json"
-	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v3/generated/{{ .Package }}"
+	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v2/generated/{{ .Package }}"
 	"github.com/stretchr/testify/assert"
 )
 
