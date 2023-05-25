@@ -42,8 +42,8 @@ const registerTemplate = `package generated
 
 import (
 	tfjson "github.com/hashicorp/terraform-json"
-	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v4/generated/data"
-	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v4/generated/resource"
+	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v3/generated/data"
+	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v3/generated/resource"
 )
 
 var Resources map[string]*tfjson.Schema
@@ -67,7 +67,7 @@ const registerTestTemplate = `package generated_test
 import (
 	"testing"
 
-	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v4/generated"
+	"github.com/{{ .RepoOwner }}/{{ .GoModule }}/v3/generated"
 	"github.com/stretchr/testify/assert"
 )
 
