@@ -60,6 +60,16 @@ const googleComputeDisk = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "licenses": {
+        "computed": true,
+        "description": "Any applicable license URI.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": [
+          "list",
+          "string"
+        ]
+      },
       "name": {
         "description": "Name of the resource. Provided by the client when the resource is\ncreated. The name must be 1-63 characters long, and comply with\nRFC1035. Specifically, the name must be 1-63 characters long and match\nthe regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the\nfirst character must be a lowercase letter, and all following\ncharacters must be a dash, lowercase letter, or digit, except the last\ncharacter, which cannot be a dash.",
         "description_kind": "plain",
@@ -193,6 +203,21 @@ const googleComputeDisk = `{
         },
         "max_items": 1,
         "nesting_mode": "list"
+      },
+      "guest_os_features": {
+        "block": {
+          "attributes": {
+            "type": {
+              "description": "The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [\"MULTI_IP_SUBNET\", \"SECURE_BOOT\", \"SEV_CAPABLE\", \"UEFI_COMPATIBLE\", \"VIRTIO_SCSI_MULTIQUEUE\", \"WINDOWS\", \"GVNIC\", \"SEV_LIVE_MIGRATABLE\", \"SEV_SNP_CAPABLE\", \"SUSPEND_RESUME_COMPATIBLE\", \"TDX_CAPABLE\"]",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "description": "A list of features to enable on the guest operating system.\nApplicable only for bootable disks.",
+          "description_kind": "plain"
+        },
+        "nesting_mode": "set"
       },
       "source_image_encryption_key": {
         "block": {

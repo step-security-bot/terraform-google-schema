@@ -544,6 +544,12 @@ const googlePrivatecaCaPool = `{
       "publishing_options": {
         "block": {
           "attributes": {
+            "encoding_format": {
+              "description": "Specifies the encoding format of each CertificateAuthority's CA\ncertificate and CRLs. If this is omitted, CA certificates and CRLs\nwill be published in PEM. Possible values: [\"PEM\", \"DER\"]",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "publish_ca_cert": {
               "description": "When true, publishes each CertificateAuthority's CA certificate and includes its URL in the \"Authority Information Access\"\nX.509 extension in all issued Certificates. If this is false, the CA certificate will not be published and the corresponding\nX.509 extension will not be written in issued certificates.",
               "description_kind": "plain",

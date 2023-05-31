@@ -566,6 +566,13 @@ const googleDatastreamStream = `{
             "mysql_source_config": {
               "block": {
                 "attributes": {
+                  "max_concurrent_backfill_tasks": {
+                    "computed": true,
+                    "description": "Maximum number of concurrent backfill tasks. The number should be non negative.\nIf not set (or set to 0), the system's default value will be used.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
                   "max_concurrent_cdc_tasks": {
                     "computed": true,
                     "description": "Maximum number of concurrent CDC tasks. The number should be non negative.\nIf not set (or set to 0), the system's default value will be used.",

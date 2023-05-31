@@ -39,6 +39,20 @@ const googleComputeDisk = `{
           ]
         ]
       },
+      "guest_os_features": {
+        "computed": true,
+        "description": "A list of features to enable on the guest operating system.\nApplicable only for bootable disks.",
+        "description_kind": "plain",
+        "type": [
+          "set",
+          [
+            "object",
+            {
+              "type": "string"
+            }
+          ]
+        ]
+      },
       "id": {
         "computed": true,
         "description_kind": "plain",
@@ -77,6 +91,15 @@ const googleComputeDisk = `{
         "description": "Last detach timestamp in RFC3339 text format.",
         "description_kind": "plain",
         "type": "string"
+      },
+      "licenses": {
+        "computed": true,
+        "description": "Any applicable license URI.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          "string"
+        ]
       },
       "name": {
         "description": "Name of the resource. Provided by the client when the resource is\ncreated. The name must be 1-63 characters long, and comply with\nRFC1035. Specifically, the name must be 1-63 characters long and match\nthe regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the\nfirst character must be a lowercase letter, and all following\ncharacters must be a dash, lowercase letter, or digit, except the last\ncharacter, which cannot be a dash.",

@@ -283,6 +283,20 @@ const googleComputeInstance = `{
           ]
         ]
       },
+      "network_performance_config": {
+        "computed": true,
+        "description": "Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "total_egress_bandwidth_tier": "string"
+            }
+          ]
+        ]
+      },
       "project": {
         "description": "The ID of the project in which the resource belongs. If self_link is provided, this value is ignored. If neither self_link nor project are provided, the provider project is used.",
         "description_kind": "plain",

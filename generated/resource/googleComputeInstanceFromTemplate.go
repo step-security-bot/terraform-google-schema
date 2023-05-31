@@ -554,6 +554,22 @@ const googleComputeInstanceFromTemplate = `{
         },
         "nesting_mode": "list"
       },
+      "network_performance_config": {
+        "block": {
+          "attributes": {
+            "total_egress_bandwidth_tier": {
+              "description": "The egress bandwidth tier to enable. Possible values:TIER_1, DEFAULT",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "description": "Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "reservation_affinity": {
         "block": {
           "attributes": {

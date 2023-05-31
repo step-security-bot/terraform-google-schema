@@ -259,6 +259,7 @@ const googleCloudRunService = `{
                               }
                             ]
                           ],
+                          "name": "string",
                           "ports": [
                             "list",
                             [

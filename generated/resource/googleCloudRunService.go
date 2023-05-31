@@ -261,6 +261,13 @@ const googleCloudRunService = `{
                           "required": true,
                           "type": "string"
                         },
+                        "name": {
+                          "computed": true,
+                          "description": "Name of the container",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
                         "working_dir": {
                           "deprecated": true,
                           "description": "Container's working directory.\nIf not specified, the container runtime's default will be used, which\nmight be configured in the container image.",
@@ -718,7 +725,7 @@ const googleCloudRunService = `{
                           "nesting_mode": "list"
                         }
                       },
-                      "description": "Container defines the unit of execution for this Revision.\nIn the context of a Revision, we disallow a number of the fields of\nthis Container, including: name, ports, and volumeMounts.",
+                      "description": "Containers defines the unit of execution for this Revision.",
                       "description_kind": "plain"
                     },
                     "nesting_mode": "list"
@@ -783,7 +790,6 @@ const googleCloudRunService = `{
                             "description_kind": "plain"
                           },
                           "max_items": 1,
-                          "min_items": 1,
                           "nesting_mode": "list"
                         }
                       },

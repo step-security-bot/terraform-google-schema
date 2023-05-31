@@ -108,7 +108,7 @@ const googleComputeImage = `{
       },
       "storage_locations": {
         "computed": true,
-        "description": "Cloud Storage bucket storage location of the image \n(regional or multi-regional). \nReference link: https://cloud.google.com/compute/docs/reference/rest/v1/images",
+        "description": "Cloud Storage bucket storage location of the image\n(regional or multi-regional).\nReference link: https://cloud.google.com/compute/docs/reference/rest/v1/images",
         "description_kind": "plain",
         "optional": true,
         "type": [
