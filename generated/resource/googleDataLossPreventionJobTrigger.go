@@ -868,6 +868,21 @@ const googleDataLossPreventionJobTrigger = `{
                         }
                       },
                       "block_types": {
+                        "excluded_fields": {
+                          "block": {
+                            "attributes": {
+                              "name": {
+                                "description": "Name describing the field excluded from scanning.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "References to fields excluded from scanning.\nThis allows you to skip inspection of entire columns which you know have no findings.",
+                            "description_kind": "plain"
+                          },
+                          "nesting_mode": "list"
+                        },
                         "identifying_fields": {
                           "block": {
                             "attributes": {
@@ -879,6 +894,21 @@ const googleDataLossPreventionJobTrigger = `{
                               }
                             },
                             "description": "Specifies the BigQuery fields that will be returned with findings.\nIf not specified, no identifying fields will be returned for findings.",
+                            "description_kind": "plain"
+                          },
+                          "nesting_mode": "list"
+                        },
+                        "included_fields": {
+                          "block": {
+                            "attributes": {
+                              "name": {
+                                "description": "Name describing the field to which scanning is limited.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Limit scanning only to these fields.",
                             "description_kind": "plain"
                           },
                           "nesting_mode": "list"

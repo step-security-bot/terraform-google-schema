@@ -21,6 +21,12 @@ const googleComputeForwardingRule = `{
         "description_kind": "plain",
         "type": "bool"
       },
+      "allow_psc_global_access": {
+        "computed": true,
+        "description": "This is used in PSC consumer ForwardingRule to control whether the PSC endpoint can be accessed from another region.",
+        "description_kind": "plain",
+        "type": "bool"
+      },
       "backend_service": {
         "computed": true,
         "description": "Identifies the backend service to which the forwarding rule sends traffic.\n\nRequired for Internal TCP/UDP Load Balancing and Network Load Balancing;\nmust be omitted for all other load balancer types.",
