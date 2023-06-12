@@ -283,7 +283,6 @@ const googleDataLossPreventionJobTrigger = `{
                 "description": "A task to execute on the completion of a job.",
                 "description_kind": "plain"
               },
-              "min_items": 1,
               "nesting_mode": "list"
             },
             "inspect_config": {

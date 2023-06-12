@@ -38,6 +38,13 @@ const googleDataLossPreventionStoredInfoType = `{
         "description_kind": "plain",
         "required": true,
         "type": "string"
+      },
+      "stored_info_type_id": {
+        "computed": true,
+        "description": "The storedInfoType ID can contain uppercase and lowercase letters, numbers, and hyphens;\nthat is, it must match the regular expression: [a-zA-Z\\d-_]+. The maximum length is 100\ncharacters. Can be empty to allow the system to generate one.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
       }
     },
     "block_types": {

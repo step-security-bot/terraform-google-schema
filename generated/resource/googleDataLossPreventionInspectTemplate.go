@@ -38,6 +38,13 @@ const googleDataLossPreventionInspectTemplate = `{
         "description_kind": "plain",
         "required": true,
         "type": "string"
+      },
+      "template_id": {
+        "computed": true,
+        "description": "The template id can contain uppercase and lowercase letters, numbers, and hyphens;\nthat is, it must match the regular expression: [a-zA-Z\\d-_]+. The maximum length is\n100 characters. Can be empty to allow the system to generate one.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
       }
     },
     "block_types": {

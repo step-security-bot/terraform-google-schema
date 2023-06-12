@@ -1,4 +1,4 @@
-package data
+package resource
 
 import (
 	"encoding/json"
@@ -6,18 +6,17 @@ import (
 	tfjson "github.com/hashicorp/terraform-json"
 )
 
-const googleBillingAccount = `{
+const googleDataplexDatascanIamPolicy = `{
   "block": {
     "attributes": {
-      "billing_account": {
+      "data_scan_id": {
         "description_kind": "plain",
-        "optional": true,
+        "required": true,
         "type": "string"
       },
-      "display_name": {
+      "etag": {
         "computed": true,
         "description_kind": "plain",
-        "optional": true,
         "type": "string"
       },
       "id": {
@@ -26,29 +25,22 @@ const googleBillingAccount = `{
         "optional": true,
         "type": "string"
       },
-      "lookup_projects": {
-        "description_kind": "plain",
-        "optional": true,
-        "type": "bool"
-      },
-      "name": {
+      "location": {
         "computed": true,
         "description_kind": "plain",
+        "optional": true,
         "type": "string"
       },
-      "open": {
+      "policy_data": {
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+      },
+      "project": {
         "computed": true,
         "description_kind": "plain",
         "optional": true,
-        "type": "bool"
-      },
-      "project_ids": {
-        "computed": true,
-        "description_kind": "plain",
-        "type": [
-          "set",
-          "string"
-        ]
+        "type": "string"
       }
     },
     "description_kind": "plain"
@@ -56,8 +48,8 @@ const googleBillingAccount = `{
   "version": 0
 }`
 
-func GoogleBillingAccountSchema() *tfjson.Schema {
+func GoogleDataplexDatascanIamPolicySchema() *tfjson.Schema {
 	var result tfjson.Schema
-	_ = json.Unmarshal([]byte(googleBillingAccount), &result)
+	_ = json.Unmarshal([]byte(googleDataplexDatascanIamPolicy), &result)
 	return &result
 }
