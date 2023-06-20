@@ -132,6 +132,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                       "type": "string"
                                     }
                                   },
+                                  "block_types": {
+                                    "sensitivity_score": {
+                                      "block": {
+                                        "attributes": {
+                                          "score": {
+                                            "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                            "description_kind": "plain",
+                                            "required": true,
+                                            "type": "string"
+                                          }
+                                        },
+                                        "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                        "description_kind": "plain"
+                                      },
+                                      "max_items": 1,
+                                      "nesting_mode": "list"
+                                    }
+                                  },
                                   "description": "InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to\nall findings that correspond to infoTypes that were requested in InspectConfig.",
                                   "description_kind": "plain"
                                 },
@@ -179,6 +197,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                 "description_kind": "plain",
                                 "optional": true,
                                 "type": "string"
+                              }
+                            },
+                            "block_types": {
+                              "sensitivity_score": {
+                                "block": {
+                                  "attributes": {
+                                    "score": {
+                                      "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                      "description_kind": "plain",
+                                      "required": true,
+                                      "type": "string"
+                                    }
+                                  },
+                                  "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
                               }
                             },
                             "description": "InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to\nall findings that correspond to infoTypes that were requested in InspectConfig.",
@@ -679,6 +715,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                             "type": "string"
                                           }
                                         },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          }
+                                        },
                                         "description": "The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}\n\nFor example, if the name of custom info type is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.\n\nNote: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.\n\nIn order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either\n\n*   reverse a surrogate that does not correspond to an actual identifier\n*   be unable to parse the surrogate and result in an error\n\nTherefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE.",
                                         "description_kind": "plain"
                                       },
@@ -687,6 +741,80 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                     }
                                   },
                                   "description": "Pseudonymization method that generates deterministic encryption for the given input. Outputs a base64 encoded representation of the encrypted output. Uses AES-SIV based on the RFC [https://tools.ietf.org/html/rfc5297](https://tools.ietf.org/html/rfc5297).",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
+                              },
+                              "crypto_hash_config": {
+                                "block": {
+                                  "block_types": {
+                                    "crypto_key": {
+                                      "block": {
+                                        "block_types": {
+                                          "kms_wrapped": {
+                                            "block": {
+                                              "attributes": {
+                                                "crypto_key_name": {
+                                                  "description": "The resource name of the KMS CryptoKey to use for unwrapping.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                },
+                                                "wrapped_key": {
+                                                  "description": "The wrapped data crypto key.\n\nA base64-encoded string.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "KMS wrapped key.\nInclude to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt\nFor more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).\nNote: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing).",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          },
+                                          "transient": {
+                                            "block": {
+                                              "attributes": {
+                                                "name": {
+                                                  "description": "Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated).",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          },
+                                          "unwrapped": {
+                                            "block": {
+                                              "attributes": {
+                                                "key": {
+                                                  "description": "A 128/192/256 bit key.\n\nA base64-encoded string.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          }
+                                        },
+                                        "description": "The key used by the encryption function.",
+                                        "description_kind": "plain"
+                                      },
+                                      "max_items": 1,
+                                      "nesting_mode": "list"
+                                    }
+                                  },
+                                  "description": "Pseudonymization method that generates surrogates via cryptographic hashing. Uses SHA-256. The key size must be either 32 or 64 bytes.\nOutputs a base64 encoded representation of the hashed output (for example, L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=).\nCurrently, only string and integer values can be hashed.\nSee https://cloud.google.com/dlp/docs/pseudonymization to learn more.",
                                   "description_kind": "plain"
                                 },
                                 "max_items": 1,
@@ -809,6 +937,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "string"
+                                          }
+                                        },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
                                           }
                                         },
                                         "description": "The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\\_type\\_name(surrogate\\_character\\_count):surrogate\n\nFor example, if the name of custom infoType is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.\n\nIn order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE",
@@ -1415,6 +1561,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                             "type": "string"
                                           }
                                         },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          }
+                                        },
                                         "description": "InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to\nall findings that correspond to infoTypes that were requested in InspectConfig.",
                                         "description_kind": "plain"
                                       },
@@ -1908,6 +2072,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                                         "type": "string"
                                                       }
                                                     },
+                                                    "block_types": {
+                                                      "sensitivity_score": {
+                                                        "block": {
+                                                          "attributes": {
+                                                            "score": {
+                                                              "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                              "description_kind": "plain",
+                                                              "required": true,
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                                          "description_kind": "plain"
+                                                        },
+                                                        "max_items": 1,
+                                                        "nesting_mode": "list"
+                                                      }
+                                                    },
                                                     "description": "The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}\n\nFor example, if the name of custom info type is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.\n\nNote: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.\n\nIn order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either\n\n*   reverse a surrogate that does not correspond to an actual identifier\n*   be unable to parse the surrogate and result in an error\n\nTherefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE.",
                                                     "description_kind": "plain"
                                                   },
@@ -2117,6 +2299,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                                         "description_kind": "plain",
                                                         "optional": true,
                                                         "type": "string"
+                                                      }
+                                                    },
+                                                    "block_types": {
+                                                      "sensitivity_score": {
+                                                        "block": {
+                                                          "attributes": {
+                                                            "score": {
+                                                              "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                              "description_kind": "plain",
+                                                              "required": true,
+                                                              "type": "string"
+                                                            }
+                                                          },
+                                                          "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                                          "description_kind": "plain"
+                                                        },
+                                                        "max_items": 1,
+                                                        "nesting_mode": "list"
                                                       }
                                                     },
                                                     "description": "The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\\_type\\_name(surrogate\\_character\\_count):surrogate\n\nFor example, if the name of custom infoType is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.\n\nIn order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE",
@@ -3009,6 +3209,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                             "type": "string"
                                           }
                                         },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          }
+                                        },
                                         "description": "The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}\n\nFor example, if the name of custom info type is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.\n\nNote: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.\n\nIn order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either\n\n*   reverse a surrogate that does not correspond to an actual identifier\n*   be unable to parse the surrogate and result in an error\n\nTherefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE.",
                                         "description_kind": "plain"
                                       },
@@ -3213,6 +3431,24 @@ const googleDataLossPreventionDeidentifyTemplate = `{
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "string"
+                                          }
+                                        },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
                                           }
                                         },
                                         "description": "The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\\_type\\_name(surrogate\\_character\\_count):surrogate\n\nFor example, if the name of custom infoType is 'MY\\_TOKEN\\_INFO\\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\\_TOKEN\\_INFO\\_TYPE(3):abc'\n\nThis annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.\n\nIn order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\\_TOKEN\\_TYPE",

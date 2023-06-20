@@ -120,7 +120,7 @@ const googleComputeDisk = `{
       },
       "provisioned_iops": {
         "computed": true,
-        "description": "Indicates how many IOPS must be provisioned for the disk.",
+        "description": "Indicates how many IOPS must be provisioned for the disk.\nNote: Update currently only supported by hyperdisk skus, allowing for an update of IOPS every 4 hours",
         "description_kind": "plain",
         "type": "number"
       },

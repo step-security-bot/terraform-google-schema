@@ -214,6 +214,12 @@ const googleCloudfunctions2Function = `{
         "description": "The last update timestamp of a Cloud Function.",
         "description_kind": "plain",
         "type": "string"
+      },
+      "url": {
+        "computed": true,
+        "description": "Output only. The deployed url for the function.",
+        "description_kind": "plain",
+        "type": "string"
       }
     },
     "description_kind": "plain"

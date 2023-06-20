@@ -591,6 +591,47 @@ const googleContainerNodePool = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
+            "sole_tenant_config": {
+              "block": {
+                "block_types": {
+                  "node_affinity": {
+                    "block": {
+                      "attributes": {
+                        "key": {
+                          "description": ".",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": "string"
+                        },
+                        "operator": {
+                          "description": ".",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": "string"
+                        },
+                        "values": {
+                          "description": ".",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": [
+                            "list",
+                            "string"
+                          ]
+                        }
+                      },
+                      "description": ".",
+                      "description_kind": "plain"
+                    },
+                    "min_items": 1,
+                    "nesting_mode": "set"
+                  }
+                },
+                "description": "Node affinity options for sole tenant node pools.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "workload_metadata_config": {
               "block": {
                 "attributes": {

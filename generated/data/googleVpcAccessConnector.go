@@ -9,6 +9,15 @@ import (
 const googleVpcAccessConnector = `{
   "block": {
     "attributes": {
+      "connected_projects": {
+        "computed": true,
+        "description": "List of projects using the connector.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          "string"
+        ]
+      },
       "id": {
         "computed": true,
         "description_kind": "plain",

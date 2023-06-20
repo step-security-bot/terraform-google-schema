@@ -820,6 +820,28 @@ const googleContainerCluster = `{
                   }
                 ]
               ],
+              "sole_tenant_config": [
+                "list",
+                [
+                  "object",
+                  {
+                    "node_affinity": [
+                      "set",
+                      [
+                        "object",
+                        {
+                          "key": "string",
+                          "operator": "string",
+                          "values": [
+                            "list",
+                            "string"
+                          ]
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ],
               "spot": "bool",
               "tags": [
                 "list",
@@ -1066,6 +1088,28 @@ const googleContainerCluster = `{
                         {
                           "enable_integrity_monitoring": "bool",
                           "enable_secure_boot": "bool"
+                        }
+                      ]
+                    ],
+                    "sole_tenant_config": [
+                      "list",
+                      [
+                        "object",
+                        {
+                          "node_affinity": [
+                            "set",
+                            [
+                              "object",
+                              {
+                                "key": "string",
+                                "operator": "string",
+                                "values": [
+                                  "list",
+                                  "string"
+                                ]
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ],

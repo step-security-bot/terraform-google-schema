@@ -158,6 +158,24 @@ const googleDataLossPreventionInspectTemplate = `{
                           "type": "string"
                         }
                       },
+                      "block_types": {
+                        "sensitivity_score": {
+                          "block": {
+                            "attributes": {
+                              "score": {
+                                "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        }
+                      },
                       "description": "CustomInfoType can either be a new infoType, or an extension of built-in infoType, when the name matches one of existing\ninfoTypes and that infoType is specified in 'info_types' field. Specifying the latter adds findings to the\none detected by the system. If built-in info type is not specified in 'info_types' list then the name is\ntreated as a custom info type.",
                       "description_kind": "plain"
                     },
@@ -185,6 +203,22 @@ const googleDataLossPreventionInspectTemplate = `{
                         }
                       },
                       "description": "Regular expression which defines the rule.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  },
+                  "sensitivity_score": {
+                    "block": {
+                      "attributes": {
+                        "score": {
+                          "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
                       "description_kind": "plain"
                     },
                     "max_items": 1,
@@ -236,6 +270,24 @@ const googleDataLossPreventionInspectTemplate = `{
                     "type": "string"
                   }
                 },
+                "block_types": {
+                  "sensitivity_score": {
+                    "block": {
+                      "attributes": {
+                        "score": {
+                          "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  }
+                },
                 "description": "Restricts what infoTypes to look for. The values must correspond to InfoType values returned by infoTypes.list\nor listed at https://cloud.google.com/dlp/docs/infotypes-reference.\n\nWhen no InfoTypes or CustomInfoTypes are specified in a request, the system may automatically choose what detectors to run.\nBy default this may be all types, but may change over time as detectors are updated.",
                 "description_kind": "plain"
               },
@@ -285,6 +337,24 @@ const googleDataLossPreventionInspectTemplate = `{
                                 "type": "string"
                               }
                             },
+                            "block_types": {
+                              "sensitivity_score": {
+                                "block": {
+                                  "attributes": {
+                                    "score": {
+                                      "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                      "description_kind": "plain",
+                                      "required": true,
+                                      "type": "string"
+                                    }
+                                  },
+                                  "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
+                              }
+                            },
                             "description": "Type of information the findings limit applies to. Only one limit per infoType should be provided. If InfoTypeLimit does\nnot have an infoType, the DLP API applies the limit against all infoTypes that are found but not\nspecified in another InfoTypeLimit.",
                             "description_kind": "plain"
                           },
@@ -322,6 +392,24 @@ const googleDataLossPreventionInspectTemplate = `{
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"
+                        }
+                      },
+                      "block_types": {
+                        "sensitivity_score": {
+                          "block": {
+                            "attributes": {
+                              "score": {
+                                "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
                         }
                       },
                       "description": "List of infoTypes this rule set is applied to.",
@@ -465,6 +553,24 @@ const googleDataLossPreventionInspectTemplate = `{
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "string"
+                                          }
+                                        },
+                                        "block_types": {
+                                          "sensitivity_score": {
+                                            "block": {
+                                              "attributes": {
+                                                "score": {
+                                                  "description": "The sensitivity score applied to the resource. Possible values: [\"SENSITIVITY_LOW\", \"SENSITIVITY_MODERATE\", \"SENSITIVITY_HIGH\"]",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Optional custom sensitivity for this InfoType. This only applies to data profiling.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
                                           }
                                         },
                                         "description": "If a finding is matched by any of the infoType detectors listed here, the finding will be excluded from the scan results.",

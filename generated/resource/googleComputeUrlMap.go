@@ -1679,6 +1679,12 @@ const googleComputeUrlMap = `{
                           "optional": true,
                           "type": "bool"
                         },
+                        "path_template_match": {
+                          "description": "For satisfying the matchRule condition, the path of the request\nmust match the wildcard pattern specified in pathTemplateMatch\nafter removing any query parameters and anchor that may be part\nof the original URL.\n\npathTemplateMatch must be between 1 and 255 characters\n(inclusive).  The pattern specified by pathTemplateMatch may\nhave at most 5 wildcard operators and at most 5 variable\ncaptures in total.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
                         "prefix_match": {
                           "description": "For satisfying the matchRule condition, the request's path must begin with the\nspecified prefixMatch. prefixMatch must begin with a /. The value must be\nbetween 1 and 1024 characters. Only one of prefixMatch, fullPathMatch or\nregexMatch must be specified.",
                           "description_kind": "plain",
@@ -2093,6 +2099,12 @@ const googleComputeUrlMap = `{
                               },
                               "path_prefix_rewrite": {
                                 "description": "Prior to forwarding the request to the selected backend service, the matching\nportion of the request's path is replaced by pathPrefixRewrite. The value must\nbe between 1 and 1024 characters.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              },
+                              "path_template_rewrite": {
+                                "description": "Prior to forwarding the request to the selected origin, if the\nrequest matched a pathTemplateMatch, the matching portion of the\nrequest's path is replaced re-written using the pattern specified\nby pathTemplateRewrite.\n\npathTemplateRewrite must be between 1 and 255 characters\n(inclusive), must start with a '/', and must only use variables\ncaptured by the route's pathTemplate matchers.\n\npathTemplateRewrite may only be used when all of a route's\nMatchRules specify pathTemplate.\n\nOnly one of pathPrefixRewrite and pathTemplateRewrite may be\nspecified.",
                                 "description_kind": "plain",
                                 "optional": true,
                                 "type": "string"

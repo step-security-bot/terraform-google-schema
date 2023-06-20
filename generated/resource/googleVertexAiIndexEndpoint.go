@@ -6,23 +6,23 @@ import (
 	tfjson "github.com/hashicorp/terraform-json"
 )
 
-const googleVertexAiFeaturestoreEntitytypeFeature = `{
+const googleVertexAiIndexEndpoint = `{
   "block": {
     "attributes": {
       "create_time": {
         "computed": true,
-        "description": "The timestamp of when the entity type was created in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits.",
+        "description": "The timestamp of when the Index was created in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits.",
         "description_kind": "plain",
         "type": "string"
       },
       "description": {
-        "description": "Description of the feature.",
+        "description": "The description of the Index.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
-      "entitytype": {
-        "description": "The name of the Featurestore to use, in the format projects/{project}/locations/{location}/featurestores/{featurestore}/entityTypes/{entitytype}.",
+      "display_name": {
+        "description": "The display name of the Index. The name can be up to 128 characters long and can consist of any UTF-8 characters.",
         "description_kind": "plain",
         "required": true,
         "type": "string"
@@ -40,7 +40,7 @@ const googleVertexAiFeaturestoreEntitytypeFeature = `{
         "type": "string"
       },
       "labels": {
-        "description": "A set of key/value label pairs to assign to the feature.",
+        "description": "The labels with user-defined metadata to organize your Indexes.",
         "description_kind": "plain",
         "optional": true,
         "type": [
@@ -49,27 +49,33 @@ const googleVertexAiFeaturestoreEntitytypeFeature = `{
         ]
       },
       "name": {
-        "description": "The name of the feature. The feature can be up to 64 characters long and can consist only of ASCII Latin letters A-Z and a-z, underscore(_), and ASCII digits 0-9 starting with a letter. The value will be unique given an entity type.",
+        "computed": true,
+        "description": "The resource name of the Index.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "network": {
+        "description": "The full name of the Google Compute Engine [network](https://cloud.google.com//compute/docs/networks-and-firewalls#networks) to which the index endpoint should be peered.\nPrivate services access must already be configured for the network. If left unspecified, the index endpoint is not peered with any network.\n[Format](https://cloud.google.com/compute/docs/reference/rest/v1/networks/insert): 'projects/{project}/global/networks/{network}'.\nWhere '{project}' is a project number, as in '12345', and '{network}' is network name.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "project": {
+        "computed": true,
         "description_kind": "plain",
         "optional": true,
         "type": "string"
       },
       "region": {
-        "computed": true,
-        "description": "The region of the feature",
+        "description": "The region of the index endpoint. eg us-central1",
         "description_kind": "plain",
+        "optional": true,
         "type": "string"
       },
       "update_time": {
         "computed": true,
-        "description": "The timestamp when the entity type was most recently updated in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits.",
+        "description": "The timestamp of when the Index was last updated in RFC3339 UTC \"Zulu\" format, with nanosecond resolution and up to nine fractional digits.",
         "description_kind": "plain",
-        "type": "string"
-      },
-      "value_type": {
-        "description": "Type of Feature value. Immutable. https://cloud.google.com/vertex-ai/docs/reference/rest/v1/projects.locations.featurestores.entityTypes.features#ValueType",
-        "description_kind": "plain",
-        "required": true,
         "type": "string"
       }
     },
@@ -103,8 +109,8 @@ const googleVertexAiFeaturestoreEntitytypeFeature = `{
   "version": 0
 }`
 
-func GoogleVertexAiFeaturestoreEntitytypeFeatureSchema() *tfjson.Schema {
+func GoogleVertexAiIndexEndpointSchema() *tfjson.Schema {
 	var result tfjson.Schema
-	_ = json.Unmarshal([]byte(googleVertexAiFeaturestoreEntitytypeFeature), &result)
+	_ = json.Unmarshal([]byte(googleVertexAiIndexEndpoint), &result)
 	return &result
 }
