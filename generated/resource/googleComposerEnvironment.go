@@ -80,6 +80,13 @@ const googleComposerEnvironment = `{
               "description_kind": "plain",
               "optional": true,
               "type": "number"
+            },
+            "resilience_mode": {
+              "computed": true,
+              "description": "Whether high resilience is enabled or not. This field is supported for Cloud Composer environments in versions composer-2.1.15-airflow-*.*.* and newer.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
             }
           },
           "block_types": {

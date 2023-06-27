@@ -113,6 +113,12 @@ const googleIamWorkloadIdentityPoolProvider = `{
               "description_kind": "plain",
               "required": true,
               "type": "string"
+            },
+            "jwks_json": {
+              "description": "OIDC JWKs in JSON String format. For details on definition of a\nJWK, see https:tools.ietf.org/html/rfc7517. If not set, then we\nuse the 'jwks_uri' from the discovery document fetched from the\n.well-known path for the 'issuer_uri'. Currently, RSA and EC asymmetric\nkeys are supported. The JWK must use following format and include only\nthe following fields:\n'''\n{\n  \"keys\": [\n    {\n          \"kty\": \"RSA/EC\",\n          \"alg\": \"\u003calgorithm\u003e\",\n          \"use\": \"sig\",\n          \"kid\": \"\u003ckey-id\u003e\",\n          \"n\": \"\",\n          \"e\": \"\",\n          \"x\": \"\",\n          \"y\": \"\",\n          \"crv\": \"\"\n    }\n  ]\n}\n'''",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
             }
           },
           "description": "An OpenId Connect 1.0 identity provider. Not compatible with the property aws.",

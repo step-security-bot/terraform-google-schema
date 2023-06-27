@@ -142,6 +142,7 @@ const googleComposerEnvironment = `{
                   }
                 ]
               ],
+              "resilience_mode": "string",
               "software_config": [
                 "list",
                 [

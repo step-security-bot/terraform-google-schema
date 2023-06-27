@@ -54,7 +54,7 @@ const googleCloudRunService = `{
         ]
       },
       "name": {
-        "description": "Name must be unique within a Google Cloud project and region.\nIs required when creating resources. Name is primarily intended\nfor creation idempotence and configuration definition. Cannot be updated.\nMore info: http://kubernetes.io/docs/user-guide/identifiers#names",
+        "description": "Name must be unique within a Google Cloud project and region.\nIs required when creating resources. Name is primarily intended\nfor creation idempotence and configuration definition. Cannot be updated.\nMore info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names",
         "description_kind": "plain",
         "required": true,
         "type": "string"

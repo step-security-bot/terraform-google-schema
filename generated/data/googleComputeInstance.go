@@ -73,6 +73,10 @@ const googleComputeInstance = `{
                       "map",
                       "string"
                     ],
+                    "resource_manager_tags": [
+                      "map",
+                      "string"
+                    ],
                     "size": "number",
                     "type": "string"
                   }
@@ -293,6 +297,23 @@ const googleComputeInstance = `{
             "object",
             {
               "total_egress_bandwidth_tier": "string"
+            }
+          ]
+        ]
+      },
+      "params": {
+        "computed": true,
+        "description": "Stores additional params passed with the request, but not persisted as part of resource payload.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "resource_manager_tags": [
+                "map",
+                "string"
+              ]
             }
           ]
         ]

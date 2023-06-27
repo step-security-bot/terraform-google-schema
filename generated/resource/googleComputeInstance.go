@@ -339,6 +339,15 @@ const googleComputeInstance = `{
                       "string"
                     ]
                   },
+                  "resource_manager_tags": {
+                    "description": "A map of resource manager tags. Resource manager tag keys and values have the same definition as resource manager tags. Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456. The field is ignored (both PUT \u0026 PATCH) when empty.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": [
+                      "map",
+                      "string"
+                    ]
+                  },
                   "size": {
                     "computed": true,
                     "description": "The size of the image in gigabytes.",
@@ -549,6 +558,25 @@ const googleComputeInstance = `{
             }
           },
           "description": "Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
+      "params": {
+        "block": {
+          "attributes": {
+            "resource_manager_tags": {
+              "description": "A map of resource manager tags. Resource manager tag keys and values have the same definition as resource manager tags. Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456. The field is ignored (both PUT \u0026 PATCH) when empty.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": [
+                "map",
+                "string"
+              ]
+            }
+          },
+          "description": "Stores additional params passed with the request, but not persisted as part of resource payload.",
           "description_kind": "plain"
         },
         "max_items": 1,

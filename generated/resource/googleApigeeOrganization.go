@@ -15,6 +15,12 @@ const googleApigeeOrganization = `{
         "optional": true,
         "type": "string"
       },
+      "apigee_project_id": {
+        "computed": true,
+        "description": "Output only. Project ID of the Apigee Tenant Project.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "authorized_network": {
         "description": "Compute Engine network used for Service Networking to be peered with Apigee runtime instances.\nSee [Getting started with the Service Networking API](https://cloud.google.com/service-infrastructure/docs/service-networking/getting-started).\nValid only when 'RuntimeType' is set to CLOUD. The value can be updated only when there are no runtime instances. For example: \"default\".",
         "description_kind": "plain",
