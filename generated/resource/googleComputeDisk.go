@@ -91,7 +91,14 @@ const googleComputeDisk = `{
       },
       "provisioned_iops": {
         "computed": true,
-        "description": "Indicates how many IOPS must be provisioned for the disk.\nNote: Update currently only supported by hyperdisk skus, allowing for an update of IOPS every 4 hours",
+        "description": "Indicates how many IOPS must be provisioned for the disk.\nNote: Updating currently is only supported by hyperdisk skus without the need to delete and recreate the disk, hyperdisk\nallows for an update of IOPS every 4 hours. To update your hyperdisk more frequently, you'll need to manually delete and recreate it",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "number"
+      },
+      "provisioned_throughput": {
+        "computed": true,
+        "description": "Indicates how much Throughput must be provisioned for the disk.\nNote: Updating currently is only supported by hyperdisk skus without the need to delete and recreate the disk, hyperdisk\nallows for an update of Throughput every 4 hours. To update your hyperdisk more frequently, you'll need to manually delete and recreate it",
         "description_kind": "plain",
         "optional": true,
         "type": "number"

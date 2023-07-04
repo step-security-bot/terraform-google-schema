@@ -2486,6 +2486,30 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "security_posture_config": {
+        "block": {
+          "attributes": {
+            "mode": {
+              "computed": true,
+              "description": "Sets the mode of the Kubernetes security posture API's off-cluster features. Available options include DISABLED and BASIC.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "vulnerability_mode": {
+              "computed": true,
+              "description": "Sets the mode of the Kubernetes security posture API's workload vulnerability scanning. Available options include VULNERABILITY_DISABLED and VULNERABILITY_BASIC.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            }
+          },
+          "description": "Defines the config needed to enable/disable features for the Security Posture API",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "service_external_ips_config": {
         "block": {
           "attributes": {

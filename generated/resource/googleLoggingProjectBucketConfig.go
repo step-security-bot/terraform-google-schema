@@ -46,6 +46,12 @@ const googleLoggingProjectBucketConfig = `{
         "required": true,
         "type": "string"
       },
+      "locked": {
+        "description": "Whether the bucket is locked. The retention period on a locked bucket cannot be changed. Locked buckets may only be deleted if they are empty.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "name": {
         "computed": true,
         "description": "The resource name of the bucket",

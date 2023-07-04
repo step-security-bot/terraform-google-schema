@@ -1353,6 +1353,21 @@ const googleContainerCluster = `{
           ]
         ]
       },
+      "security_posture_config": {
+        "computed": true,
+        "description": "Defines the config needed to enable/disable features for the Security Posture API",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "mode": "string",
+              "vulnerability_mode": "string"
+            }
+          ]
+        ]
+      },
       "self_link": {
         "computed": true,
         "description": "Server-defined URL for the resource.",

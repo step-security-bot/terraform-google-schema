@@ -310,6 +310,7 @@ const googleCloudfunctions2Function = `{
               "type": "string"
             },
             "available_memory": {
+              "computed": true,
               "description": "The amount of memory available for a function.\nDefaults to 256M. Supported units are k, M, G, Mi, Gi. If no unit is\nsupplied the value is interpreted as bytes.",
               "description_kind": "plain",
               "optional": true,
@@ -337,6 +338,7 @@ const googleCloudfunctions2Function = `{
               "type": "string"
             },
             "max_instance_count": {
+              "computed": true,
               "description": "The limit on the maximum number of function instances that may coexist at a\ngiven time.",
               "description_kind": "plain",
               "optional": true,
@@ -370,6 +372,7 @@ const googleCloudfunctions2Function = `{
               "type": "string"
             },
             "timeout_seconds": {
+              "computed": true,
               "description": "The function execution timeout. Execution is considered failed and\ncan be terminated if the function is not completed at the end of the\ntimeout period. Defaults to 60 seconds.",
               "description_kind": "plain",
               "optional": true,

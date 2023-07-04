@@ -16,6 +16,7 @@ const googleBigqueryReservation = `{
         "type": "number"
       },
       "edition": {
+        "computed": true,
         "description": "The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS",
         "description_kind": "plain",
         "optional": true,

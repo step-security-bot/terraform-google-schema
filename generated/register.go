@@ -570,6 +570,7 @@ func init() {
 	resources["google_project_organization_policy"] = resource.GoogleProjectOrganizationPolicySchema()  
 	resources["google_project_service"] = resource.GoogleProjectServiceSchema()  
 	resources["google_project_usage_export_bucket"] = resource.GoogleProjectUsageExportBucketSchema()  
+	resources["google_public_ca_external_account_key"] = resource.GooglePublicCaExternalAccountKeySchema()  
 	resources["google_pubsub_lite_reservation"] = resource.GooglePubsubLiteReservationSchema()  
 	resources["google_pubsub_lite_subscription"] = resource.GooglePubsubLiteSubscriptionSchema()  
 	resources["google_pubsub_lite_topic"] = resource.GooglePubsubLiteTopicSchema()  

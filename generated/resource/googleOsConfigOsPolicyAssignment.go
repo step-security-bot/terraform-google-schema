@@ -11,7 +11,7 @@ const googleOsConfigOsPolicyAssignment = `{
     "attributes": {
       "baseline": {
         "computed": true,
-        "description": "Output only. Indicates that this revision has been successfully rolled out in this zone and new VMs will be assigned OS policies from this revision. For a given OS policy assignment, there is only one revision with a value of ` + "`" + `true` + "`" + ` for this field.",
+        "description": "Output only. Indicates that this revision has been successfully rolled out in this zone and new VMs will be assigned OS policies from this revision.\nFor a given OS policy assignment, there is only one revision with a value of 'true' for this field.",
         "description_kind": "plain",
         "type": "bool"
       },
@@ -60,7 +60,7 @@ const googleOsConfigOsPolicyAssignment = `{
       },
       "reconciling": {
         "computed": true,
-        "description": "Output only. Indicates that reconciliation is in progress for the revision. This value is ` + "`" + `true` + "`" + ` when the ` + "`" + `rollout_state` + "`" + ` is one of: * IN_PROGRESS * CANCELLING",
+        "description": "Output only. Indicates that reconciliation is in progress for the revision. This value is 'true' when the 'rollout_state' is one of:\n* IN_PROGRESS\n* CANCELLING",
         "description_kind": "plain",
         "type": "bool"
       },
@@ -78,7 +78,7 @@ const googleOsConfigOsPolicyAssignment = `{
       },
       "rollout_state": {
         "computed": true,
-        "description": "Output only. OS policy assignment rollout state Possible values: ROLLOUT_STATE_UNSPECIFIED, IN_PROGRESS, CANCELLING, CANCELLED, SUCCEEDED",
+        "description": "Output only. OS policy assignment rollout state",
         "description_kind": "plain",
         "type": "string"
       },
@@ -120,7 +120,7 @@ const googleOsConfigOsPolicyAssignment = `{
                     ]
                   }
                 },
-                "description": "List of label sets used for VM exclusion. If the list has more than one label set, the VM is excluded if any of the label sets are applicable for the VM.",
+                "description": "List of label sets used for VM exclusion.\nIf the list has more than one label set, the VM is excluded if any of the label sets are applicable for the VM.",
                 "description_kind": "plain"
               },
               "nesting_mode": "list"
@@ -138,7 +138,7 @@ const googleOsConfigOsPolicyAssignment = `{
                     ]
                   }
                 },
-                "description": "List of label sets used for VM inclusion. If the list has more than one ` + "`" + `LabelSet` + "`" + `, the VM is included if any of the label sets are applicable for the VM.",
+                "description": "List of label sets used for VM inclusion.\nIf the list has more than one 'LabelSet', the VM is included if any of the label sets are applicable for the VM.",
                 "description_kind": "plain"
               },
               "nesting_mode": "list"
@@ -147,25 +147,25 @@ const googleOsConfigOsPolicyAssignment = `{
               "block": {
                 "attributes": {
                   "os_short_name": {
-                    "description": "Required. The OS short name",
+                    "description": "The OS short name",
                     "description_kind": "plain",
                     "required": true,
                     "type": "string"
                   },
                   "os_version": {
-                    "description": "The OS version Prefix matches are supported if asterisk(*) is provided as the last character. For example, to match all versions with a major version of ` + "`" + `7` + "`" + `, specify the following value for this field ` + "`" + `7.*` + "`" + ` An empty string matches all OS versions.",
+                    "description": "The OS version Prefix matches are supported if asterisk(*) is provided as the last character. For example, to match all versions with a major version of '7', specify the following value for this field '7.*' An empty string matches all OS versions.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
                   }
                 },
-                "description": "List of inventories to select VMs. A VM is selected if its inventory data matches at least one of the following inventories.",
+                "description": "List of inventories to select VMs.\nA VM is selected if its inventory data matches at least one of the following inventories.",
                 "description_kind": "plain"
               },
               "nesting_mode": "list"
             }
           },
-          "description": "Required. Filter to select VMs.",
+          "description": "Filter to select VMs.",
           "description_kind": "plain"
         },
         "max_items": 1,
@@ -176,7 +176,7 @@ const googleOsConfigOsPolicyAssignment = `{
         "block": {
           "attributes": {
             "allow_no_resource_group_match": {
-              "description": "This flag determines the OS policy compliance status when none of the resource groups within the policy are applicable for a VM. Set this value to ` + "`" + `true` + "`" + ` if the policy needs to be reported as compliant even if the policy has nothing to validate or enforce.",
+              "description": "This flag determines the OS policy compliance status when none of the resource groups within the policy are applicable for a VM. Set this value to 'true' if the policy needs to be reported as compliant even if the policy has nothing to validate or enforce.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
@@ -188,13 +188,13 @@ const googleOsConfigOsPolicyAssignment = `{
               "type": "string"
             },
             "id": {
-              "description": "Required. The id of the OS policy with the following restrictions: * Must contain only lowercase letters, numbers, and hyphens. * Must start with a letter. * Must be between 1-63 characters. * Must end with a number or a letter. * Must be unique within the assignment.",
+              "description": "The id of the OS policy with the following restrictions:\n* Must contain only lowercase letters, numbers, and hyphens.\n* Must start with a letter.\n* Must be between 1-63 characters.\n* Must end with a number or a letter.\n* Must be unique within the assignment.",
               "description_kind": "plain",
               "required": true,
               "type": "string"
             },
             "mode": {
-              "description": "Required. Policy mode Possible values: MODE_UNSPECIFIED, VALIDATION, ENFORCEMENT",
+              "description": "Policy mode Possible values: [\"MODE_UNSPECIFIED\", \"VALIDATION\", \"ENFORCEMENT\"]",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -208,19 +208,19 @@ const googleOsConfigOsPolicyAssignment = `{
                     "block": {
                       "attributes": {
                         "os_short_name": {
-                          "description": "Required. The OS short name",
+                          "description": "The OS short name",
                           "description_kind": "plain",
                           "required": true,
                           "type": "string"
                         },
                         "os_version": {
-                          "description": "The OS version Prefix matches are supported if asterisk(*) is provided as the last character. For example, to match all versions with a major version of ` + "`" + `7` + "`" + `, specify the following value for this field ` + "`" + `7.*` + "`" + ` An empty string matches all OS versions.",
+                          "description": "The OS version\nPrefix matches are supported if asterisk(*) is provided as the last character. For example, to match all versions with a major version of '7', specify the following value for this field '7.*'\nAn empty string matches all OS versions.",
                           "description_kind": "plain",
                           "optional": true,
                           "type": "string"
                         }
                       },
-                      "description": "List of inventory filters for the resource group. The resources in this resource group are applied to the target VM if it satisfies at least one of the following inventory filters. For example, to apply this resource group to VMs running either ` + "`" + `RHEL` + "`" + ` or ` + "`" + `CentOS` + "`" + ` operating systems, specify 2 items for the list with following values: inventory_filters[0].os_short_name='rhel' and inventory_filters[1].os_short_name='centos' If the list is empty, this resource group will be applied to the target VM unconditionally.",
+                      "description": "List of inventory filters for the resource group.\nThe resources in this resource group are applied to the target VM if it satisfies at least one of the following inventory filters.\nFor example, to apply this resource group to VMs running either 'RHEL' or 'CentOS' operating systems, specify 2 items for the list with following values: inventory_filters[0].os_short_name='rhel' and inventory_filters[1].os_short_name='centos'\nIf the list is empty, this resource group will be applied to the target VM unconditionally.",
                       "description_kind": "plain"
                     },
                     "nesting_mode": "list"
@@ -229,7 +229,7 @@ const googleOsConfigOsPolicyAssignment = `{
                     "block": {
                       "attributes": {
                         "id": {
-                          "description": "Required. The id of the resource with the following restrictions: * Must contain only lowercase letters, numbers, and hyphens. * Must start with a letter. * Must be between 1-63 characters. * Must end with a number or a letter. * Must be unique within the OS policy.",
+                          "description": "The id of the resource with the following restrictions:\n* Must contain only lowercase letters, numbers, and hyphens.\n* Must start with a letter.\n* Must be between 1-63 characters.\n* Must end with a number or a letter.\n* Must be unique within the OS policy.",
                           "description_kind": "plain",
                           "required": true,
                           "type": "string"
@@ -252,7 +252,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       ]
                                     },
                                     "interpreter": {
-                                      "description": "Required. The script interpreter to use. Possible values: INTERPRETER_UNSPECIFIED, NONE, SHELL, POWERSHELL",
+                                      "description": "The script interpreter to use. Possible values: [\"INTERPRETER_UNSPECIFIED\", \"NONE\", \"SHELL\", \"POWERSHELL\"]",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -292,7 +292,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "block": {
                                               "attributes": {
                                                 "bucket": {
-                                                  "description": "Required. Bucket of the Cloud Storage object.",
+                                                  "description": "Bucket of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -304,7 +304,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "number"
                                                 },
                                                 "object": {
-                                                  "description": "Required. Name of the Cloud Storage object.",
+                                                  "description": "Name of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -326,7 +326,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "string"
                                                 },
                                                 "uri": {
-                                                  "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                                  "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -365,7 +365,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       ]
                                     },
                                     "interpreter": {
-                                      "description": "Required. The script interpreter to use. Possible values: INTERPRETER_UNSPECIFIED, NONE, SHELL, POWERSHELL",
+                                      "description": "The script interpreter to use. Possible values: [\"INTERPRETER_UNSPECIFIED\", \"NONE\", \"SHELL\", \"POWERSHELL\"]",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -388,7 +388,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "block": {
                                         "attributes": {
                                           "allow_insecure": {
-                                            "description": "Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
+                                            "description": "Defaults to false. When false, files are subject to validations based on the file type:\nRemote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "bool"
@@ -405,7 +405,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "block": {
                                               "attributes": {
                                                 "bucket": {
-                                                  "description": "Required. Bucket of the Cloud Storage object.",
+                                                  "description": "Bucket of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -417,7 +417,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "number"
                                                 },
                                                 "object": {
-                                                  "description": "Required. Name of the Cloud Storage object.",
+                                                  "description": "Name of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -439,7 +439,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "string"
                                                 },
                                                 "uri": {
-                                                  "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                                  "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -459,7 +459,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "nesting_mode": "list"
                                     }
                                   },
-                                  "description": "Required. What to run to validate this resource is in the desired state. An exit code of 100 indicates \"in desired state\", and exit code of 101 indicates \"not in desired state\". Any other exit code indicates a failure running validate.",
+                                  "description": "What to run to validate this resource is in the desired state. An exit code of 100 indicates \"in desired state\", and exit code of 101 indicates \"not in desired state\". Any other exit code indicates a failure running validate.",
                                   "description_kind": "plain"
                                 },
                                 "max_items": 1,
@@ -483,19 +483,19 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "type": "string"
                               },
                               "path": {
-                                "description": "Required. The absolute path of the file within the VM.",
+                                "description": "The absolute path of the file within the VM.",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
                               },
                               "permissions": {
                                 "computed": true,
-                                "description": "Consists of three octal digits which represent, in order, the permissions of the owner, group, and other users for the file (similarly to the numeric mode used in the linux chmod utility). Each digit represents a three bit number with the 4 bit corresponding to the read permissions, the 2 bit corresponds to the write bit, and the one bit corresponds to the execute permission. Default behavior is 755. Below are some examples of permissions and their associated values: read, write, and execute: 7 read and execute: 5 read and write: 6 read only: 4",
+                                "description": "Consists of three octal digits which represent, in order, the permissions of the owner, group, and other users for the file (similarly to the numeric mode used in the linux chmod utility). Each digit represents a three bit number with the 4 bit corresponding to the read permissions, the 2 bit corresponds to the write bit, and the one bit corresponds to the execute permission. Default behavior is 755.\nBelow are some examples of permissions and their associated values: read, write, and execute: 7 read and execute: 5 read and write: 6 read only: 4",
                                 "description_kind": "plain",
                                 "type": "string"
                               },
                               "state": {
-                                "description": "Required. Desired state of the file. Possible values: OS_POLICY_COMPLIANCE_STATE_UNSPECIFIED, COMPLIANT, NON_COMPLIANT, UNKNOWN, NO_OS_POLICIES_APPLICABLE",
+                                "description": "Desired state of the file. Possible values: [\"OS_POLICY_COMPLIANCE_STATE_UNSPECIFIED\", \"COMPLIANT\", \"NON_COMPLIANT\", \"UNKNOWN\", \"NO_OS_POLICIES_APPLICABLE\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
@@ -523,7 +523,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "block": {
                                         "attributes": {
                                           "bucket": {
-                                            "description": "Required. Bucket of the Cloud Storage object.",
+                                            "description": "Bucket of the Cloud Storage object.",
                                             "description_kind": "plain",
                                             "required": true,
                                             "type": "string"
@@ -535,7 +535,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "type": "number"
                                           },
                                           "object": {
-                                            "description": "Required. Name of the Cloud Storage object.",
+                                            "description": "Name of the Cloud Storage object.",
                                             "description_kind": "plain",
                                             "required": true,
                                             "type": "string"
@@ -557,7 +557,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "type": "string"
                                           },
                                           "uri": {
-                                            "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                            "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                             "description_kind": "plain",
                                             "required": true,
                                             "type": "string"
@@ -587,7 +587,7 @@ const googleOsConfigOsPolicyAssignment = `{
                           "block": {
                             "attributes": {
                               "desired_state": {
-                                "description": "Required. The desired state the agent should maintain for this package. Possible values: DESIRED_STATE_UNSPECIFIED, INSTALLED, REMOVED",
+                                "description": "The desired state the agent should maintain for this package. Possible values: [\"DESIRED_STATE_UNSPECIFIED\", \"INSTALLED\", \"REMOVED\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
@@ -598,7 +598,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "name": {
-                                      "description": "Required. Package name.",
+                                      "description": "Package name.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -614,7 +614,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "pull_deps": {
-                                      "description": "Whether dependencies should also be installed. - install when false: ` + "`" + `dpkg -i package` + "`" + ` - install when true: ` + "`" + `apt-get update \u0026\u0026 apt-get -y install package.deb` + "`" + `",
+                                      "description": "Whether dependencies should also be installed. - install when false: 'dpkg -i package' - install when true: 'apt-get update \u0026\u0026 apt-get -y install package.deb'",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "bool"
@@ -625,7 +625,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "block": {
                                         "attributes": {
                                           "allow_insecure": {
-                                            "description": "Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
+                                            "description": "Defaults to false. When false, files are subject to validations based on the file type:\nRemote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "bool"
@@ -642,7 +642,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "block": {
                                               "attributes": {
                                                 "bucket": {
-                                                  "description": "Required. Bucket of the Cloud Storage object.",
+                                                  "description": "Bucket of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -654,7 +654,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "number"
                                                 },
                                                 "object": {
-                                                  "description": "Required. Name of the Cloud Storage object.",
+                                                  "description": "Name of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -676,7 +676,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "string"
                                                 },
                                                 "uri": {
-                                                  "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                                  "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -689,7 +689,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "nesting_mode": "list"
                                           }
                                         },
-                                        "description": "Required. A deb package.",
+                                        "description": "A deb package.",
                                         "description_kind": "plain"
                                       },
                                       "max_items": 1,
@@ -707,7 +707,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "name": {
-                                      "description": "Required. Package name.",
+                                      "description": "Package name.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -723,7 +723,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "properties": {
-                                      "description": "Additional properties to use during installation. This should be in the format of Property=Setting. Appended to the defaults of ` + "`" + `ACTION=INSTALL REBOOT=ReallySuppress` + "`" + `.",
+                                      "description": "Additional properties to use during installation. This should be in the format of Property=Setting. Appended to the defaults of 'ACTION=INSTALL REBOOT=ReallySuppress'.",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": [
@@ -737,7 +737,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "block": {
                                         "attributes": {
                                           "allow_insecure": {
-                                            "description": "Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
+                                            "description": "Defaults to false. When false, files are subject to validations based on the file type:\nRemote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "bool"
@@ -754,7 +754,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "block": {
                                               "attributes": {
                                                 "bucket": {
-                                                  "description": "Required. Bucket of the Cloud Storage object.",
+                                                  "description": "Bucket of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -766,7 +766,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "number"
                                                 },
                                                 "object": {
-                                                  "description": "Required. Name of the Cloud Storage object.",
+                                                  "description": "Name of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -788,7 +788,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "string"
                                                 },
                                                 "uri": {
-                                                  "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                                  "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -801,7 +801,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "nesting_mode": "list"
                                           }
                                         },
-                                        "description": "Required. The MSI package.",
+                                        "description": "The MSI package.",
                                         "description_kind": "plain"
                                       },
                                       "max_items": 1,
@@ -819,7 +819,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "pull_deps": {
-                                      "description": "Whether dependencies should also be installed. - install when false: ` + "`" + `rpm --upgrade --replacepkgs package.rpm` + "`" + ` - install when true: ` + "`" + `yum -y install package.rpm` + "`" + ` or ` + "`" + `zypper -y install package.rpm` + "`" + `",
+                                      "description": "Whether dependencies should also be installed. - install when false: 'rpm --upgrade --replacepkgs package.rpm' - install when true: 'yum -y install package.rpm' or 'zypper -y install package.rpm'",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "bool"
@@ -830,7 +830,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       "block": {
                                         "attributes": {
                                           "allow_insecure": {
-                                            "description": "Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
+                                            "description": "Defaults to false. When false, files are subject to validations based on the file type:\nRemote: A checksum must be specified. Cloud Storage: An object generation number must be specified.",
                                             "description_kind": "plain",
                                             "optional": true,
                                             "type": "bool"
@@ -847,7 +847,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "block": {
                                               "attributes": {
                                                 "bucket": {
-                                                  "description": "Required. Bucket of the Cloud Storage object.",
+                                                  "description": "Bucket of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -859,7 +859,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "number"
                                                 },
                                                 "object": {
-                                                  "description": "Required. Name of the Cloud Storage object.",
+                                                  "description": "Name of the Cloud Storage object.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -881,7 +881,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                                   "type": "string"
                                                 },
                                                 "uri": {
-                                                  "description": "Required. URI from which to fetch the object. It should contain both the protocol and path following the format ` + "`" + `{protocol}://{location}` + "`" + `.",
+                                                  "description": "URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'.",
                                                   "description_kind": "plain",
                                                   "required": true,
                                                   "type": "string"
@@ -894,7 +894,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                             "nesting_mode": "list"
                                           }
                                         },
-                                        "description": "Required. An rpm package.",
+                                        "description": "An rpm package.",
                                         "description_kind": "plain"
                                       },
                                       "max_items": 1,
@@ -912,7 +912,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "name": {
-                                      "description": "Required. Package name.",
+                                      "description": "Package name.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -928,7 +928,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "name": {
-                                      "description": "Required. Package name.",
+                                      "description": "Package name.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -954,13 +954,13 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "archive_type": {
-                                      "description": "Required. Type of archive files in this repository. Possible values: ARCHIVE_TYPE_UNSPECIFIED, DEB, DEB_SRC",
+                                      "description": "Type of archive files in this repository. Possible values: [\"ARCHIVE_TYPE_UNSPECIFIED\", \"DEB\", \"DEB_SRC\"]",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
                                     },
                                     "components": {
-                                      "description": "Required. List of components for this repository. Must contain at least one item.",
+                                      "description": "List of components for this repository. Must contain at least one item.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": [
@@ -969,19 +969,19 @@ const googleOsConfigOsPolicyAssignment = `{
                                       ]
                                     },
                                     "distribution": {
-                                      "description": "Required. Distribution of this repository.",
+                                      "description": "Distribution of this repository.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
                                     },
                                     "gpg_key": {
-                                      "description": "URI of the key file for this repository. The agent maintains a keyring at ` + "`" + `/etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg` + "`" + `.",
+                                      "description": "URI of the key file for this repository. The agent maintains a keyring at '/etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg'.",
                                       "description_kind": "plain",
                                       "optional": true,
                                       "type": "string"
                                     },
                                     "uri": {
-                                      "description": "Required. URI for this repository.",
+                                      "description": "URI for this repository.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -997,13 +997,13 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "name": {
-                                      "description": "Required. The name of the repository.",
+                                      "description": "The name of the repository.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
                                     },
                                     "url": {
-                                      "description": "Required. The url of the repository.",
+                                      "description": "The url of the repository.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -1019,7 +1019,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "base_url": {
-                                      "description": "Required. The location of the repository directory.",
+                                      "description": "The location of the repository directory.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -1040,7 +1040,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       ]
                                     },
                                     "id": {
-                                      "description": "Required. A one word, unique name for this repository. This is the ` + "`" + `repo id` + "`" + ` in the yum config file and also the ` + "`" + `display_name` + "`" + ` if ` + "`" + `display_name` + "`" + ` is omitted. This id is also used as the unique identifier when checking for resource conflicts.",
+                                      "description": "A one word, unique name for this repository. This is the 'repo id' in the yum config file and also the 'display_name' if 'display_name' is omitted. This id is also used as the unique identifier when checking for resource conflicts.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -1056,7 +1056,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "block": {
                                   "attributes": {
                                     "base_url": {
-                                      "description": "Required. The location of the repository directory.",
+                                      "description": "The location of the repository directory.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -1077,7 +1077,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                       ]
                                     },
                                     "id": {
-                                      "description": "Required. A one word, unique name for this repository. This is the ` + "`" + `repo id` + "`" + ` in the zypper config file and also the ` + "`" + `display_name` + "`" + ` if ` + "`" + `display_name` + "`" + ` is omitted. This id is also used as the unique identifier when checking for GuestPolicy conflicts.",
+                                      "description": "A one word, unique name for this repository. This is the 'repo id' in the zypper config file and also the 'display_name' if 'display_name' is omitted. This id is also used as the unique identifier when checking for GuestPolicy conflicts.",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -1097,21 +1097,21 @@ const googleOsConfigOsPolicyAssignment = `{
                           "nesting_mode": "list"
                         }
                       },
-                      "description": "Required. List of resources configured for this resource group. The resources are executed in the exact order specified here.",
+                      "description": "List of resources configured for this resource group. The resources are executed in the exact order specified here.",
                       "description_kind": "plain"
                     },
                     "min_items": 1,
                     "nesting_mode": "list"
                   }
                 },
-                "description": "Required. List of resource groups for the policy. For a particular VM, resource groups are evaluated in the order specified and the first resource group that is applicable is selected and the rest are ignored. If none of the resource groups are applicable for a VM, the VM is considered to be non-compliant w.r.t this policy. This behavior can be toggled by the flag ` + "`" + `allow_no_resource_group_match` + "`" + `",
+                "description": "List of resource groups for the policy. For a particular VM, resource groups are evaluated in the order specified and the first resource group that is applicable is selected and the rest are ignored.\nIf none of the resource groups are applicable for a VM, the VM is considered to be non-compliant w.r.t this policy. This behavior can be toggled by the flag 'allow_no_resource_group_match'",
                 "description_kind": "plain"
               },
               "min_items": 1,
               "nesting_mode": "list"
             }
           },
-          "description": "Required. List of OS policies to be applied to the VMs.",
+          "description": "List of OS policies to be applied to the VMs.",
           "description_kind": "plain"
         },
         "min_items": 1,
@@ -1121,7 +1121,7 @@ const googleOsConfigOsPolicyAssignment = `{
         "block": {
           "attributes": {
             "min_wait_duration": {
-              "description": "Required. This determines the minimum duration of time to wait after the configuration changes are applied through the current rollout. A VM continues to count towards the ` + "`" + `disruption_budget` + "`" + ` at least until this duration of time has passed after configuration changes are applied.",
+              "description": "This determines the minimum duration of time to wait after the configuration changes are applied through the current rollout. A VM continues to count towards the 'disruption_budget' at least until this duration of time has passed after configuration changes are applied.",
               "description_kind": "plain",
               "required": true,
               "type": "string"
@@ -1144,7 +1144,7 @@ const googleOsConfigOsPolicyAssignment = `{
                     "type": "number"
                   }
                 },
-                "description": "Required. The maximum number (or percentage) of VMs per zone to disrupt at any given moment.",
+                "description": "The maximum number (or percentage) of VMs per zone to disrupt at any given moment.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -1152,7 +1152,7 @@ const googleOsConfigOsPolicyAssignment = `{
               "nesting_mode": "list"
             }
           },
-          "description": "Required. Rollout to deploy the OS policy assignment. A rollout is triggered in the following situations: 1) OSPolicyAssignment is created. 2) OSPolicyAssignment is updated and the update contains changes to one of the following fields: - instance_filter - os_policies 3) OSPolicyAssignment is deleted.",
+          "description": "Rollout to deploy the OS policy assignment. A rollout is triggered in the following situations: 1) OSPolicyAssignment is created. 2) OSPolicyAssignment is updated and the update contains changes to one of the following fields: - instance_filter - os_policies 3) OSPolicyAssignment is deleted.",
           "description_kind": "plain"
         },
         "max_items": 1,
