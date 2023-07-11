@@ -11,7 +11,7 @@ const googleMonitoringMonitoredProject = `{
     "attributes": {
       "create_time": {
         "computed": true,
-        "description": "Output only. The time when this ` + "`" + `MonitoredProject` + "`" + ` was created.",
+        "description": "Output only. The time when this 'MonitoredProject' was created.",
         "description_kind": "plain",
         "type": "string"
       },
@@ -28,7 +28,7 @@ const googleMonitoringMonitoredProject = `{
         "type": "string"
       },
       "name": {
-        "description": "Immutable. The resource name of the ` + "`" + `MonitoredProject` + "`" + `. On input, the resource name includes the scoping project ID and monitored project ID. On output, it contains the equivalent project numbers. Example: ` + "`" + `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}` + "`" + `",
+        "description": "Immutable. The resource name of the 'MonitoredProject'. On input, the resource name includes the scoping project ID and monitored project ID. On output, it contains the equivalent project numbers. Example: 'locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}'",
         "description_kind": "plain",
         "required": true,
         "type": "string"

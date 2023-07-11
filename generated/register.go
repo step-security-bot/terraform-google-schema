@@ -178,6 +178,7 @@ func init() {
 	resources["google_compute_backend_service"] = resource.GoogleComputeBackendServiceSchema()  
 	resources["google_compute_backend_service_signed_url_key"] = resource.GoogleComputeBackendServiceSignedUrlKeySchema()  
 	resources["google_compute_disk"] = resource.GoogleComputeDiskSchema()  
+	resources["google_compute_disk_async_replication"] = resource.GoogleComputeDiskAsyncReplicationSchema()  
 	resources["google_compute_disk_iam_binding"] = resource.GoogleComputeDiskIamBindingSchema()  
 	resources["google_compute_disk_iam_member"] = resource.GoogleComputeDiskIamMemberSchema()  
 	resources["google_compute_disk_iam_policy"] = resource.GoogleComputeDiskIamPolicySchema()  

@@ -112,7 +112,7 @@ const googleSecretManagerSecret = `{
                     "nesting_mode": "list"
                   }
                 },
-                "description": "The Secret will automatically be replicated without any restrictions.",
+                "description": "The Secret will be replicated to the regions specified by the user.",
                 "description_kind": "plain"
               },
               "max_items": 1,

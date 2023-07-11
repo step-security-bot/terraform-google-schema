@@ -9,6 +9,20 @@ import (
 const googleComputeDisk = `{
   "block": {
     "attributes": {
+      "async_primary_disk": {
+        "computed": true,
+        "description": "A nested object resource",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "disk": "string"
+            }
+          ]
+        ]
+      },
       "creation_timestamp": {
         "computed": true,
         "description": "Creation timestamp in RFC3339 text format.",

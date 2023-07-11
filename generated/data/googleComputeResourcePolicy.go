@@ -15,6 +15,20 @@ const googleComputeResourcePolicy = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "disk_consistency_group_policy": {
+        "computed": true,
+        "description": "Replication consistency group for asynchronous disk replication.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "enabled": "bool"
+            }
+          ]
+        ]
+      },
       "group_placement_policy": {
         "computed": true,
         "description": "Resource policy for instances used for placement configuration.",

@@ -47,6 +47,22 @@ const googleComputeResourcePolicy = `{
       }
     },
     "block_types": {
+      "disk_consistency_group_policy": {
+        "block": {
+          "attributes": {
+            "enabled": {
+              "description": "Enable disk consistency on the resource policy.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "bool"
+            }
+          },
+          "description": "Replication consistency group for asynchronous disk replication.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "group_placement_policy": {
         "block": {
           "attributes": {

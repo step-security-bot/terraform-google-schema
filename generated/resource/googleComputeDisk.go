@@ -169,6 +169,22 @@ const googleComputeDisk = `{
       }
     },
     "block_types": {
+      "async_primary_disk": {
+        "block": {
+          "attributes": {
+            "disk": {
+              "description": "Primary disk for asynchronous disk replication.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "description": "A nested object resource",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "disk_encryption_key": {
         "block": {
           "attributes": {

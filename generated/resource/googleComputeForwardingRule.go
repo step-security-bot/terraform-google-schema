@@ -118,6 +118,12 @@ const googleComputeForwardingRule = `{
         "optional": true,
         "type": "string"
       },
+      "no_automate_dns_zone": {
+        "description": "This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "port_range": {
         "computed": true,
         "description": "This field can only be used:\n\n* If 'IPProtocol' is one of TCP, UDP, or SCTP.\n* By backend service-based network load balancers, target pool-based\nnetwork load balancers, internal proxy load balancers, external proxy load\nbalancers, Traffic Director, external protocol forwarding, and Classic VPN.\nSome products have restrictions on what ports can be used. See\n[port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#port_specifications)\nfor details.\n\n\nOnly packets addressed to ports in the specified range will be forwarded to\nthe backends configured with this forwarding rule.\n\nThe 'ports' and 'port_range' fields are mutually exclusive.\n\nFor external forwarding rules, two or more forwarding rules cannot use the\nsame '[IPAddress, IPProtocol]' pair, and cannot have\noverlapping 'portRange's.\n\nFor internal forwarding rules within the same VPC network, two or more\nforwarding rules cannot use the same '[IPAddress, IPProtocol]'\npair, and cannot have overlapping 'portRange's.",
