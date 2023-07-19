@@ -169,6 +169,15 @@ const googleSqlDatabaseInstances = `{
                     ],
                     "collation": "string",
                     "connector_enforcement": "string",
+                    "data_cache_config": [
+                      "list",
+                      [
+                        "object",
+                        {
+                          "data_cache_enabled": "bool"
+                        }
+                      ]
+                    ],
                     "database_flags": [
                       "list",
                       [
@@ -195,6 +204,7 @@ const googleSqlDatabaseInstances = `{
                     "disk_autoresize_limit": "number",
                     "disk_size": "number",
                     "disk_type": "string",
+                    "edition": "string",
                     "insights_config": [
                       "list",
                       [

@@ -97,17 +97,50 @@ const googleIamWorkforcePoolProvider = `{
             }
           },
           "block_types": {
+            "client_secret": {
+              "block": {
+                "block_types": {
+                  "value": {
+                    "block": {
+                      "attributes": {
+                        "plain_text": {
+                          "description": "The plain text of the client secret value.",
+                          "description_kind": "plain",
+                          "required": true,
+                          "sensitive": true,
+                          "type": "string"
+                        },
+                        "thumbprint": {
+                          "computed": true,
+                          "description": "A thumbprint to represent the current client secret value.",
+                          "description_kind": "plain",
+                          "type": "string"
+                        }
+                      },
+                      "description": "The value of the client secret.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  }
+                },
+                "description": "The optional client secret. Required to enable Authorization Code flow for web sign-in.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "web_sso_config": {
               "block": {
                 "attributes": {
                   "assertion_claims_behavior": {
-                    "description": "The behavior for how OIDC Claims are included in the 'assertion' object used for attribute mapping and attribute condition.\n* ONLY_ID_TOKEN_CLAIMS: Only include ID Token Claims. Possible values: [\"ONLY_ID_TOKEN_CLAIMS\"]",
+                    "description": "The behavior for how OIDC Claims are included in the 'assertion' object used for attribute mapping and attribute condition.\n* MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS: Merge the UserInfo Endpoint Claims with ID Token Claims, preferring UserInfo Claim Values for the same Claim Name. This option is available only for the Authorization Code Flow.\n* ONLY_ID_TOKEN_CLAIMS: Only include ID Token Claims. Possible values: [\"MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS\", \"ONLY_ID_TOKEN_CLAIMS\"]",
                     "description_kind": "plain",
                     "required": true,
                     "type": "string"
                   },
                   "response_type": {
-                    "description": "The Response Type to request for in the OIDC Authorization Request for web sign-in.\n* ID_TOKEN: The 'response_type=id_token' selection uses the Implicit Flow for web sign-in. Possible values: [\"ID_TOKEN\"]",
+                    "description": "The Response Type to request for in the OIDC Authorization Request for web sign-in.\n\nThe 'CODE' Response Type is recommended to avoid the Implicit Flow, for security reasons.\n* CODE: The 'response_type=code' selection uses the Authorization Code Flow for web sign-in. Requires a configured client secret.\n* ID_TOKEN: The 'response_type=id_token' selection uses the Implicit Flow for web sign-in. Possible values: [\"CODE\", \"ID_TOKEN\"]",
                     "description_kind": "plain",
                     "required": true,
                     "type": "string"

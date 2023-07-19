@@ -274,6 +274,13 @@ const googleContainerAwsCluster = `{
                     "optional": true,
                     "type": "number"
                   },
+                  "throughput": {
+                    "computed": true,
+                    "description": "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
                   "volume_type": {
                     "computed": true,
                     "description": "Optional. Type of the EBS volume. When unspecified, it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED, GP2, GP3",
@@ -329,6 +336,13 @@ const googleContainerAwsCluster = `{
                   "size_gib": {
                     "computed": true,
                     "description": "Optional. The size of the volume, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
+                  "throughput": {
+                    "computed": true,
+                    "description": "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "number"
@@ -398,6 +412,12 @@ const googleContainerAwsCluster = `{
       "networking": {
         "block": {
           "attributes": {
+            "per_node_pool_sg_rules_disabled": {
+              "description": "Disable the per node pool subnet security group rules on the control plane security group. When set to true, you must also provide one or more security groups that ensure node pools are able to send requests to the control plane on TCP/443 and TCP/8132. Failure to do so may result in unavailable node pools.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "bool"
+            },
             "pod_address_cidr_blocks": {
               "description": "All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creation.",
               "description_kind": "plain",

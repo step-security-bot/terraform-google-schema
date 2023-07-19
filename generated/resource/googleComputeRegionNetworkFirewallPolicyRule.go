@@ -10,7 +10,7 @@ const googleComputeRegionNetworkFirewallPolicyRule = `{
   "block": {
     "attributes": {
       "action": {
-        "description": "The Action to perform when the client connection triggers the rule. Can currently be either \"allow\" or \"deny()\" where valid values for status are 403, 404, and 502.",
+        "description": "The Action to perform when the client connection triggers the rule. Valid actions are \"allow\", \"deny\" and \"goto_next\".",
         "description_kind": "plain",
         "required": true,
         "type": "string"

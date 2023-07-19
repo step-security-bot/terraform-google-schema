@@ -750,6 +750,12 @@ const googleCloudbuildTrigger = `{
               "required": true,
               "type": "string"
             },
+            "repository": {
+              "description": "The fully qualified resource name of the Repo API repository. The fully qualified resource name of the Repo API repository.\nIf unspecified, the repo from which the trigger invocation originated is assumed to be the repo from which to read the specified path.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "revision": {
               "description": "The branch, tag, arbitrary ref, or SHA version of the repo to use when resolving the\nfilename (optional). This field respects the same syntax/resolution as described here: https://git-scm.com/docs/gitrevisions\nIf unspecified, the revision from which the trigger invocation originated is assumed to be the revision from which to read the specified path.",
               "description_kind": "plain",
@@ -889,6 +895,80 @@ const googleCloudbuildTrigger = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "repository_event_config": {
+        "block": {
+          "attributes": {
+            "repository": {
+              "description": "The resource name of the Repo API resource.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            }
+          },
+          "block_types": {
+            "pull_request": {
+              "block": {
+                "attributes": {
+                  "branch": {
+                    "description": "Regex of branches to match.\n\nThe syntax of the regular expressions accepted is the syntax accepted by\nRE2 and described at https://github.com/google/re2/wiki/Syntax",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "comment_control": {
+                    "description": "Configure builds to run whether a repository owner or collaborator need to comment '/gcbrun'. Possible values: [\"COMMENTS_DISABLED\", \"COMMENTS_ENABLED\", \"COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY\"]",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "invert_regex": {
+                    "description": "If true, branches that do NOT match the git_ref will trigger a build.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "Contains filter properties for matching Pull Requests.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "push": {
+              "block": {
+                "attributes": {
+                  "branch": {
+                    "description": "Regex of branches to match.\n\nThe syntax of the regular expressions accepted is the syntax accepted by\nRE2 and described at https://github.com/google/re2/wiki/Syntax",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "invert_regex": {
+                    "description": "If true, only trigger a build if the revision regex does NOT match the git_ref regex.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  },
+                  "tag": {
+                    "description": "Regex of tags to match.\n\nThe syntax of the regular expressions accepted is the syntax accepted by\nRE2 and described at https://github.com/google/re2/wiki/Syntax",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  }
+                },
+                "description": "Contains filter properties for matching git pushes.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            }
+          },
+          "description": "The configuration of a trigger that creates a build whenever an event from Repo API is received.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "source_to_build": {
         "block": {
           "attributes": {
@@ -908,6 +988,12 @@ const googleCloudbuildTrigger = `{
               "description": "The type of the repo, since it may not be explicit from the repo field (e.g from a URL).\nValues can be UNKNOWN, CLOUD_SOURCE_REPOSITORIES, GITHUB, BITBUCKET_SERVER Possible values: [\"UNKNOWN\", \"CLOUD_SOURCE_REPOSITORIES\", \"GITHUB\", \"BITBUCKET_SERVER\"]",
               "description_kind": "plain",
               "required": true,
+              "type": "string"
+            },
+            "repository": {
+              "description": "The qualified resource name of the Repo API repository.\nEither uri or repository can be specified and is required.",
+              "description_kind": "plain",
+              "optional": true,
               "type": "string"
             },
             "uri": {

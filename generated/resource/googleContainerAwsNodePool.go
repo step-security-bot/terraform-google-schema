@@ -254,6 +254,13 @@ const googleContainerAwsNodePool = `{
                     "optional": true,
                     "type": "number"
                   },
+                  "throughput": {
+                    "computed": true,
+                    "description": "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
                   "volume_type": {
                     "computed": true,
                     "description": "Optional. Type of the EBS volume. When unspecified, it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED, GP2, GP3",

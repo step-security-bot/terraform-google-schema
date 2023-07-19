@@ -495,7 +495,7 @@ const googleOsConfigOsPolicyAssignment = `{
                                 "type": "string"
                               },
                               "state": {
-                                "description": "Desired state of the file. Possible values: [\"OS_POLICY_COMPLIANCE_STATE_UNSPECIFIED\", \"COMPLIANT\", \"NON_COMPLIANT\", \"UNKNOWN\", \"NO_OS_POLICIES_APPLICABLE\"]",
+                                "description": "Desired state of the file. Possible values: [\"DESIRED_STATE_UNSPECIFIED\", \"PRESENT\", \"ABSENT\", \"CONTENTS_MATCH\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"

@@ -24,6 +24,15 @@ const googleClouddeployTarget = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "deploy_parameters": {
+        "description": "Optional. The deploy parameters to use for this target.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": [
+          "map",
+          "string"
+        ]
+      },
       "description": {
         "description": "Optional. Description of the ` + "`" + `Target` + "`" + `. Max length is 255 characters.",
         "description_kind": "plain",

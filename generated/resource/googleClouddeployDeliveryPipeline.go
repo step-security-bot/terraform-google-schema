@@ -160,9 +160,210 @@ const googleClouddeployDeliveryPipeline = `{
                   }
                 },
                 "block_types": {
+                  "deploy_parameters": {
+                    "block": {
+                      "attributes": {
+                        "match_target_labels": {
+                          "description": "Optional. Deploy parameters are applied to targets with match labels. If unspecified, deploy parameters are applied to all targets (including child targets of a multi-target).",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": [
+                            "map",
+                            "string"
+                          ]
+                        },
+                        "values": {
+                          "description": "Required. Values are deploy parameters in key-value pairs.",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": [
+                            "map",
+                            "string"
+                          ]
+                        }
+                      },
+                      "description": "Optional. The deploy parameters to use for the target in this stage.",
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "list"
+                  },
                   "strategy": {
                     "block": {
                       "block_types": {
+                        "canary": {
+                          "block": {
+                            "block_types": {
+                              "canary_deployment": {
+                                "block": {
+                                  "attributes": {
+                                    "percentages": {
+                                      "description": "Required. The percentage based deployments that will occur as a part of a ` + "`" + `Rollout` + "`" + `. List is expected in ascending order and each integer n is 0 \u003c= n \u003c 100.",
+                                      "description_kind": "plain",
+                                      "required": true,
+                                      "type": [
+                                        "list",
+                                        "number"
+                                      ]
+                                    },
+                                    "verify": {
+                                      "description": "Whether to run verify tests after each percentage deployment.",
+                                      "description_kind": "plain",
+                                      "optional": true,
+                                      "type": "bool"
+                                    }
+                                  },
+                                  "description": "Configures the progressive based deployment for a Target.",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
+                              },
+                              "custom_canary_deployment": {
+                                "block": {
+                                  "block_types": {
+                                    "phase_configs": {
+                                      "block": {
+                                        "attributes": {
+                                          "percentage": {
+                                            "description": "Required. Percentage deployment for the phase.",
+                                            "description_kind": "plain",
+                                            "required": true,
+                                            "type": "number"
+                                          },
+                                          "phase_id": {
+                                            "description": "Required. The ID to assign to the ` + "`" + `Rollout` + "`" + ` phase. This value must consist of lower-case letters, numbers, and hyphens, start with a letter and end with a letter or a number, and have a max length of 63 characters. In other words, it must match the following regex: ` + "`" + `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$` + "`" + `.",
+                                            "description_kind": "plain",
+                                            "required": true,
+                                            "type": "string"
+                                          },
+                                          "profiles": {
+                                            "description": "Skaffold profiles to use when rendering the manifest for this phase. These are in addition to the profiles list specified in the ` + "`" + `DeliveryPipeline` + "`" + ` stage.",
+                                            "description_kind": "plain",
+                                            "optional": true,
+                                            "type": [
+                                              "list",
+                                              "string"
+                                            ]
+                                          },
+                                          "verify": {
+                                            "description": "Whether to run verify tests after the deployment.",
+                                            "description_kind": "plain",
+                                            "optional": true,
+                                            "type": "bool"
+                                          }
+                                        },
+                                        "description": "Required. Configuration for each phase in the canary deployment in the order executed.",
+                                        "description_kind": "plain"
+                                      },
+                                      "min_items": 1,
+                                      "nesting_mode": "list"
+                                    }
+                                  },
+                                  "description": "Configures the progressive based deployment for a Target, but allows customizing at the phase level where a phase represents each of the percentage deployments.",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
+                              },
+                              "runtime_config": {
+                                "block": {
+                                  "block_types": {
+                                    "cloud_run": {
+                                      "block": {
+                                        "attributes": {
+                                          "automatic_traffic_control": {
+                                            "description": "Whether Cloud Deploy should update the traffic stanza in a Cloud Run Service on the user's behalf to facilitate traffic splitting. This is required to be true for CanaryDeployments, but optional for CustomCanaryDeployments.",
+                                            "description_kind": "plain",
+                                            "optional": true,
+                                            "type": "bool"
+                                          }
+                                        },
+                                        "description": "Cloud Run runtime configuration.",
+                                        "description_kind": "plain"
+                                      },
+                                      "max_items": 1,
+                                      "nesting_mode": "list"
+                                    },
+                                    "kubernetes": {
+                                      "block": {
+                                        "block_types": {
+                                          "gateway_service_mesh": {
+                                            "block": {
+                                              "attributes": {
+                                                "deployment": {
+                                                  "description": "Required. Name of the Kubernetes Deployment whose traffic is managed by the specified HTTPRoute and Service.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                },
+                                                "http_route": {
+                                                  "description": "Required. Name of the Gateway API HTTPRoute.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                },
+                                                "service": {
+                                                  "description": "Required. Name of the Kubernetes Service.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Kubernetes Gateway API service mesh configuration.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          },
+                                          "service_networking": {
+                                            "block": {
+                                              "attributes": {
+                                                "deployment": {
+                                                  "description": "Required. Name of the Kubernetes Deployment whose traffic is managed by the specified Service.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                },
+                                                "disable_pod_overprovisioning": {
+                                                  "description": "Optional. Whether to disable Pod overprovisioning. If Pod overprovisioning is disabled then Cloud Deploy will limit the number of total Pods used for the deployment strategy to the number of Pods the Deployment has on the cluster.",
+                                                  "description_kind": "plain",
+                                                  "optional": true,
+                                                  "type": "bool"
+                                                },
+                                                "service": {
+                                                  "description": "Required. Name of the Kubernetes Service.",
+                                                  "description_kind": "plain",
+                                                  "required": true,
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "description": "Kubernetes Service networking configuration.",
+                                              "description_kind": "plain"
+                                            },
+                                            "max_items": 1,
+                                            "nesting_mode": "list"
+                                          }
+                                        },
+                                        "description": "Kubernetes runtime configuration.",
+                                        "description_kind": "plain"
+                                      },
+                                      "max_items": 1,
+                                      "nesting_mode": "list"
+                                    }
+                                  },
+                                  "description": "Optional. Runtime specific configurations for the deployment strategy. The runtime configuration is used to determine how Cloud Deploy will split traffic to enable a progressive deployment.",
+                                  "description_kind": "plain"
+                                },
+                                "max_items": 1,
+                                "nesting_mode": "list"
+                              }
+                            },
+                            "description": "Canary deployment strategy provides progressive percentage based deployments to a Target.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
                         "standard": {
                           "block": {
                             "attributes": {

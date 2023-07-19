@@ -21,6 +21,12 @@ const googleComputeExternalVpnGateway = `{
         "optional": true,
         "type": "string"
       },
+      "label_fingerprint": {
+        "computed": true,
+        "description": "The fingerprint used for optimistic locking of this resource.  Used\ninternally during updates.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "labels": {
         "description": "Labels for the external VPN gateway resource.",
         "description_kind": "plain",
@@ -85,6 +91,11 @@ const googleComputeExternalVpnGateway = `{
               "type": "string"
             },
             "delete": {
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "update": {
               "description_kind": "plain",
               "optional": true,
               "type": "string"

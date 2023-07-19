@@ -87,9 +87,10 @@ const googleComputeRouterPeer = `{
         "type": "number"
       },
       "peer_ip_address": {
-        "description": "IP address of the BGP interface outside Google Cloud Platform.\nOnly IPv4 is supported.",
+        "computed": true,
+        "description": "IP address of the BGP interface outside Google Cloud Platform.\nOnly IPv4 is supported. Required if 'ip_address' is set.",
         "description_kind": "plain",
-        "required": true,
+        "optional": true,
         "type": "string"
       },
       "peer_ipv6_nexthop_address": {

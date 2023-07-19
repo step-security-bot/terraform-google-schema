@@ -319,6 +319,7 @@ const googleCloudbuildTrigger = `{
               "github_enterprise_config": "string",
               "path": "string",
               "repo_type": "string",
+              "repository": "string",
               "revision": "string",
               "uri": "string"
             }
@@ -427,6 +428,42 @@ const googleCloudbuildTrigger = `{
           ]
         ]
       },
+      "repository_event_config": {
+        "computed": true,
+        "description": "The configuration of a trigger that creates a build whenever an event from Repo API is received.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "pull_request": [
+                "list",
+                [
+                  "object",
+                  {
+                    "branch": "string",
+                    "comment_control": "string",
+                    "invert_regex": "bool"
+                  }
+                ]
+              ],
+              "push": [
+                "list",
+                [
+                  "object",
+                  {
+                    "branch": "string",
+                    "invert_regex": "bool",
+                    "tag": "string"
+                  }
+                ]
+              ],
+              "repository": "string"
+            }
+          ]
+        ]
+      },
       "service_account": {
         "computed": true,
         "description": "The service account used for all user-controlled operations including\ntriggers.patch, triggers.run, builds.create, and builds.cancel.\n\nIf no service account is set, then the standard Cloud Build service account\n([PROJECT_NUM]@system.gserviceaccount.com) will be used instead.\n\nFormat: projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL}",
@@ -445,6 +482,7 @@ const googleCloudbuildTrigger = `{
               "github_enterprise_config": "string",
               "ref": "string",
               "repo_type": "string",
+              "repository": "string",
               "uri": "string"
             }
           ]

@@ -94,6 +94,22 @@ const googleRedisInstance = `{
         "optional": true,
         "type": "string"
       },
+      "maintenance_schedule": {
+        "computed": true,
+        "description": "Upcoming maintenance schedule.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "end_time": "string",
+              "schedule_deadline_time": "string",
+              "start_time": "string"
+            }
+          ]
+        ]
+      },
       "memory_size_gb": {
         "description": "Redis memory size in GiB.",
         "description_kind": "plain",
@@ -317,34 +333,6 @@ const googleRedisInstance = `{
             }
           },
           "description": "Maintenance policy for an instance.",
-          "description_kind": "plain"
-        },
-        "max_items": 1,
-        "nesting_mode": "list"
-      },
-      "maintenance_schedule": {
-        "block": {
-          "attributes": {
-            "end_time": {
-              "computed": true,
-              "description": "Output only. The end time of any upcoming scheduled maintenance for this instance.\nA timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond\nresolution and up to nine fractional digits.",
-              "description_kind": "plain",
-              "type": "string"
-            },
-            "schedule_deadline_time": {
-              "computed": true,
-              "description": "Output only. The deadline that the maintenance schedule start time\ncan not go beyond, including reschedule.\nA timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond\nresolution and up to nine fractional digits.",
-              "description_kind": "plain",
-              "type": "string"
-            },
-            "start_time": {
-              "computed": true,
-              "description": "Output only. The start time of any upcoming scheduled maintenance for this instance.\nA timestamp in RFC3339 UTC \"Zulu\" format, with nanosecond\nresolution and up to nine fractional digits.",
-              "description_kind": "plain",
-              "type": "string"
-            }
-          },
-          "description": "Upcoming maintenance schedule.",
           "description_kind": "plain"
         },
         "max_items": 1,

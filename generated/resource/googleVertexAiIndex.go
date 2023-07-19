@@ -159,6 +159,13 @@ const googleVertexAiIndex = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
+                  },
+                  "shard_size": {
+                    "computed": true,
+                    "description": "Index data is split into equal parts to be processed. These are called \"shards\".\nThe shard size must be specified when creating an index. The value must be one of the followings:\n* SHARD_SIZE_SMALL: Small (2GB)\n* SHARD_SIZE_MEDIUM: Medium (20GB)\n* SHARD_SIZE_LARGE: Large (50GB)",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
                   }
                 },
                 "block_types": {

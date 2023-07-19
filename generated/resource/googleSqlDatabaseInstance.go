@@ -361,6 +361,12 @@ const googleSqlDatabaseInstance = `{
               "optional": true,
               "type": "string"
             },
+            "edition": {
+              "description": "The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "pricing_plan": {
               "description": "Pricing plan for this instance, can only be PER_USE.",
               "description_kind": "plain",
@@ -492,6 +498,22 @@ const googleSqlDatabaseInstance = `{
                     "nesting_mode": "list"
                   }
                 },
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "data_cache_config": {
+              "block": {
+                "attributes": {
+                  "data_cache_enabled": {
+                    "description": "Whether data cache is enabled for the instance.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "Data cache configurations.",
                 "description_kind": "plain"
               },
               "max_items": 1,

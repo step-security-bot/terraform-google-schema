@@ -195,6 +195,18 @@ const googleBigqueryTable = `{
               "optional": true,
               "type": "number"
             },
+            "metadata_cache_mode": {
+              "description": "Metadata Cache Mode for the table. Set this to enable caching of metadata from external data source.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "object_metadata": {
+              "description": "Object Metadata is used to create Object Tables. Object Tables contain a listing of objects (with their metadata) found at the sourceUris. If ObjectMetadata is set, sourceFormat should be omitted.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "reference_file_schema_uri": {
               "description": "When creating an external table, the user can provide a reference file with the table schema. This is enabled for the following formats: AVRO, PARQUET, ORC.",
               "description_kind": "plain",
@@ -211,7 +223,7 @@ const googleBigqueryTable = `{
             "source_format": {
               "description": " Please see sourceFormat under ExternalDataConfiguration in Bigquery's public API documentation (https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#externaldataconfiguration) for supported formats. To use \"GOOGLE_SHEETS\" the scopes must include \"googleapis.com/auth/drive.readonly\".",
               "description_kind": "plain",
-              "required": true,
+              "optional": true,
               "type": "string"
             },
             "source_uris": {

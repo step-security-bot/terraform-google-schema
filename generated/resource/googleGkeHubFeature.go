@@ -104,6 +104,58 @@ const googleGkeHubFeature = `{
       "spec": {
         "block": {
           "block_types": {
+            "fleetobservability": {
+              "block": {
+                "block_types": {
+                  "logging_config": {
+                    "block": {
+                      "block_types": {
+                        "default_config": {
+                          "block": {
+                            "attributes": {
+                              "mode": {
+                                "description": "Specified if fleet logging feature is enabled. Possible values: [\"MODE_UNSPECIFIED\", \"COPY\", \"MOVE\"]",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Specified if applying the default routing config to logs not specified in other configs.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "fleet_scope_logs_config": {
+                          "block": {
+                            "attributes": {
+                              "mode": {
+                                "description": "Specified if fleet logging feature is enabled. Possible values: [\"MODE_UNSPECIFIED\", \"COPY\", \"MOVE\"]",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Specified if applying the routing config to all logs for all fleet scopes.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        }
+                      },
+                      "description": "Specified if fleet logging feature is enabled for the entire fleet. If UNSPECIFIED, fleet logging feature is disabled for the entire fleet.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  }
+                },
+                "description": "Fleet Observability feature spec.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "multiclusteringress": {
               "block": {
                 "attributes": {

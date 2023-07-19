@@ -36,6 +36,12 @@ const googleEventarcTrigger = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "event_data_content_type": {
+        "description": "Optional. EventDataContentType specifies the type of payload in MIME format that is expected from the CloudEvent data field. This is set to ` + "`" + `application/json` + "`" + ` if the value is not defined.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "id": {
         "computed": true,
         "description_kind": "plain",

@@ -116,6 +116,13 @@ const googleBigqueryDataset = `{
         "computed": true,
         "description_kind": "plain",
         "type": "string"
+      },
+      "storage_billing_model": {
+        "computed": true,
+        "description": "Specifies the storage billing model for the dataset.\nSet this flag value to LOGICAL to use logical bytes for storage billing,\nor to PHYSICAL to use physical bytes instead.\n\nLOGICAL is the default if this flag isn't specified.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
       }
     },
     "block_types": {

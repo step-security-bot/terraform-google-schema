@@ -77,7 +77,7 @@ const googleCertificateManagerCertificate = `{
               ]
             },
             "dns_authorizations": {
-              "description": "Authorizations that will be used for performing domain authorization",
+              "description": "Authorizations that will be used for performing domain authorization. Either issuanceConfig or dnsAuthorizations should be specificed, but not both.",
               "description_kind": "plain",
               "optional": true,
               "type": [
@@ -93,6 +93,12 @@ const googleCertificateManagerCertificate = `{
                 "list",
                 "string"
               ]
+            },
+            "issuance_config": {
+              "description": "The resource name for a CertificateIssuanceConfig used to configure private PKI certificates in the format projects/*/locations/*/certificateIssuanceConfigs/*.\nIf this field is not set, the certificates will instead be publicly signed as documented at https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#caa.\nEither issuanceConfig or dnsAuthorizations should be specificed, but not both.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
             },
             "provisioning_issue": {
               "computed": true,

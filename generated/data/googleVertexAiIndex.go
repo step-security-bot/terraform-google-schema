@@ -126,7 +126,8 @@ const googleVertexAiIndex = `{
                     "approximate_neighbors_count": "number",
                     "dimensions": "number",
                     "distance_measure_type": "string",
-                    "feature_norm_type": "string"
+                    "feature_norm_type": "string",
+                    "shard_size": "string"
                   }
                 ]
               ],
