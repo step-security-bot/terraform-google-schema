@@ -715,6 +715,15 @@ const googleContainerCluster = `{
                   "object",
                   {
                     "count": "number",
+                    "gpu_driver_installation_config": [
+                      "list",
+                      [
+                        "object",
+                        {
+                          "gpu_driver_version": "string"
+                        }
+                      ]
+                    ],
                     "gpu_partition_size": "string",
                     "gpu_sharing_config": [
                       "list",
@@ -986,6 +995,15 @@ const googleContainerCluster = `{
                         "object",
                         {
                           "count": "number",
+                          "gpu_driver_installation_config": [
+                            "list",
+                            [
+                              "object",
+                              {
+                                "gpu_driver_version": "string"
+                              }
+                            ]
+                          ],
                           "gpu_partition_size": "string",
                           "gpu_sharing_config": [
                             "list",

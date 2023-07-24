@@ -9,6 +9,13 @@ import (
 const googleBigtableTable = `{
   "block": {
     "attributes": {
+      "change_stream_retention": {
+        "computed": true,
+        "description": "Duration to retain change stream data for the table. Set to 0 to disable. Must be between 1 and 7 days.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "deletion_protection": {
         "computed": true,
         "description": "A field to make the table protected against data loss i.e. when set to PROTECTED, deleting the table, the column families in the table, and the instance containing the table would be prohibited. If not provided, currently deletion protection will be set to UNPROTECTED as it is the API default value.",

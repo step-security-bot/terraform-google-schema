@@ -77,6 +77,11 @@ const googleComputeImage = `{
           "string"
         ]
       },
+      "most_recent": {
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "name": {
         "computed": true,
         "description_kind": "plain",

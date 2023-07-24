@@ -185,7 +185,7 @@ const googleComputeResourcePolicy = `{
                     "block": {
                       "attributes": {
                         "days_in_cycle": {
-                          "description": "The number of days between snapshots.",
+                          "description": "Defines a schedule with units measured in days. The value determines how many days pass between the start of each cycle. Days in cycle for snapshot schedule policy must be 1.",
                           "description_kind": "plain",
                           "required": true,
                           "type": "number"

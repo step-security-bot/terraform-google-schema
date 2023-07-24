@@ -73,6 +73,18 @@ const googleGkeBackupBackupPlan = `{
         "description_kind": "plain",
         "type": "number"
       },
+      "state": {
+        "computed": true,
+        "description": "The State of the BackupPlan.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "state_reason": {
+        "computed": true,
+        "description": "Detailed description of why BackupPlan is in its current state.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "uid": {
         "computed": true,
         "description": "Server generated, unique identifier of UUID format.",

@@ -348,6 +348,44 @@ const googleBigqueryTable = `{
               },
               "max_items": 1,
               "nesting_mode": "list"
+            },
+            "json_options": {
+              "block": {
+                "attributes": {
+                  "encoding": {
+                    "description": "The character encoding of the data. The supported values are UTF-8, UTF-16BE, UTF-16LE, UTF-32BE, and UTF-32LE. The default value is UTF-8.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  }
+                },
+                "description": "Additional properties to set if sourceFormat is set to JSON.\"",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "parquet_options": {
+              "block": {
+                "attributes": {
+                  "enable_list_inference": {
+                    "description": "Indicates whether to use schema inference specifically for Parquet LIST logical type.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  },
+                  "enum_as_string": {
+                    "description": "Indicates whether to infer Parquet ENUM logical type as STRING instead of BYTES by default.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "Additional properties to set if sourceFormat is set to PARQUET.\"",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
             }
           },
           "description": "Describes the data format, location, and other properties of a table stored outside of BigQuery. By defining these properties, the data source can then be queried as if it were a standard BigQuery table.",

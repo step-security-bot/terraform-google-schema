@@ -9,6 +9,13 @@ import (
 const googleHealthcareFhirStore = `{
   "block": {
     "attributes": {
+      "complex_data_type_reference_parsing": {
+        "computed": true,
+        "description": "Enable parsing of references within complex FHIR data types such as Extensions. If this value is set to ENABLED, then features like referential integrity and Bundle reference rewriting apply to all references. If this flag has not been specified the behavior of the FHIR store will not change, references in complex data types will not be parsed. New stores will have this value set to ENABLED by default after a notification period. Warning: turning on this flag causes processing existing resources to fail if they contain references to non-existent resources. Possible values: [\"COMPLEX_DATA_TYPE_REFERENCE_PARSING_UNSPECIFIED\", \"DISABLED\", \"ENABLED\"]",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "dataset": {
         "description": "Identifies the dataset addressed by this request. Must be in the format\n'projects/{project}/locations/{location}/datasets/{dataset}'",
         "description_kind": "plain",

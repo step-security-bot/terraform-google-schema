@@ -46,6 +46,12 @@ const googleApigeeOrganization = `{
         "optional": true,
         "type": "string"
       },
+      "disable_vpc_peering": {
+        "description": "Flag that specifies whether the VPC Peering through Private Google Access should be\ndisabled between the consumer network and Apigee. Required if an 'authorizedNetwork'\non the consumer project is not provided, in which case the flag should be set to 'true'.\nValid only when 'RuntimeType' is set to CLOUD. The value must be set before the creation\nof any Apigee runtime instance and can be updated only when there are no runtime instances.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "display_name": {
         "description": "The display name of the Apigee organization.",
         "description_kind": "plain",
