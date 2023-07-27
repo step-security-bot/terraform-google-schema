@@ -44,8 +44,7 @@ const googleVpcAccessConnector = `{
         "type": "number"
       },
       "max_throughput": {
-        "computed": true,
-        "description": "Maximum throughput of the connector in Mbps, must be greater than 'min_throughput'. Default is 1000.",
+        "description": "Maximum throughput of the connector in Mbps, must be greater than 'min_throughput'. Default is 300.",
         "description_kind": "plain",
         "optional": true,
         "type": "number"
@@ -58,7 +57,6 @@ const googleVpcAccessConnector = `{
         "type": "number"
       },
       "min_throughput": {
-        "computed": true,
         "description": "Minimum throughput of the connector in Mbps. Default and min is 200.",
         "description_kind": "plain",
         "optional": true,
@@ -136,11 +134,6 @@ const googleVpcAccessConnector = `{
               "type": "string"
             },
             "delete": {
-              "description_kind": "plain",
-              "optional": true,
-              "type": "string"
-            },
-            "update": {
               "description_kind": "plain",
               "optional": true,
               "type": "string"
