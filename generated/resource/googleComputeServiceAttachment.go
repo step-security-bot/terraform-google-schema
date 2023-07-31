@@ -93,6 +93,12 @@ const googleComputeServiceAttachment = `{
         "optional": true,
         "type": "string"
       },
+      "reconcile_connections": {
+        "description": "This flag determines whether a consumer accept/reject list change can reconcile the statuses of existing ACCEPTED or REJECTED PSC endpoints.\n\nIf false, connection policy update will only affect existing PENDING PSC endpoints. Existing ACCEPTED/REJECTED endpoints will remain untouched regardless how the connection policy is modified .\nIf true, update will affect both PENDING and ACCEPTED/REJECTED PSC endpoints. For example, an ACCEPTED PSC endpoint will be moved to REJECTED if its project is added to the reject list.\n\nFor newly created service attachment, this boolean defaults to true.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "region": {
         "computed": true,
         "description": "URL of the region where the resource resides.",

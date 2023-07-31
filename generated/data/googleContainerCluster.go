@@ -64,6 +64,15 @@ const googleContainerCluster = `{
                   }
                 ]
               ],
+              "gcs_fuse_csi_driver_config": [
+                "list",
+                [
+                  "object",
+                  {
+                    "enabled": "bool"
+                  }
+                ]
+              ],
               "gke_backup_agent_config": [
                 "list",
                 [
@@ -103,6 +112,12 @@ const googleContainerCluster = `{
             }
           ]
         ]
+      },
+      "allow_net_admin": {
+        "computed": true,
+        "description": "Enable NET_ADMIN for this cluster.",
+        "description_kind": "plain",
+        "type": "bool"
       },
       "authenticator_groups_config": {
         "computed": true,

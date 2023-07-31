@@ -26,7 +26,13 @@ const googleSpannerDatabase = `{
         ]
       },
       "deletion_protection": {
-        "description": "Whether or not to allow Terraform to destroy the instance. Unless this field is set to false\nin Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the instance will fail.",
+        "description": "Whether or not to allow Terraform to destroy the database. Defaults to true. Unless this field is set to false\nin Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the database will fail.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
+      "enable_drop_protection": {
+        "description": "Whether drop protection is enabled for this database. Defaults to false.\nDrop protection is different from\nthe \"deletion_protection\" attribute in the following ways:\n(1) \"deletion_protection\" only protects the database from deletions in Terraform.\nwhereas setting “enableDropProtection” to true protects the database from deletions in all interfaces.\n(2) Setting \"enableDropProtection\" to true also prevents the deletion of the parent instance containing the database.\n\"deletion_protection\" attribute does not provide protection against the deletion of the parent instance.",
         "description_kind": "plain",
         "optional": true,
         "type": "bool"

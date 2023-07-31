@@ -138,6 +138,30 @@ const googleHealthcareFhirStore = `{
                           "type": "string"
                         }
                       },
+                      "block_types": {
+                        "last_updated_partition_config": {
+                          "block": {
+                            "attributes": {
+                              "expiration_ms": {
+                                "description": "Number of milliseconds for which to keep the storage for a partition.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              },
+                              "type": {
+                                "description": "Type of partitioning. Possible values: [\"PARTITION_TYPE_UNSPECIFIED\", \"HOUR\", \"DAY\", \"MONTH\", \"YEAR\"]",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "The configuration for exported BigQuery tables to be partitioned by FHIR resource's last updated time column.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        }
+                      },
                       "description": "The configuration for the exported BigQuery schema.",
                       "description_kind": "plain"
                     },

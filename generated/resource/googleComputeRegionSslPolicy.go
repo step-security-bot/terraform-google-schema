@@ -1,0 +1,124 @@
+package resource
+
+import (
+	"encoding/json"
+
+	tfjson "github.com/hashicorp/terraform-json"
+)
+
+const googleComputeRegionSslPolicy = `{
+  "block": {
+    "attributes": {
+      "creation_timestamp": {
+        "computed": true,
+        "description": "Creation timestamp in RFC3339 text format.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "custom_features": {
+        "description": "A list of features enabled when the selected profile is CUSTOM. The\nmethod returns the set of features that can be specified in this\nlist. This field must be empty if the profile is not CUSTOM.\n\nSee the [official documentation](https://cloud.google.com/compute/docs/load-balancing/ssl-policies#profilefeaturesupport)\nfor which ciphers are available to use. **Note**: this argument\n*must* be present when using the 'CUSTOM' profile. This argument\n*must not* be present when using any other profile.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": [
+          "set",
+          "string"
+        ]
+      },
+      "description": {
+        "description": "An optional description of this resource.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "enabled_features": {
+        "computed": true,
+        "description": "The list of features enabled in the SSL policy.",
+        "description_kind": "plain",
+        "type": [
+          "set",
+          "string"
+        ]
+      },
+      "fingerprint": {
+        "computed": true,
+        "description": "Fingerprint of this resource. A hash of the contents stored in this\nobject. This field is used in optimistic locking.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "id": {
+        "computed": true,
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "min_tls_version": {
+        "description": "The minimum version of SSL protocol that can be used by the clients\nto establish a connection with the load balancer. Default value: \"TLS_1_0\" Possible values: [\"TLS_1_0\", \"TLS_1_1\", \"TLS_1_2\"]",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "name": {
+        "description": "Name of the resource. Provided by the client when the resource is\ncreated. The name must be 1-63 characters long, and comply with\nRFC1035. Specifically, the name must be 1-63 characters long and match\nthe regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the\nfirst character must be a lowercase letter, and all following\ncharacters must be a dash, lowercase letter, or digit, except the last\ncharacter, which cannot be a dash.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+      },
+      "profile": {
+        "description": "Profile specifies the set of SSL features that can be used by the\nload balancer when negotiating SSL with clients. If using 'CUSTOM',\nthe set of SSL features to enable must be specified in the\n'customFeatures' field.\n\nSee the [official documentation](https://cloud.google.com/compute/docs/load-balancing/ssl-policies#profilefeaturesupport)\nfor information on what cipher suites each profile provides. If\n'CUSTOM' is used, the 'custom_features' attribute **must be set**. Default value: \"COMPATIBLE\" Possible values: [\"COMPATIBLE\", \"MODERN\", \"RESTRICTED\", \"CUSTOM\"]",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "project": {
+        "computed": true,
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "region": {
+        "description": "The region where the regional SSL policy resides.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+      },
+      "self_link": {
+        "computed": true,
+        "description_kind": "plain",
+        "type": "string"
+      }
+    },
+    "block_types": {
+      "timeouts": {
+        "block": {
+          "attributes": {
+            "create": {
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "delete": {
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "update": {
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            }
+          },
+          "description_kind": "plain"
+        },
+        "nesting_mode": "single"
+      }
+    },
+    "description_kind": "plain"
+  },
+  "version": 0
+}`
+
+func GoogleComputeRegionSslPolicySchema() *tfjson.Schema {
+	var result tfjson.Schema
+	_ = json.Unmarshal([]byte(googleComputeRegionSslPolicy), &result)
+	return &result
+}

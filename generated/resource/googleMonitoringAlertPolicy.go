@@ -314,6 +314,55 @@ const googleMonitoringAlertPolicy = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
+            "condition_prometheus_query_language": {
+              "block": {
+                "attributes": {
+                  "alert_rule": {
+                    "description": "The alerting rule name of this alert in the corresponding Prometheus\nconfiguration file.\n\nSome external tools may require this field to be populated correctly\nin order to refer to the original Prometheus configuration file.\nThe rule group name and the alert name are necessary to update the\nrelevant AlertPolicies in case the definition of the rule group changes\nin the future.\n\nThis field is optional. If this field is not empty, then it must be a\nvalid Prometheus label name.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "duration": {
+                    "description": "Alerts are considered firing once their PromQL expression evaluated\nto be \"true\" for this long. Alerts whose PromQL expression was not\nevaluated to be \"true\" for long enough are considered pending. The\ndefault value is zero. Must be zero or positive.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "evaluation_interval": {
+                    "description": "How often this rule should be evaluated. Must be a positive multiple\nof 30 seconds or missing. The default value is 30 seconds. If this\nPrometheusQueryLanguageCondition was generated from a Prometheus\nalerting rule, then this value should be taken from the enclosing\nrule group.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "string"
+                  },
+                  "labels": {
+                    "description": "Labels to add to or overwrite in the PromQL query result. Label names\nmust be valid.\n\nLabel values can be templatized by using variables. The only available\nvariable names are the names of the labels in the PromQL result, including\n\"__name__\" and \"value\". \"labels\" may be empty. This field is intended to be\nused for organizing and identifying the AlertPolicy",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": [
+                      "map",
+                      "string"
+                    ]
+                  },
+                  "query": {
+                    "description": "The PromQL expression to evaluate. Every evaluation cycle this\nexpression is evaluated at the current time, and all resultant time\nseries become pending/firing alerts. This field must not be empty.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "string"
+                  },
+                  "rule_group": {
+                    "description": "The rule group name of this alert in the corresponding Prometheus\nconfiguration file.\n\nSome external tools may require this field to be populated correctly\nin order to refer to the original Prometheus configuration file.\nThe rule group name and the alert name are necessary to update the\nrelevant AlertPolicies in case the definition of the rule group changes\nin the future.\n\nThis field is optional. If this field is not empty, then it must be a\nvalid Prometheus label name.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  }
+                },
+                "description": "A Monitoring Query Language query that outputs a boolean stream\n\nA condition type that allows alert policies to be defined using\nPrometheus Query Language (PromQL).\n\nThe PrometheusQueryLanguageCondition message contains information\nfrom a Prometheus alerting rule and its associated rule group.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "condition_threshold": {
               "block": {
                 "attributes": {

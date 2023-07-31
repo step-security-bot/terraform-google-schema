@@ -9,6 +9,12 @@ import (
 const googleContainerCluster = `{
   "block": {
     "attributes": {
+      "allow_net_admin": {
+        "description": "Enable NET_ADMIN for this cluster.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "cluster_ipv4_cidr": {
         "computed": true,
         "description": "The IP address range of the Kubernetes pods in this cluster in CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one automatically chosen or specify a /14 block in 10.0.0.0/8. This field will only work for routes-based clusters, where ip_allocation_policy is not defined.",
@@ -318,6 +324,21 @@ const googleContainerCluster = `{
                   }
                 },
                 "description": "The status of the Filestore CSI driver addon, which allows the usage of filestore instance as volumes. Defaults to disabled; set enabled = true to enable.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "gcs_fuse_csi_driver_config": {
+              "block": {
+                "attributes": {
+                  "enabled": {
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "The status of the GCS Fuse CSI driver addon, which allows the usage of gcs bucket as volumes. Defaults to disabled; set enabled = true to enable.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -931,7 +952,7 @@ const googleContainerCluster = `{
                 "description": "Exceptions to maintenance window. Non-emergency maintenance should not occur in these windows.",
                 "description_kind": "plain"
               },
-              "max_items": 3,
+              "max_items": 20,
               "nesting_mode": "set"
             },
             "recurring_window": {

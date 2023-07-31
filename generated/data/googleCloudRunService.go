@@ -88,6 +88,19 @@ const googleCloudRunService = `{
               "latest_created_revision_name": "string",
               "latest_ready_revision_name": "string",
               "observed_generation": "number",
+              "traffic": [
+                "list",
+                [
+                  "object",
+                  {
+                    "latest_revision": "bool",
+                    "percent": "number",
+                    "revision_name": "string",
+                    "tag": "string",
+                    "url": "string"
+                  }
+                ]
+              ],
               "url": "string"
             }
           ]

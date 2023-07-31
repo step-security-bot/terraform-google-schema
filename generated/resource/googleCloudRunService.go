@@ -63,6 +63,19 @@ const googleCloudRunService = `{
               "latest_created_revision_name": "string",
               "latest_ready_revision_name": "string",
               "observed_generation": "number",
+              "traffic": [
+                "list",
+                [
+                  "object",
+                  {
+                    "latest_revision": "bool",
+                    "percent": "number",
+                    "revision_name": "string",
+                    "tag": "string",
+                    "url": "string"
+                  }
+                ]
+              ],
               "url": "string"
             }
           ]
@@ -154,6 +167,7 @@ const googleCloudRunService = `{
                     "type": "number"
                   },
                   "labels": {
+                    "computed": true,
                     "description": "Map of string keys and values that can be used to organize and categorize\n(scope and select) objects.",
                     "description_kind": "plain",
                     "optional": true,

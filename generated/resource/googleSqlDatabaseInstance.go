@@ -232,7 +232,7 @@ const googleSqlDatabaseInstance = `{
               "type": "string"
             },
             "failover_target": {
-              "description": "Specifies if the replica is the failover target. If the field is set to true the replica will be designated as a failover replica. If the master instance fails, the replica instance will be promoted as the new master instance.",
+              "description": "Specifies if the replica is the failover target. If the field is set to true the replica will be designated as a failover replica. If the master instance fails, the replica instance will be promoted as the new master instance. Not supported for Postgres",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"
