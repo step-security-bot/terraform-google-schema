@@ -241,6 +241,7 @@ const googleComputeInstanceTemplate = `{
                   {
                     "external_ipv6": "string",
                     "external_ipv6_prefix_length": "string",
+                    "name": "string",
                     "network_tier": "string",
                     "public_ptr_domain_name": "string"
                   }
@@ -332,6 +333,16 @@ const googleComputeInstanceTemplate = `{
             {
               "automatic_restart": "bool",
               "instance_termination_action": "string",
+              "local_ssd_recovery_timeout": [
+                "list",
+                [
+                  "object",
+                  {
+                    "nanos": "number",
+                    "seconds": "number"
+                  }
+                ]
+              ],
               "min_node_cpus": "number",
               "node_affinities": [
                 "set",

@@ -469,7 +469,7 @@ const googleSqlDatabaseInstance = `{
                   },
                   "transaction_log_retention_days": {
                     "computed": true,
-                    "description": "The number of days of transaction logs we retain for point in time restore, from 1-7.",
+                    "description": "The number of days of transaction logs we retain for point in time restore, from 1-7. (For PostgreSQL Enterprise Plus instances, from 1 to 35.)",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "number"

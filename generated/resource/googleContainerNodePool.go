@@ -478,6 +478,22 @@ const googleContainerNodePool = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
+            "host_maintenance_policy": {
+              "block": {
+                "attributes": {
+                  "maintenance_interval": {
+                    "description": ".",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "string"
+                  }
+                },
+                "description": "The maintenance policy for the hosts on which the GKE VMs run on.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "kubelet_config": {
               "block": {
                 "attributes": {
@@ -667,6 +683,12 @@ const googleContainerNodePool = `{
       "placement_policy": {
         "block": {
           "attributes": {
+            "policy_name": {
+              "description": "If set, refers to the name of a custom resource policy supplied by the user. The resource policy must be in the same project and region as the node pool. If not found, InvalidArgument error is returned.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "type": {
               "description": "Type defines the type of placement policy",
               "description_kind": "plain",

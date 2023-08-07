@@ -367,6 +367,23 @@ const googleContainerCluster = `{
         "description_kind": "plain",
         "type": "bool"
       },
+      "enable_k8s_beta_apis": {
+        "computed": true,
+        "description": "Configuration for Kubernetes Beta APIs.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "enabled_apis": [
+                "set",
+                "string"
+              ]
+            }
+          ]
+        ]
+      },
       "enable_kubernetes_alpha": {
         "computed": true,
         "description": "Whether to enable Kubernetes Alpha features for this cluster. Note that when this option is enabled, the cluster cannot be upgraded and will be automatically deleted after 30 days.",
@@ -763,6 +780,15 @@ const googleContainerCluster = `{
                   }
                 ]
               ],
+              "host_maintenance_policy": [
+                "list",
+                [
+                  "object",
+                  {
+                    "maintenance_interval": "string"
+                  }
+                ]
+              ],
               "image_type": "string",
               "kubelet_config": [
                 "list",
@@ -1043,6 +1069,15 @@ const googleContainerCluster = `{
                         }
                       ]
                     ],
+                    "host_maintenance_policy": [
+                      "list",
+                      [
+                        "object",
+                        {
+                          "maintenance_interval": "string"
+                        }
+                      ]
+                    ],
                     "image_type": "string",
                     "kubelet_config": [
                       "list",
@@ -1184,6 +1219,7 @@ const googleContainerCluster = `{
                 [
                   "object",
                   {
+                    "policy_name": "string",
                     "type": "string"
                   }
                 ]

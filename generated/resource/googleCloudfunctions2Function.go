@@ -184,6 +184,7 @@ const googleCloudfunctions2Function = `{
                           "type": "string"
                         },
                         "generation": {
+                          "computed": true,
                           "description": "Google Cloud Storage generation for the object. If the generation\nis omitted, the latest generation will be used.",
                           "description_kind": "plain",
                           "optional": true,

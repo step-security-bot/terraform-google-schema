@@ -402,7 +402,7 @@ const googleCloudbuildTrigger = `{
                     "type": "string"
                   },
                   "machine_type": {
-                    "description": "Compute Engine machine type on which to run the build. Possible values: [\"UNSPECIFIED\", \"N1_HIGHCPU_8\", \"N1_HIGHCPU_32\", \"E2_HIGHCPU_8\", \"E2_HIGHCPU_32\"]",
+                    "description": "Compute Engine machine type on which to run the build.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"

@@ -124,6 +124,15 @@ const googlePubsubSubscription = `{
                 "map",
                 "string"
               ],
+              "no_wrapper": [
+                "list",
+                [
+                  "object",
+                  {
+                    "write_metadata": "bool"
+                  }
+                ]
+              ],
               "oidc_token": [
                 "list",
                 [

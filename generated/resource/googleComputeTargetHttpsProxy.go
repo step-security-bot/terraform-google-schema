@@ -76,7 +76,7 @@ const googleComputeTargetHttpsProxy = `{
         "type": "string"
       },
       "ssl_certificates": {
-        "description": "A list of SslCertificate resources that are used to authenticate\nconnections between users and the load balancer. At least one SSL\ncertificate must be specified.",
+        "description": "A list of SslCertificate resource URLs or Certificate Manager certificate URLs that are used to authenticate\nconnections between users and the load balancer. At least one resource must be specified.",
         "description_kind": "plain",
         "optional": true,
         "type": [

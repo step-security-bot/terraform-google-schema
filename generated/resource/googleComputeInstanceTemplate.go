@@ -504,6 +504,12 @@ const googleComputeInstanceTemplate = `{
                     "description_kind": "plain",
                     "type": "string"
                   },
+                  "name": {
+                    "computed": true,
+                    "description": "The name of this access configuration.",
+                    "description_kind": "plain",
+                    "type": "string"
+                  },
                   "network_tier": {
                     "description": "The service-level to be provided for IPv6 traffic when the subnet has an external subnet. Only PREMIUM tier is valid for IPv6",
                     "description_kind": "plain",
@@ -630,6 +636,27 @@ const googleComputeInstanceTemplate = `{
             }
           },
           "block_types": {
+            "local_ssd_recovery_timeout": {
+              "block": {
+                "attributes": {
+                  "nanos": {
+                    "description": "Span of time that's a fraction of a second at nanosecond\nresolution. Durations less than one second are represented\nwith a 0 seconds field and a positive nanos field. Must\nbe from 0 to 999,999,999 inclusive.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
+                  "seconds": {
+                    "description": "Span of time at a resolution of a second.\nMust be from 0 to 315,576,000,000 inclusive.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "number"
+                  }
+                },
+                "description": "Specifies the maximum amount of time a Local Ssd Vm should wait while\n  recovery of the Local Ssd state is attempted. Its value should be in\n  between 0 and 168 hours with hour granularity and the default value being 1\n  hour.",
+                "description_kind": "plain"
+              },
+              "nesting_mode": "list"
+            },
             "node_affinities": {
               "block": {
                 "attributes": {

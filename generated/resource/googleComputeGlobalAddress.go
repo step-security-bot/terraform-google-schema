@@ -59,7 +59,8 @@ const googleComputeGlobalAddress = `{
         "type": "string"
       },
       "prefix_length": {
-        "description": "The prefix length of the IP range. If not present, it means the\naddress field is a single IP address.\n\nThis field is not applicable to addresses with addressType=EXTERNAL,\nor addressType=INTERNAL when purpose=PRIVATE_SERVICE_CONNECT",
+        "computed": true,
+        "description": "The prefix length of the IP range. If not present, it means the\naddress field is a single IP address.\n\nThis field is not applicable to addresses with addressType=INTERNAL\nwhen purpose=PRIVATE_SERVICE_CONNECT",
         "description_kind": "plain",
         "optional": true,
         "type": "number"

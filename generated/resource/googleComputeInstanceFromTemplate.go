@@ -529,14 +529,23 @@ const googleComputeInstanceFromTemplate = `{
                 "attributes": {
                   "external_ipv6": {
                     "computed": true,
-                    "description": "The first IPv6 address of the external IPv6 range associated with this instance, prefix length is stored in externalIpv6PrefixLength in ipv6AccessConfig. The field is output only, an IPv6 address from a subnetwork associated with the instance will be allocated dynamically.",
+                    "description": "The first IPv6 address of the external IPv6 range associated with this instance, prefix length is stored in externalIpv6PrefixLength in ipv6AccessConfig. To use a static external IP address, it must be unused and in the same region as the instance's zone. If not specified, Google Cloud will automatically assign an external IPv6 address from the instance's subnetwork.",
                     "description_kind": "plain",
+                    "optional": true,
                     "type": "string"
                   },
                   "external_ipv6_prefix_length": {
                     "computed": true,
                     "description": "The prefix length of the external IPv6 range.",
                     "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "name": {
+                    "computed": true,
+                    "description": "The name of this access configuration. In ipv6AccessConfigs, the recommended name is External IPv6.",
+                    "description_kind": "plain",
+                    "optional": true,
                     "type": "string"
                   },
                   "network_tier": {
@@ -689,6 +698,29 @@ const googleComputeInstanceFromTemplate = `{
             }
           },
           "block_types": {
+            "local_ssd_recovery_timeout": {
+              "block": {
+                "attributes": {
+                  "nanos": {
+                    "computed": true,
+                    "description": "Span of time that's a fraction of a second at nanosecond\nresolution. Durations less than one second are represented\nwith a 0 seconds field and a positive nanos field. Must\nbe from 0 to 999,999,999 inclusive.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "number"
+                  },
+                  "seconds": {
+                    "description": "Span of time at a resolution of a second.\nMust be from 0 to 315,576,000,000 inclusive.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "number"
+                  }
+                },
+                "description": "Specifies the maximum amount of time a Local Ssd Vm should wait while\n  recovery of the Local Ssd state is attempted. Its value should be in\n  between 0 and 168 hours with hour granularity and the default value being 1\n  hour.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "node_affinities": {
               "block": {
                 "attributes": {

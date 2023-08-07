@@ -54,6 +54,20 @@ const googleComputeInstanceGroupManager = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "instance_lifecycle_policy": {
+        "computed": true,
+        "description": "The instance lifecycle policy for this managed instance group.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "force_update_on_repair": "string"
+            }
+          ]
+        ]
+      },
       "list_managed_instances_results": {
         "computed": true,
         "description": "Pagination behavior of the listManagedInstances API method for this managed instance group. Valid values are: \"PAGELESS\", \"PAGINATED\". If PAGELESS (default), Pagination is disabled for the group's listManagedInstances API method. maxResults and pageToken query parameters are ignored and all instances are returned in a single response. If PAGINATED, pagination is enabled, maxResults and pageToken query parameters are respected.",

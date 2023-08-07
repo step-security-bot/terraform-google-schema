@@ -793,6 +793,25 @@ const googleContainerCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "enable_k8s_beta_apis": {
+        "block": {
+          "attributes": {
+            "enabled_apis": {
+              "description": "Enabled Kubernetes Beta APIs.",
+              "description_kind": "plain",
+              "required": true,
+              "type": [
+                "set",
+                "string"
+              ]
+            }
+          },
+          "description": "Configuration for Kubernetes Beta APIs.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "gateway_api_config": {
         "block": {
           "attributes": {
@@ -1395,6 +1414,22 @@ const googleContainerCluster = `{
                   }
                 },
                 "description": "Enable or disable gvnic in the node pool.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "host_maintenance_policy": {
+              "block": {
+                "attributes": {
+                  "maintenance_interval": {
+                    "description": ".",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "string"
+                  }
+                },
+                "description": "The maintenance policy for the hosts on which the GKE VMs run on.",
                 "description_kind": "plain"
               },
               "max_items": 1,
@@ -2027,6 +2062,22 @@ const googleContainerCluster = `{
                     "max_items": 1,
                     "nesting_mode": "list"
                   },
+                  "host_maintenance_policy": {
+                    "block": {
+                      "attributes": {
+                        "maintenance_interval": {
+                          "description": ".",
+                          "description_kind": "plain",
+                          "required": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "The maintenance policy for the hosts on which the GKE VMs run on.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  },
                   "kubelet_config": {
                     "block": {
                       "attributes": {
@@ -2216,6 +2267,12 @@ const googleContainerCluster = `{
             "placement_policy": {
               "block": {
                 "attributes": {
+                  "policy_name": {
+                    "description": "If set, refers to the name of a custom resource policy supplied by the user. The resource policy must be in the same project and region as the node pool. If not found, InvalidArgument error is returned.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
                   "type": {
                     "description": "Type defines the type of placement policy",
                     "description_kind": "plain",
@@ -2402,7 +2459,7 @@ const googleContainerCluster = `{
         "block": {
           "attributes": {
             "enable_private_endpoint": {
-              "description": "When true, the cluster's private endpoint is used as the cluster endpoint and access through the public endpoint is disabled. When false, either endpoint can be used. This field only applies to private clusters, when enable_private_nodes is true.",
+              "description": "When true, the cluster's private endpoint is used as the cluster endpoint and access through the public endpoint is disabled. When false, either endpoint can be used.",
               "description_kind": "plain",
               "optional": true,
               "type": "bool"

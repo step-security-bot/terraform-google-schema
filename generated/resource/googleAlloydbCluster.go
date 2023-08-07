@@ -29,6 +29,38 @@ const googleAlloydbCluster = `{
         "required": true,
         "type": "string"
       },
+      "continuous_backup_info": {
+        "computed": true,
+        "description": "ContinuousBackupInfo describes the continuous backup properties of a cluster.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "earliest_restorable_time": "string",
+              "enabled_time": "string",
+              "encryption_info": [
+                "list",
+                [
+                  "object",
+                  {
+                    "encryption_type": "string",
+                    "kms_key_versions": [
+                      "list",
+                      "string"
+                    ]
+                  }
+                ]
+              ],
+              "schedule": [
+                "list",
+                "string"
+              ]
+            }
+          ]
+        ]
+      },
       "database_version": {
         "computed": true,
         "description": "The database engine major version. This is an output-only field and it's populated at the Cluster creation time. This field cannot be changed after cluster creation.",
@@ -258,7 +290,48 @@ const googleAlloydbCluster = `{
               "nesting_mode": "list"
             }
           },
-          "description": "The automated backup policy for this cluster.\n\nIf no policy is provided then the default policy will be used. The default policy takes one backup a day, has a backup window of 1 hour, and retains backups for 14 days.",
+          "description": "The automated backup policy for this cluster. AutomatedBackupPolicy is disabled by default.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
+      "continuous_backup_config": {
+        "block": {
+          "attributes": {
+            "enabled": {
+              "description": "Whether continuous backup recovery is enabled. If not set, defaults to true.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "bool"
+            },
+            "recovery_window_days": {
+              "computed": true,
+              "description": "The numbers of days that are eligible to restore from using PITR. To support the entire recovery window, backups and logs are retained for one day more than the recovery window.\n\nIf not set, defaults to 14 days.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "number"
+            }
+          },
+          "block_types": {
+            "encryption_config": {
+              "block": {
+                "attributes": {
+                  "kms_key_name": {
+                    "description": "The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME].",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  }
+                },
+                "description": "EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key).",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            }
+          },
+          "description": "The continuous backup config for this cluster.\n\nIf no policy is provided then the default policy will be used. The default policy takes one backup a day and retains backups for 14 days.",
           "description_kind": "plain"
         },
         "max_items": 1,

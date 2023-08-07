@@ -11,7 +11,7 @@ const googleComputeAddress = `{
     "attributes": {
       "address": {
         "computed": true,
-        "description": "The static external IP address represented by this resource. Only\nIPv4 is supported. An address may only be specified for INTERNAL\naddress types. The IP address must be inside the specified subnetwork,\nif any. Set by the API if undefined.",
+        "description": "The static external IP address represented by this resource.\nThe IP address must be inside the specified subnetwork,\nif any. Set by the API if undefined.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -40,6 +40,18 @@ const googleComputeAddress = `{
         "optional": true,
         "type": "string"
       },
+      "ip_version": {
+        "description": "The IP Version that will be used by this address. The default value is 'IPV4'. Possible values: [\"IPV4\", \"IPV6\"]",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
+      "ipv6_endpoint_type": {
+        "description": "The endpoint type of this address, which should be VM or NETLB. This is\nused for deciding which type of endpoint this address can be used after\nthe external IPv6 address reservation. Possible values: [\"VM\", \"NETLB\"]",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "name": {
         "description": "Name of the resource. The name must be 1-63 characters long, and\ncomply with RFC1035. Specifically, the name must be 1-63 characters\nlong and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'\nwhich means the first character must be a lowercase letter, and all\nfollowing characters must be a dash, lowercase letter, or digit,\nexcept the last character, which cannot be a dash.",
         "description_kind": "plain",
@@ -60,6 +72,7 @@ const googleComputeAddress = `{
         "type": "string"
       },
       "prefix_length": {
+        "computed": true,
         "description": "The prefix length if the resource represents an IP range.",
         "description_kind": "plain",
         "optional": true,

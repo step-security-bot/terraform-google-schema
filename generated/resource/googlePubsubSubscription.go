@@ -173,6 +173,22 @@ const googlePubsubSubscription = `{
             }
           },
           "block_types": {
+            "no_wrapper": {
+              "block": {
+                "attributes": {
+                  "write_metadata": {
+                    "description": "When true, writes the Pub/Sub message metadata to\n'x-goog-pubsub-\u003cKEY\u003e:\u003cVAL\u003e' headers of the HTTP request. Writes the\nPub/Sub message attributes to '\u003cKEY\u003e:\u003cVAL\u003e' headers of the HTTP request.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "When set, the payload to the push endpoint is not wrapped.Sets the\n'data' field as the HTTP body for delivery.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "oidc_token": {
               "block": {
                 "attributes": {

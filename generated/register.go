@@ -393,6 +393,8 @@ func init() {
 	resources["google_dns_response_policy_rule"] = resource.GoogleDnsResponsePolicyRuleSchema()  
 	resources["google_document_ai_processor"] = resource.GoogleDocumentAiProcessorSchema()  
 	resources["google_document_ai_processor_default_version"] = resource.GoogleDocumentAiProcessorDefaultVersionSchema()  
+	resources["google_document_ai_warehouse_document_schema"] = resource.GoogleDocumentAiWarehouseDocumentSchemaSchema()  
+	resources["google_document_ai_warehouse_location"] = resource.GoogleDocumentAiWarehouseLocationSchema()  
 	resources["google_endpoints_service"] = resource.GoogleEndpointsServiceSchema()  
 	resources["google_endpoints_service_consumers_iam_binding"] = resource.GoogleEndpointsServiceConsumersIamBindingSchema()  
 	resources["google_endpoints_service_consumers_iam_member"] = resource.GoogleEndpointsServiceConsumersIamMemberSchema()  
