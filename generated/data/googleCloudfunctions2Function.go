@@ -113,6 +113,12 @@ const googleCloudfunctions2Function = `{
         "optional": true,
         "type": "string"
       },
+      "kms_key_name": {
+        "computed": true,
+        "description": "Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt function resources.\nIt must match the pattern projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "labels": {
         "computed": true,
         "description": "A set of key/value label pairs associated with this Cloud Function.",

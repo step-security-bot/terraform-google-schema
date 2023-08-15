@@ -263,6 +263,13 @@ const googleDataplexAsset = `{
               "optional": true,
               "type": "string"
             },
+            "read_access_mode": {
+              "computed": true,
+              "description": "Optional. Determines how read permissions are handled for each asset and their associated tables. Only available to storage buckets assets. Possible values: DIRECT, MANAGED",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "type": {
               "description": "Required. Immutable. Type of resource. Possible values: STORAGE_BUCKET, BIGQUERY_DATASET",
               "description_kind": "plain",

@@ -109,7 +109,71 @@ const googlePubsubSubscription = `{
               "type": "bool"
             }
           },
-          "description": "If delivery to BigQuery is used with this subscription, this field is used to configure it.\nEither pushConfig or bigQueryConfig can be set, but not both.\nIf both are empty, then the subscriber will pull and ack messages using API methods.",
+          "description": "If delivery to BigQuery is used with this subscription, this field is used to configure it.\nEither pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.\nIf all three are empty, then the subscriber will pull and ack messages using API methods.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
+      "cloud_storage_config": {
+        "block": {
+          "attributes": {
+            "bucket": {
+              "description": "User-provided name for the Cloud Storage bucket. The bucket must be created by the user. The bucket name must be without any prefix like \"gs://\".",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            },
+            "filename_prefix": {
+              "description": "User-provided prefix for Cloud Storage filename.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "filename_suffix": {
+              "description": "User-provided suffix for Cloud Storage filename. Must not end in \"/\".",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "max_bytes": {
+              "description": "The maximum bytes that can be written to a Cloud Storage file before a new file is created. Min 1 KB, max 10 GiB.\nThe maxBytes limit may be exceeded in cases where messages are larger than the limit.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "number"
+            },
+            "max_duration": {
+              "description": "The maximum duration that can elapse before a new Cloud Storage file is created. Min 1 minute, max 10 minutes, default 5 minutes.\nMay not exceed the subscription's acknowledgement deadline.\nA duration in seconds with up to nine fractional digits, ending with 's'. Example: \"3.5s\".",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "state": {
+              "computed": true,
+              "description": "An output-only field that indicates whether or not the subscription can receive messages.",
+              "description_kind": "plain",
+              "type": "string"
+            }
+          },
+          "block_types": {
+            "avro_config": {
+              "block": {
+                "attributes": {
+                  "write_metadata": {
+                    "description": "When true, write the subscription name, messageId, publishTime, attributes, and orderingKey as additional fields in the output.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "If set, message data will be written to Cloud Storage in Avro format.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            }
+          },
+          "description": "If delivery to Cloud Storage is used with this subscription, this field is used to configure it.\nEither pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.\nIf all three are empty, then the subscriber will pull and ack messages using API methods.",
           "description_kind": "plain"
         },
         "max_items": 1,

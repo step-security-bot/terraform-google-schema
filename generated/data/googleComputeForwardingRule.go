@@ -11,7 +11,7 @@ const googleComputeForwardingRule = `{
     "attributes": {
       "all_ports": {
         "computed": true,
-        "description": "This field can only be used:\n* If 'IPProtocol' is one of TCP, UDP, or SCTP.\n* By internal TCP/UDP load balancers, backend service-based network load\nbalancers, and internal and external protocol forwarding.\n\n\nSet this field to true to allow packets addressed to any port or packets\nlacking destination port information (for example, UDP fragments after the\nfirst fragment) to be forwarded to the backends configured with this\nforwarding rule.\n\nThe 'ports', 'port_range', and\n'allPorts' fields are mutually exclusive.",
+        "description": "This field can only be used:\n* If 'IPProtocol' is one of TCP, UDP, or SCTP.\n* By internal TCP/UDP load balancers, backend service-based network load\nbalancers, and internal and external protocol forwarding.\n\nThis option should be set to TRUE when the Forwarding Rule\nIPProtocol is set to L3_DEFAULT.\n\nSet this field to true to allow packets addressed to any port or packets\nlacking destination port information (for example, UDP fragments after the\nfirst fragment) to be forwarded to the backends configured with this\nforwarding rule.\n\nThe 'ports', 'port_range', and\n'allPorts' fields are mutually exclusive.",
         "description_kind": "plain",
         "type": "bool"
       },
@@ -65,7 +65,13 @@ const googleComputeForwardingRule = `{
       },
       "ip_protocol": {
         "computed": true,
-        "description": "The IP protocol to which this rule applies.\n\nFor protocol forwarding, valid\noptions are 'TCP', 'UDP', 'ESP',\n'AH', 'SCTP', 'ICMP' and\n'L3_DEFAULT'.\n\nThe valid IP protocols are different for different load balancing products\nas described in [Load balancing\nfeatures](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends). Possible values: [\"TCP\", \"UDP\", \"ESP\", \"AH\", \"SCTP\", \"ICMP\", \"L3_DEFAULT\"]",
+        "description": "The IP protocol to which this rule applies.\n\nFor protocol forwarding, valid\noptions are 'TCP', 'UDP', 'ESP',\n'AH', 'SCTP', 'ICMP' and\n'L3_DEFAULT'.\n\nThe valid IP protocols are different for different load balancing products\nas described in [Load balancing\nfeatures](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends).\n\nA Forwarding Rule with protocol L3_DEFAULT can attach with target instance or\nbackend service with UNSPECIFIED protocol.\nA forwarding rule with \"L3_DEFAULT\" IPProtocal cannot be attached to a backend service with TCP or UDP. Possible values: [\"TCP\", \"UDP\", \"ESP\", \"AH\", \"SCTP\", \"ICMP\", \"L3_DEFAULT\"]",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "ip_version": {
+        "computed": true,
+        "description": "The IP address version that will be used by this forwarding rule.\nValid options are IPV4 and IPV6.\n\nIf not set, the IPv4 address will be used by default. Possible values: [\"IPV4\", \"IPV6\"]",
         "description_kind": "plain",
         "type": "string"
       },
@@ -128,7 +134,7 @@ const googleComputeForwardingRule = `{
       },
       "ports": {
         "computed": true,
-        "description": "This field can only be used:\n\n* If 'IPProtocol' is one of TCP, UDP, or SCTP.\n* By internal TCP/UDP load balancers, backend service-based network load\nbalancers, and internal protocol forwarding.\n\n\nYou can specify a list of up to five ports by number, separated by commas.\nThe ports can be contiguous or discontiguous. Only packets addressed to\nthese ports will be forwarded to the backends configured with this\nforwarding rule.\n\nFor external forwarding rules, two or more forwarding rules cannot use the\nsame '[IPAddress, IPProtocol]' pair, and cannot share any values\ndefined in 'ports'.\n\nFor internal forwarding rules within the same VPC network, two or more\nforwarding rules cannot use the same '[IPAddress, IPProtocol]'\npair, and cannot share any values defined in 'ports'.\n\nThe 'ports' and 'port_range' fields are mutually exclusive.",
+        "description": "This field can only be used:\n\n* If 'IPProtocol' is one of TCP, UDP, or SCTP.\n* By internal TCP/UDP load balancers, backend service-based network load\nbalancers, internal protocol forwarding and when protocol is not L3_DEFAULT.\n\n\nYou can specify a list of up to five ports by number, separated by commas.\nThe ports can be contiguous or discontiguous. Only packets addressed to\nthese ports will be forwarded to the backends configured with this\nforwarding rule.\n\nFor external forwarding rules, two or more forwarding rules cannot use the\nsame '[IPAddress, IPProtocol]' pair, and cannot share any values\ndefined in 'ports'.\n\nFor internal forwarding rules within the same VPC network, two or more\nforwarding rules cannot use the same '[IPAddress, IPProtocol]'\npair, and cannot share any values defined in 'ports'.\n\nThe 'ports' and 'port_range' fields are mutually exclusive.",
         "description_kind": "plain",
         "type": [
           "set",

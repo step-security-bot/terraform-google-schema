@@ -17,7 +17,7 @@ const googlePubsubSubscription = `{
       },
       "bigquery_config": {
         "computed": true,
-        "description": "If delivery to BigQuery is used with this subscription, this field is used to configure it.\nEither pushConfig or bigQueryConfig can be set, but not both.\nIf both are empty, then the subscriber will pull and ack messages using API methods.",
+        "description": "If delivery to BigQuery is used with this subscription, this field is used to configure it.\nEither pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.\nIf all three are empty, then the subscriber will pull and ack messages using API methods.",
         "description_kind": "plain",
         "type": [
           "list",
@@ -28,6 +28,34 @@ const googlePubsubSubscription = `{
               "table": "string",
               "use_topic_schema": "bool",
               "write_metadata": "bool"
+            }
+          ]
+        ]
+      },
+      "cloud_storage_config": {
+        "computed": true,
+        "description": "If delivery to Cloud Storage is used with this subscription, this field is used to configure it.\nEither pushConfig, bigQueryConfig or cloudStorageConfig can be set, but not combined.\nIf all three are empty, then the subscriber will pull and ack messages using API methods.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "avro_config": [
+                "list",
+                [
+                  "object",
+                  {
+                    "write_metadata": "bool"
+                  }
+                ]
+              ],
+              "bucket": "string",
+              "filename_prefix": "string",
+              "filename_suffix": "string",
+              "max_bytes": "number",
+              "max_duration": "string",
+              "state": "string"
             }
           ]
         ]

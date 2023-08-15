@@ -646,6 +646,16 @@ const googleContainerCluster = `{
           [
             "object",
             {
+              "advanced_datapath_observability_config": [
+                "list",
+                [
+                  "object",
+                  {
+                    "enable_metrics": "bool",
+                    "relay_mode": "string"
+                  }
+                ]
+              ],
               "enable_components": [
                 "list",
                 "string"

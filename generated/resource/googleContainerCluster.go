@@ -1125,6 +1125,29 @@ const googleContainerCluster = `{
             }
           },
           "block_types": {
+            "advanced_datapath_observability_config": {
+              "block": {
+                "attributes": {
+                  "enable_metrics": {
+                    "description": "Whether or not the advanced datapath metrics are enabled.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "bool"
+                  },
+                  "relay_mode": {
+                    "computed": true,
+                    "description": "Mode used to make Relay available.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  }
+                },
+                "description": "Configuration of Advanced Datapath Observability features.",
+                "description_kind": "plain"
+              },
+              "max_items": 2,
+              "nesting_mode": "list"
+            },
             "managed_prometheus": {
               "block": {
                 "attributes": {

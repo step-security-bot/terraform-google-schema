@@ -302,6 +302,12 @@ const googleClouddeployDeliveryPipeline = `{
                                                   "required": true,
                                                   "type": "string"
                                                 },
+                                                "route_update_wait_time": {
+                                                  "description": "Optional. The time to wait for route updates to propagate. The maximum configurable time is 3 hours, in seconds format. If unspecified, there is no wait time.",
+                                                  "description_kind": "plain",
+                                                  "optional": true,
+                                                  "type": "string"
+                                                },
                                                 "service": {
                                                   "description": "Required. Name of the Kubernetes Service.",
                                                   "description_kind": "plain",

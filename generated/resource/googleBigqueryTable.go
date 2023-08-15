@@ -88,6 +88,12 @@ const googleBigqueryTable = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "max_staleness": {
+        "description": "The maximum staleness of data that could be returned when the table (or stale MV) is queried. Staleness encoded as a string encoding of sql IntervalValue type.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "num_bytes": {
         "computed": true,
         "description": "The geographic location where the table resides. This value is inherited from the dataset.",
@@ -179,6 +185,12 @@ const googleBigqueryTable = `{
             },
             "connection_id": {
               "description": "The connection specifying the credentials to be used to read external storage, such as Azure Blob, Cloud Storage, or S3. The connectionId can have the form \"{{project}}.{{location}}.{{connection_id}}\" or \"projects/{{project}}/locations/{{location}}/connections/{{connection_id}}\".",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "file_set_spec_type": {
+              "description": "Specifies how source URIs are interpreted for constructing the file set to load.  By default source URIs are expanded against the underlying storage.  Other options include specifying manifest files. Only applicable to object storage systems.",
               "description_kind": "plain",
               "optional": true,
               "type": "string"

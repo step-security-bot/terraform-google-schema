@@ -62,7 +62,7 @@ const googleComputeGlobalForwardingRule = `{
       },
       "load_balancing_scheme": {
         "computed": true,
-        "description": "Specifies the forwarding rule type.\n\nFor more information about forwarding rules, refer to\n[Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"EXTERNAL_MANAGED\", \"INTERNAL_SELF_MANAGED\"]",
+        "description": "Specifies the forwarding rule type.\n\nFor more information about forwarding rules, refer to\n[Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: \"EXTERNAL\" Possible values: [\"EXTERNAL\", \"EXTERNAL_MANAGED\", \"INTERNAL_MANAGED\", \"INTERNAL_SELF_MANAGED\"]",
         "description_kind": "plain",
         "type": "string"
       },
@@ -144,6 +144,12 @@ const googleComputeGlobalForwardingRule = `{
           "list",
           "string"
         ]
+      },
+      "subnetwork": {
+        "computed": true,
+        "description": "This field identifies the subnetwork that the load balanced IP should\nbelong to for this Forwarding Rule, used in internal load balancing and\nnetwork load balancing with IPv6.\n\nIf the network specified is in auto subnet mode, this field is optional.\nHowever, a subnetwork must be specified if the network is in custom subnet\nmode or when creating external forwarding rule with IPv6.",
+        "description_kind": "plain",
+        "type": "string"
       },
       "target": {
         "computed": true,
