@@ -307,6 +307,12 @@ const googleDatabaseMigrationServiceConnectionProfile = `{
                     "optional": true,
                     "type": "string"
                   },
+                  "edition": {
+                    "description": "The edition of the given Cloud SQL instance. Possible values: [\"ENTERPRISE\", \"ENTERPRISE_PLUS\"]",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
                   "root_password": {
                     "description": "Input only. Initial root password.",
                     "description_kind": "plain",

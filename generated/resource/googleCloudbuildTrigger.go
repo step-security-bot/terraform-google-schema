@@ -732,6 +732,12 @@ const googleCloudbuildTrigger = `{
       "git_file_source": {
         "block": {
           "attributes": {
+            "bitbucket_server_config": {
+              "description": "The full resource name of the bitbucket server config.\nFormat: projects/{project}/locations/{location}/bitbucketServerConfigs/{id}.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "github_enterprise_config": {
               "description": "The full resource name of the github enterprise config.\nFormat: projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}. projects/{project}/githubEnterpriseConfigs/{id}.",
               "description_kind": "plain",
@@ -972,6 +978,12 @@ const googleCloudbuildTrigger = `{
       "source_to_build": {
         "block": {
           "attributes": {
+            "bitbucket_server_config": {
+              "description": "The full resource name of the bitbucket server config.\nFormat: projects/{project}/locations/{location}/bitbucketServerConfigs/{id}.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
             "github_enterprise_config": {
               "description": "The full resource name of the github enterprise config.\nFormat: projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}. projects/{project}/githubEnterpriseConfigs/{id}.",
               "description_kind": "plain",

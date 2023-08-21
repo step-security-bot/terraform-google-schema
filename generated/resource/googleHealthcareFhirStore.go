@@ -22,6 +22,12 @@ const googleHealthcareFhirStore = `{
         "required": true,
         "type": "string"
       },
+      "default_search_handling_strict": {
+        "description": "If true, overrides the default search behavior for this FHIR store to handling=strict which returns an error for unrecognized search parameters.\nIf false, uses the FHIR specification default handling=lenient which ignores unrecognized search parameters.\nThe handling can always be changed from the default on an individual API call by setting the HTTP header Prefer: handling=strict or Prefer: handling=lenient.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+      },
       "disable_referential_integrity": {
         "description": "Whether to disable referential integrity in this FHIR store. This field is immutable after FHIR store\ncreation. The default value is false, meaning that the API will enforce referential integrity and fail the\nrequests that will result in inconsistent state in the FHIR store. When this field is set to true, the API\nwill skip referential integrity check. Consequently, operations that rely on references, such as\nPatient.get$everything, will not return all the results if broken references exist.\n\n** Changing this property may recreate the FHIR store (removing all data) **",
         "description_kind": "plain",

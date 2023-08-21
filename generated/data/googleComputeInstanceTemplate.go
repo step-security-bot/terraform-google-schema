@@ -81,6 +81,7 @@ const googleComputeInstanceTemplate = `{
                 "string"
               ],
               "mode": "string",
+              "provisioned_iops": "number",
               "resource_policies": [
                 "list",
                 "string"

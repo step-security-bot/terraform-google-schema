@@ -115,6 +115,7 @@ const googleComposerEnvironment = `{
                     "cloud_composer_connection_subnetwork": "string",
                     "cloud_composer_network_ipv4_cidr_block": "string",
                     "cloud_sql_ipv4_cidr_block": "string",
+                    "connection_type": "string",
                     "enable_private_endpoint": "bool",
                     "enable_privately_used_public_ips": "bool",
                     "master_ipv4_cidr_block": "string",

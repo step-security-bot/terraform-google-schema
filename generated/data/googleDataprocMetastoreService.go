@@ -166,6 +166,21 @@ const googleDataprocMetastoreService = `{
         "description_kind": "plain",
         "type": "string"
       },
+      "scaling_config": {
+        "computed": true,
+        "description": "Represents the scaling configuration of a metastore service.",
+        "description_kind": "plain",
+        "type": [
+          "list",
+          [
+            "object",
+            {
+              "instance_size": "string",
+              "scaling_factor": "number"
+            }
+          ]
+        ]
+      },
       "service_id": {
         "description": "The ID of the metastore service. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_),\nand hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between\n3 and 63 characters.",
         "description_kind": "plain",

@@ -252,6 +252,28 @@ const googleDataprocMetastoreService = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "scaling_config": {
+        "block": {
+          "attributes": {
+            "instance_size": {
+              "description": "Metastore instance sizes. Possible values: [\"EXTRA_SMALL\", \"SMALL\", \"MEDIUM\", \"LARGE\", \"EXTRA_LARGE\"]",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "string"
+            },
+            "scaling_factor": {
+              "description": "Scaling factor, in increments of 0.1 for values less than 1.0, and increments of 1.0 for values greater than 1.0.",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "number"
+            }
+          },
+          "description": "Represents the scaling configuration of a metastore service.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "telemetry_config": {
         "block": {
           "attributes": {

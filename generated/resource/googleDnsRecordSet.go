@@ -106,7 +106,7 @@ const googleDnsRecordSet = `{
                                 "type": "string"
                               },
                               "load_balancer_type": {
-                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb]",
+                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb\", \"globalL7ilb\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
@@ -210,7 +210,7 @@ const googleDnsRecordSet = `{
                                       "type": "string"
                                     },
                                     "load_balancer_type": {
-                                      "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb]",
+                                      "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb\", \"globalL7ilb\"]",
                                       "description_kind": "plain",
                                       "required": true,
                                       "type": "string"
@@ -279,7 +279,7 @@ const googleDnsRecordSet = `{
                                 "type": "string"
                               },
                               "load_balancer_type": {
-                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb]",
+                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb\", \"globalL7ilb\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"
@@ -368,7 +368,7 @@ const googleDnsRecordSet = `{
                                 "type": "string"
                               },
                               "load_balancer_type": {
-                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb]",
+                                "description": "The type of load balancer. This value is case-sensitive. Possible values: [\"regionalL4ilb\", \"regionalL7ilb\", \"globalL7ilb\"]",
                                 "description_kind": "plain",
                                 "required": true,
                                 "type": "string"

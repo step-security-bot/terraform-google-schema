@@ -253,11 +253,10 @@ const googleDnsManagedZone = `{
                 "description": "The list of VPC networks that can see this zone. Until the provider updates to use the Terraform 0.12 SDK in a future release, you\nmay experience issues with this resource while updating. If you've defined a 'networks' block and\nadd another 'networks' block while keeping the old block, Terraform will see an incorrect diff\nand apply an incorrect update to the resource. If you encounter this issue, remove all 'networks'\nblocks in an update and then apply another update adding all of them back simultaneously.",
                 "description_kind": "plain"
               },
-              "min_items": 1,
               "nesting_mode": "set"
             }
           },
-          "description": "For privately visible zones, the set of Virtual Private Cloud\nresources that the zone is visible from.",
+          "description": "For privately visible zones, the set of Virtual Private Cloud\nresources that the zone is visible from. At least one of 'gke_clusters' or 'networks' must be specified.",
           "description_kind": "plain"
         },
         "max_items": 1,

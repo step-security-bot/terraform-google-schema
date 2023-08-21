@@ -316,6 +316,7 @@ const googleCloudbuildTrigger = `{
           [
             "object",
             {
+              "bitbucket_server_config": "string",
               "github_enterprise_config": "string",
               "path": "string",
               "repo_type": "string",
@@ -479,6 +480,7 @@ const googleCloudbuildTrigger = `{
           [
             "object",
             {
+              "bitbucket_server_config": "string",
               "github_enterprise_config": "string",
               "ref": "string",
               "repo_type": "string",

@@ -98,7 +98,7 @@ const googleComputeSubnetwork = `{
       },
       "purpose": {
         "computed": true,
-        "description": "The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'INTERNAL_HTTPS_LOAD_BALANCER', 'REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY' or 'PRIVATE_SERVICE_CONNECT'.\nA subnetwork with purpose set to 'INTERNAL_HTTPS_LOAD_BALANCER' is a user-created subnetwork that is reserved for Internal HTTP(S) Load Balancing.\nA subnetwork in a given region with purpose set to 'REGIONAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the regional Envoy-based load balancers.\nA subnetwork in a given region with purpose set to 'GLOBAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the cross-regional Envoy-based load balancers.\nA subnetwork with purpose set to 'PRIVATE_SERVICE_CONNECT' reserves the subnet for hosting a Private Service Connect published service.\nIf unspecified, the purpose defaults to 'PRIVATE_RFC_1918'.\nThe enableFlowLogs field isn't supported with the purpose field set to 'INTERNAL_HTTPS_LOAD_BALANCER' or 'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'.",
+        "description": "The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY', or 'PRIVATE_SERVICE_CONNECT'.\nA subnet with purpose set to 'REGIONAL_MANAGED_PROXY' is a user-created subnetwork that is reserved for regional Envoy-based load balancers.\nA subnetwork in a given region with purpose set to 'GLOBAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the cross-regional Envoy-based load balancers.\nA subnetwork with purpose set to 'PRIVATE_SERVICE_CONNECT' reserves the subnet for hosting a Private Service Connect published service.\nNote that 'REGIONAL_MANAGED_PROXY' is the preferred setting for all regional Envoy load balancers.\nIf unspecified, the purpose defaults to 'PRIVATE_RFC_1918'.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -111,7 +111,7 @@ const googleComputeSubnetwork = `{
         "type": "string"
       },
       "role": {
-        "description": "The role of subnetwork.\nThe value can be set to 'ACTIVE' or 'BACKUP'.\nAn 'ACTIVE' subnetwork is one that is currently being used.\nA 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining.\n\nSubnetwork role must be specified when purpose is set to 'INTERNAL_HTTPS_LOAD_BALANCER' or 'REGIONAL_MANAGED_PROXY'. Possible values: [\"ACTIVE\", \"BACKUP\"]",
+        "description": "The role of subnetwork.\nCurrently, this field is only used when 'purpose' is 'REGIONAL_MANAGED_PROXY'.\nThe value can be set to 'ACTIVE' or 'BACKUP'.\nAn 'ACTIVE' subnetwork is one that is currently being used for Envoy-based load balancers in a region.\nA 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining. Possible values: [\"ACTIVE\", \"BACKUP\"]",
         "description_kind": "plain",
         "optional": true,
         "type": "string"
@@ -183,7 +183,7 @@ const googleComputeSubnetwork = `{
               ]
             }
           },
-          "description": "Denotes the logging options for the subnetwork flow logs. If logging is enabled\nlogs will be exported to Stackdriver. This field cannot be set if the 'purpose' of this\nsubnetwork is 'INTERNAL_HTTPS_LOAD_BALANCER' or 'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'",
+          "description": "This field denotes the VPC flow logging options for this subnetwork. If\nlogging is enabled, logs are exported to Cloud Logging. Flow logging\nisn't supported if the subnet 'purpose' field is set to subnetwork is\n'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'.",
           "description_kind": "plain"
         },
         "max_items": 1,

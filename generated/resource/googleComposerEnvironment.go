@@ -309,6 +309,13 @@ const googleComposerEnvironment = `{
                     "optional": true,
                     "type": "string"
                   },
+                  "connection_type": {
+                    "computed": true,
+                    "description": "Mode of internal communication within the Composer environment. Must be one of \"VPC_PEERING\" or \"PRIVATE_SERVICE_CONNECT\".",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
                   "enable_private_endpoint": {
                     "description": "If true, access to the public endpoint of the GKE cluster is denied. If this field is set to true, ip_allocation_policy.use_ip_aliases must be set to true for Cloud Composer environments in versions composer-1.*.*-airflow-*.*.*.",
                     "description_kind": "plain",

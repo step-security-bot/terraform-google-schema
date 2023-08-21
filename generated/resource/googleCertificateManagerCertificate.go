@@ -49,7 +49,7 @@ const googleCertificateManagerCertificate = `{
         "type": "string"
       },
       "scope": {
-        "description": "The scope of the certificate.\n\nDEFAULT: Certificates with default scope are served from core Google data centers.\nIf unsure, choose this option.\n\nEDGE_CACHE: Certificates with scope EDGE_CACHE are special-purposed certificates,\nserved from non-core Google data centers.\nCurrently allowed only for managed certificates.",
+        "description": "The scope of the certificate.\n\nDEFAULT: Certificates with default scope are served from core Google data centers.\nIf unsure, choose this option.\n\nEDGE_CACHE: Certificates with scope EDGE_CACHE are special-purposed certificates,\nserved from non-core Google data centers.\n\nALL_REGIONS: Certificates with ALL_REGIONS scope are served from all GCP regions (You can only use ALL_REGIONS with global certs).\nsee https://cloud.google.com/compute/docs/regions-zones",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

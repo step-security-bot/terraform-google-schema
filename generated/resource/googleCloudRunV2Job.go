@@ -51,6 +51,24 @@ const googleCloudRunV2Job = `{
           ]
         ]
       },
+      "create_time": {
+        "computed": true,
+        "description": "The creation time.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "creator": {
+        "computed": true,
+        "description": "Email address of the authenticated creator.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "delete_time": {
+        "computed": true,
+        "description": "The deletion time.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "etag": {
         "computed": true,
         "description": "A system-generated fingerprint for this version of the resource. May be used to detect modification conflict during updates.",
@@ -62,6 +80,12 @@ const googleCloudRunV2Job = `{
         "description": "Number of executions created for this job.",
         "description_kind": "plain",
         "type": "number"
+      },
+      "expire_time": {
+        "computed": true,
+        "description": "For a deleted resource, the time after which it will be permamently deleted.",
+        "description_kind": "plain",
+        "type": "string"
       },
       "generation": {
         "computed": true,
@@ -83,6 +107,12 @@ const googleCloudRunV2Job = `{
           "map",
           "string"
         ]
+      },
+      "last_modifier": {
+        "computed": true,
+        "description": "Email address of the last authenticated modifier.",
+        "description_kind": "plain",
+        "type": "string"
       },
       "latest_created_execution": {
         "computed": true,
@@ -161,6 +191,12 @@ const googleCloudRunV2Job = `{
       "uid": {
         "computed": true,
         "description": "Server assigned unique identifier for the Execution. The value is a UUID4 string and guaranteed to remain unchanged until the resource is deleted.",
+        "description_kind": "plain",
+        "type": "string"
+      },
+      "update_time": {
+        "computed": true,
+        "description": "The last-modified time.",
         "description_kind": "plain",
         "type": "string"
       }

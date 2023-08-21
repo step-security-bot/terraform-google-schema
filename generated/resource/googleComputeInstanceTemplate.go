@@ -251,6 +251,13 @@ const googleComputeInstanceTemplate = `{
               "optional": true,
               "type": "string"
             },
+            "provisioned_iops": {
+              "computed": true,
+              "description": "Indicates how many IOPS to provision for the disk. This sets the number of I/O operations per second that the disk can handle. Values must be between 10,000 and 120,000. For more details, see the [Extreme persistent disk documentation](https://cloud.google.com/compute/docs/disks/extreme-persistent-disk).",
+              "description_kind": "plain",
+              "optional": true,
+              "type": "number"
+            },
             "resource_policies": {
               "description": "A list (short name or id) of resource policies to attach to this disk. Currently a max of 1 resource policy is supported.",
               "description_kind": "plain",
