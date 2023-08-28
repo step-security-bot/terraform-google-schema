@@ -867,6 +867,25 @@ const googleContainerCluster = `{
             }
           },
           "block_types": {
+            "additional_pod_ranges_config": {
+              "block": {
+                "attributes": {
+                  "pod_range_names": {
+                    "description": "Name for pod secondary ipv4 range which has the actual range defined ahead.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": [
+                      "set",
+                      "string"
+                    ]
+                  }
+                },
+                "description": "AdditionalPodRangesConfig is the configuration for additional pod secondary ranges supporting the ClusterUpdate message.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "pod_cidr_overprovision_config": {
               "block": {
                 "attributes": {

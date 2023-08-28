@@ -188,6 +188,25 @@ const googleClouddeployTarget = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "multi_target": {
+        "block": {
+          "attributes": {
+            "target_ids": {
+              "description": "Required. The target_ids of this multiTarget.",
+              "description_kind": "plain",
+              "required": true,
+              "type": [
+                "list",
+                "string"
+              ]
+            }
+          },
+          "description": "Information specifying a multiTarget.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "run": {
         "block": {
           "attributes": {

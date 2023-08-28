@@ -455,6 +455,18 @@ const googleContainerCluster = `{
           [
             "object",
             {
+              "additional_pod_ranges_config": [
+                "list",
+                [
+                  "object",
+                  {
+                    "pod_range_names": [
+                      "set",
+                      "string"
+                    ]
+                  }
+                ]
+              ],
               "cluster_ipv4_cidr_block": "string",
               "cluster_secondary_range_name": "string",
               "pod_cidr_overprovision_config": [

@@ -22,7 +22,7 @@ const googleApigeeInstanceAttachment = `{
         "type": "string"
       },
       "instance_id": {
-        "description": "The Apigee instance associated with the Apigee environment,\nin the format 'organisations/{{org_name}}/instances/{{instance_name}}'.",
+        "description": "The Apigee instance associated with the Apigee environment,\nin the format 'organizations/{{org_name}}/instances/{{instance_name}}'.",
         "description_kind": "plain",
         "required": true,
         "type": "string"

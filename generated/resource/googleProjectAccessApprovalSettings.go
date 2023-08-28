@@ -57,7 +57,7 @@ const googleProjectAccessApprovalSettings = `{
       },
       "project": {
         "deprecated": true,
-        "description": "Deprecated in favor of 'project_id'",
+        "description": "Project id.",
         "description_kind": "plain",
         "optional": true,
         "type": "string"

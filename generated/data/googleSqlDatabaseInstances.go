@@ -51,6 +51,7 @@ const googleSqlDatabaseInstances = `{
               "connection_name": "string",
               "database_version": "string",
               "deletion_protection": "bool",
+              "dns_name": "string",
               "encryption_key_name": "string",
               "first_ip_address": "string",
               "instance_type": "string",
@@ -70,6 +71,7 @@ const googleSqlDatabaseInstances = `{
               "name": "string",
               "private_ip_address": "string",
               "project": "string",
+              "psc_service_attachment_link": "string",
               "public_ip_address": "string",
               "region": "string",
               "replica_configuration": [
@@ -238,6 +240,19 @@ const googleSqlDatabaseInstances = `{
                           "enable_private_path_for_google_cloud_services": "bool",
                           "ipv4_enabled": "bool",
                           "private_network": "string",
+                          "psc_config": [
+                            "set",
+                            [
+                              "object",
+                              {
+                                "allowed_consumer_projects": [
+                                  "set",
+                                  "string"
+                                ],
+                                "psc_enabled": "bool"
+                              }
+                            ]
+                          ],
                           "require_ssl": "bool"
                         }
                       ]

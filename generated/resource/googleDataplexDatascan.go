@@ -17,6 +17,7 @@ const googleDataplexDatascan = `{
       },
       "data_profile_result": {
         "computed": true,
+        "deprecated": true,
         "description": "The result of the data profile scan.",
         "description_kind": "plain",
         "type": [
@@ -126,6 +127,7 @@ const googleDataplexDatascan = `{
       },
       "data_quality_result": {
         "computed": true,
+        "deprecated": true,
         "description": "The result of the data quality scan.",
         "description_kind": "plain",
         "type": [
@@ -396,10 +398,76 @@ const googleDataplexDatascan = `{
               "type": "string"
             },
             "sampling_percent": {
-              "description": "The percentage of the records to be selected from the dataset for DataScan.",
+              "description": "The percentage of the records to be selected from the dataset for DataScan.\nValue can range between 0.0 and 100.0 with up to 3 significant decimal digits.\nSampling is not applied if 'sampling_percent' is not specified, 0 or 100.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
+            }
+          },
+          "block_types": {
+            "exclude_fields": {
+              "block": {
+                "attributes": {
+                  "field_names": {
+                    "description": "Expected input is a list of fully qualified names of fields as in the schema.\nOnly top-level field names for nested fields are supported.\nFor instance, if 'x' is of nested field type, listing 'x' is supported but 'x.y.z' is not supported. Here 'y' and 'y.z' are nested fields of 'x'.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": [
+                      "list",
+                      "string"
+                    ]
+                  }
+                },
+                "description": "The fields to exclude from data profile.\nIf specified, the fields will be excluded from data profile, regardless of 'include_fields' value.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "include_fields": {
+              "block": {
+                "attributes": {
+                  "field_names": {
+                    "description": "Expected input is a list of fully qualified names of fields as in the schema.\nOnly top-level field names for nested fields are supported.\nFor instance, if 'x' is of nested field type, listing 'x' is supported but 'x.y.z' is not supported. Here 'y' and 'y.z' are nested fields of 'x'.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": [
+                      "list",
+                      "string"
+                    ]
+                  }
+                },
+                "description": "The fields to include in data profile.\nIf not specified, all fields at the time of profile scan job execution are included, except for ones listed in 'exclude_fields'.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
+            "post_scan_actions": {
+              "block": {
+                "block_types": {
+                  "bigquery_export": {
+                    "block": {
+                      "attributes": {
+                        "results_table": {
+                          "description": "The BigQuery table to export DataProfileScan results to.\nFormat://bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "If set, results will be exported to the provided BigQuery table.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  }
+                },
+                "description": "Actions to take upon job completion.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
             }
           },
           "description": "DataProfileScan related setting.",
@@ -418,18 +486,50 @@ const googleDataplexDatascan = `{
               "type": "string"
             },
             "sampling_percent": {
-              "description": "The percentage of the records to be selected from the dataset for DataScan.",
+              "description": "The percentage of the records to be selected from the dataset for DataScan.\nValue can range between 0.0 and 100.0 with up to 3 significant decimal digits.\nSampling is not applied if 'sampling_percent' is not specified, 0 or 100.",
               "description_kind": "plain",
               "optional": true,
               "type": "number"
             }
           },
           "block_types": {
+            "post_scan_actions": {
+              "block": {
+                "block_types": {
+                  "bigquery_export": {
+                    "block": {
+                      "attributes": {
+                        "results_table": {
+                          "description": "The BigQuery table to export DataQualityScan results to.\nFormat://bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "If set, results will be exported to the provided BigQuery table.",
+                      "description_kind": "plain"
+                    },
+                    "max_items": 1,
+                    "nesting_mode": "list"
+                  }
+                },
+                "description": "Actions to take upon job completion.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "rules": {
               "block": {
                 "attributes": {
                   "column": {
                     "description": "The unnested column which this rule is evaluated against.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
+                  },
+                  "description": {
+                    "description": "Description of the rule.\nThe maximum length is 1,024 characters.",
                     "description_kind": "plain",
                     "optional": true,
                     "type": "string"
@@ -445,6 +545,12 @@ const googleDataplexDatascan = `{
                     "description_kind": "plain",
                     "optional": true,
                     "type": "bool"
+                  },
+                  "name": {
+                    "description": "A mutable name for the rule.\nThe name must contain only letters (a-z, A-Z), numbers (0-9), or hyphens (-).\nThe maximum length is 63 characters.\nMust start with a letter.\nMust end with a number or a letter.",
+                    "description_kind": "plain",
+                    "optional": true,
+                    "type": "string"
                   },
                   "threshold": {
                     "description": "The minimum ratio of passing_rows / total_rows required to pass this rule, with a range of [0.0, 1.0]. 0 indicates default value (i.e. 1.0).",
@@ -605,7 +711,7 @@ const googleDataplexDatascan = `{
                   },
                   "uniqueness_expectation": {
                     "block": {
-                      "description": "ColumnAggregate rule which evaluates whether the column has duplicates.",
+                      "description": "Row-level rule which evaluates whether each column value is unique.",
                       "description_kind": "plain"
                     },
                     "max_items": 1,

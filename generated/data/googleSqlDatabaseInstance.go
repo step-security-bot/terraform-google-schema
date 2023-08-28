@@ -56,6 +56,12 @@ const googleSqlDatabaseInstance = `{
         "description_kind": "plain",
         "type": "bool"
       },
+      "dns_name": {
+        "computed": true,
+        "description": "The dns name of the instance.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "encryption_key_name": {
         "computed": true,
         "description_kind": "plain",
@@ -122,6 +128,12 @@ const googleSqlDatabaseInstance = `{
         "description": "The ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
         "description_kind": "plain",
         "optional": true,
+        "type": "string"
+      },
+      "psc_service_attachment_link": {
+        "computed": true,
+        "description": "The link to service attachment of PSC instance.",
+        "description_kind": "plain",
         "type": "string"
       },
       "public_ip_address": {
@@ -334,6 +346,19 @@ const googleSqlDatabaseInstance = `{
                     "enable_private_path_for_google_cloud_services": "bool",
                     "ipv4_enabled": "bool",
                     "private_network": "string",
+                    "psc_config": [
+                      "set",
+                      [
+                        "object",
+                        {
+                          "allowed_consumer_projects": [
+                            "set",
+                            "string"
+                          ],
+                          "psc_enabled": "bool"
+                        }
+                      ]
+                    ],
                     "require_ssl": "bool"
                   }
                 ]

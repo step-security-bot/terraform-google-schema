@@ -133,7 +133,7 @@ const googleCertificateManagerCertificate = `{
           "attributes": {
             "certificate_pem": {
               "deprecated": true,
-              "description": "**Deprecated** The certificate chain in PEM-encoded form.\n\nLeaf certificate comes first, followed by intermediate ones if any.",
+              "description": "The certificate chain in PEM-encoded form.\n\nLeaf certificate comes first, followed by intermediate ones if any.",
               "description_kind": "plain",
               "optional": true,
               "sensitive": true,
@@ -154,7 +154,7 @@ const googleCertificateManagerCertificate = `{
             },
             "private_key_pem": {
               "deprecated": true,
-              "description": "**Deprecated** The private key of the leaf certificate in PEM-encoded form.",
+              "description": "The private key of the leaf certificate in PEM-encoded form.",
               "description_kind": "plain",
               "optional": true,
               "sensitive": true,

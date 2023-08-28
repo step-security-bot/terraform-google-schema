@@ -379,6 +379,44 @@ const googleAlloydbCluster = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "restore_backup_source": {
+        "block": {
+          "attributes": {
+            "backup_name": {
+              "description": "The name of the backup that this cluster is restored from.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "description": "The source when restoring from a backup. Conflicts with 'restore_continuous_backup_source', both can't be set together.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
+      "restore_continuous_backup_source": {
+        "block": {
+          "attributes": {
+            "cluster": {
+              "description": "The name of the source cluster that this cluster is restored from.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            },
+            "point_in_time": {
+              "description": "The point in time that this cluster is restored to, in RFC 3339 format.",
+              "description_kind": "plain",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "description": "The source when restoring via point in time recovery (PITR). Conflicts with 'restore_backup_source', both can't be set together.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "timeouts": {
         "block": {
           "attributes": {

@@ -150,7 +150,7 @@ const googleAlloydbInstance = `{
               "type": "number"
             }
           },
-          "description": "Read pool specific config.",
+          "description": "Read pool specific config. If the instance type is READ_POOL, this configuration must be provided.",
           "description_kind": "plain"
         },
         "max_items": 1,

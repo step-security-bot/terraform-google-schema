@@ -36,6 +36,12 @@ const googleSqlDatabaseInstance = `{
         "optional": true,
         "type": "bool"
       },
+      "dns_name": {
+        "computed": true,
+        "description": "The dns name of the instance.",
+        "description_kind": "plain",
+        "type": "string"
+      },
       "encryption_key_name": {
         "computed": true,
         "description_kind": "plain",
@@ -108,6 +114,12 @@ const googleSqlDatabaseInstance = `{
         "description": "The ID of the project in which the resource belongs. If it is not provided, the provider project is used.",
         "description_kind": "plain",
         "optional": true,
+        "type": "string"
+      },
+      "psc_service_attachment_link": {
+        "computed": true,
+        "description": "The link to service attachment of PSC instance.",
+        "description_kind": "plain",
         "type": "string"
       },
       "public_ip_address": {
@@ -660,6 +672,30 @@ const googleSqlDatabaseInstance = `{
                           "type": "string"
                         }
                       },
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "set"
+                  },
+                  "psc_config": {
+                    "block": {
+                      "attributes": {
+                        "allowed_consumer_projects": {
+                          "description": "List of consumer projects that are allow-listed for PSC connections to this instance. This instance can be connected to with PSC from any network in these projects. Each consumer project in this list may be represented by a project number (numeric) or by a project id (alphanumeric).",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": [
+                            "set",
+                            "string"
+                          ]
+                        },
+                        "psc_enabled": {
+                          "description": "Whether PSC connectivity is enabled for this instance.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "bool"
+                        }
+                      },
+                      "description": "PSC settings for a Cloud SQL instance.",
                       "description_kind": "plain"
                     },
                     "nesting_mode": "set"
