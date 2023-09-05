@@ -78,7 +78,42 @@ const googleNetworkConnectivityServiceConnectionPolicy = `{
         "description_kind": "plain",
         "type": [
           "list",
-          "string"
+          [
+            "object",
+            {
+              "consumer_address": "string",
+              "consumer_forwarding_rule": "string",
+              "consumer_target_project": "string",
+              "error": [
+                "list",
+                [
+                  "object",
+                  {
+                    "code": "number",
+                    "message": "string"
+                  }
+                ]
+              ],
+              "error_info": [
+                "list",
+                [
+                  "object",
+                  {
+                    "domain": "string",
+                    "metadata": [
+                      "map",
+                      "string"
+                    ],
+                    "reason": "string"
+                  }
+                ]
+              ],
+              "error_type": "string",
+              "gce_operation": "string",
+              "psc_connection_id": "string",
+              "state": "string"
+            }
+          ]
         ]
       },
       "service_class": {

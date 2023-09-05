@@ -815,7 +815,7 @@ const googleCloudRunV2Service = `{
                               "mode": {
                                 "description": "Integer octal mode bits to use on this file, must be a value between 01 and 0777 (octal). If 0 or not set, the Volume's default mode will be used.",
                                 "description_kind": "plain",
-                                "required": true,
+                                "optional": true,
                                 "type": "number"
                               },
                               "path": {

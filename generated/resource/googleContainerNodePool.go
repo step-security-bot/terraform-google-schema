@@ -430,6 +430,22 @@ const googleContainerNodePool = `{
               "max_items": 1,
               "nesting_mode": "list"
             },
+            "confidential_nodes": {
+              "block": {
+                "attributes": {
+                  "enabled": {
+                    "description": "Whether Confidential Nodes feature is enabled for all nodes in this pool.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "bool"
+                  }
+                },
+                "description": "Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after pool creation without deleting and recreating the entire pool.",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "nesting_mode": "list"
+            },
             "ephemeral_storage_local_ssd_config": {
               "block": {
                 "attributes": {

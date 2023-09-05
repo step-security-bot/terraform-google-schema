@@ -108,9 +108,136 @@ const googleDialogflowCxFlow = `{
                   }
                 },
                 "block_types": {
+                  "conditional_cases": {
+                    "block": {
+                      "attributes": {
+                        "cases": {
+                          "description": "A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.\nSee [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Conditional cases for this fulfillment.",
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "list"
+                  },
                   "messages": {
                     "block": {
+                      "attributes": {
+                        "channel": {
+                          "description": "The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
+                        "payload": {
+                          "description": "A custom, platform-specific payload.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
                       "block_types": {
+                        "conversation_success": {
+                          "block": {
+                            "attributes": {
+                              "metadata": {
+                                "description": "Custom metadata. Dialogflow doesn't impose any structure on this.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Indicates that the conversation succeeded, i.e., the bot handled the issue that the customer talked to it about.\nDialogflow only uses this to determine which conversations should be counted as successful and doesn't process the metadata in this message in any way. Note that Dialogflow also considers conversations that get to the conversation end page as successful even if they don't return ConversationSuccess.\nYou may set this, for example:\n* In the entryFulfillment of a Page if entering the page indicates that the conversation succeeded.\n* In a webhook response when you determine that you handled the customer issue.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "live_agent_handoff": {
+                          "block": {
+                            "attributes": {
+                              "metadata": {
+                                "description": "Custom metadata. Dialogflow doesn't impose any structure on this.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Indicates that the conversation should be handed off to a live agent.\nDialogflow only uses this to determine which conversations were handed off to a human agent for measurement purposes. What else to do with this signal is up to you and your handoff procedures.\nYou may set this, for example:\n* In the entryFulfillment of a Page if entering the page indicates something went extremely wrong in the conversation.\n* In a webhook response when you determine that the customer issue can only be handled by a human.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "output_audio_text": {
+                          "block": {
+                            "attributes": {
+                              "allow_playback_interruption": {
+                                "computed": true,
+                                "description": "Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request.",
+                                "description_kind": "plain",
+                                "type": "bool"
+                              },
+                              "ssml": {
+                                "description": "The SSML text to be synthesized. For more information, see SSML.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              },
+                              "text": {
+                                "description": "The raw text to be synthesized.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "play_audio": {
+                          "block": {
+                            "attributes": {
+                              "allow_playback_interruption": {
+                                "computed": true,
+                                "description": "Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request.",
+                                "description_kind": "plain",
+                                "type": "bool"
+                              },
+                              "audio_uri": {
+                                "description": "URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Specifies an audio clip to be played by the client as part of the response.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "telephony_transfer_call": {
+                          "block": {
+                            "attributes": {
+                              "phone_number": {
+                                "description": "Transfer the call to a phone number in E.164 format.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
                         "text": {
                           "block": {
                             "attributes": {
@@ -138,6 +265,27 @@ const googleDialogflowCxFlow = `{
                         }
                       },
                       "description": "The list of rich message responses to present to the user.",
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "list"
+                  },
+                  "set_parameter_actions": {
+                    "block": {
+                      "attributes": {
+                        "parameter": {
+                          "description": "Display name of the parameter.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "The new JSON-encoded value of the parameter. A null value clears the parameter.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Set parameter values before executing the webhook.",
                       "description_kind": "plain"
                     },
                     "nesting_mode": "list"
@@ -264,9 +412,136 @@ const googleDialogflowCxFlow = `{
                   }
                 },
                 "block_types": {
+                  "conditional_cases": {
+                    "block": {
+                      "attributes": {
+                        "cases": {
+                          "description": "A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.\nSee [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Conditional cases for this fulfillment.",
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "list"
+                  },
                   "messages": {
                     "block": {
+                      "attributes": {
+                        "channel": {
+                          "description": "The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
+                        "payload": {
+                          "description": "A custom, platform-specific payload.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
                       "block_types": {
+                        "conversation_success": {
+                          "block": {
+                            "attributes": {
+                              "metadata": {
+                                "description": "Custom metadata. Dialogflow doesn't impose any structure on this.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Indicates that the conversation succeeded, i.e., the bot handled the issue that the customer talked to it about.\nDialogflow only uses this to determine which conversations should be counted as successful and doesn't process the metadata in this message in any way. Note that Dialogflow also considers conversations that get to the conversation end page as successful even if they don't return ConversationSuccess.\nYou may set this, for example:\n* In the entryFulfillment of a Page if entering the page indicates that the conversation succeeded.\n* In a webhook response when you determine that you handled the customer issue.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "live_agent_handoff": {
+                          "block": {
+                            "attributes": {
+                              "metadata": {
+                                "description": "Custom metadata. Dialogflow doesn't impose any structure on this.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Indicates that the conversation should be handed off to a live agent.\nDialogflow only uses this to determine which conversations were handed off to a human agent for measurement purposes. What else to do with this signal is up to you and your handoff procedures.\nYou may set this, for example:\n* In the entryFulfillment of a Page if entering the page indicates something went extremely wrong in the conversation.\n* In a webhook response when you determine that the customer issue can only be handled by a human.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "output_audio_text": {
+                          "block": {
+                            "attributes": {
+                              "allow_playback_interruption": {
+                                "computed": true,
+                                "description": "Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request.",
+                                "description_kind": "plain",
+                                "type": "bool"
+                              },
+                              "ssml": {
+                                "description": "The SSML text to be synthesized. For more information, see SSML.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              },
+                              "text": {
+                                "description": "The raw text to be synthesized.",
+                                "description_kind": "plain",
+                                "optional": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "play_audio": {
+                          "block": {
+                            "attributes": {
+                              "allow_playback_interruption": {
+                                "computed": true,
+                                "description": "Whether the playback of this message can be interrupted by the end user's speech and the client can then starts the next Dialogflow request.",
+                                "description_kind": "plain",
+                                "type": "bool"
+                              },
+                              "audio_uri": {
+                                "description": "URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Specifies an audio clip to be played by the client as part of the response.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
+                        "telephony_transfer_call": {
+                          "block": {
+                            "attributes": {
+                              "phone_number": {
+                                "description": "Transfer the call to a phone number in E.164 format.",
+                                "description_kind": "plain",
+                                "required": true,
+                                "type": "string"
+                              }
+                            },
+                            "description": "Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint.",
+                            "description_kind": "plain"
+                          },
+                          "max_items": 1,
+                          "nesting_mode": "list"
+                        },
                         "text": {
                           "block": {
                             "attributes": {
@@ -294,6 +569,27 @@ const googleDialogflowCxFlow = `{
                         }
                       },
                       "description": "The list of rich message responses to present to the user.",
+                      "description_kind": "plain"
+                    },
+                    "nesting_mode": "list"
+                  },
+                  "set_parameter_actions": {
+                    "block": {
+                      "attributes": {
+                        "parameter": {
+                          "description": "Display name of the parameter.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "The new JSON-encoded value of the parameter. A null value clears the parameter.",
+                          "description_kind": "plain",
+                          "optional": true,
+                          "type": "string"
+                        }
+                      },
+                      "description": "Set parameter values before executing the webhook.",
                       "description_kind": "plain"
                     },
                     "nesting_mode": "list"

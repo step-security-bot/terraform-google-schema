@@ -743,6 +743,15 @@ const googleContainerCluster = `{
                 ]
               ],
               "boot_disk_kms_key": "string",
+              "confidential_nodes": [
+                "list",
+                [
+                  "object",
+                  {
+                    "enabled": "bool"
+                  }
+                ]
+              ],
               "disk_size_gb": "number",
               "disk_type": "string",
               "ephemeral_storage_local_ssd_config": [
@@ -1032,6 +1041,15 @@ const googleContainerCluster = `{
                       ]
                     ],
                     "boot_disk_kms_key": "string",
+                    "confidential_nodes": [
+                      "list",
+                      [
+                        "object",
+                        {
+                          "enabled": "bool"
+                        }
+                      ]
+                    ],
                     "disk_size_gb": "number",
                     "disk_type": "string",
                     "ephemeral_storage_local_ssd_config": [

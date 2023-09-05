@@ -276,6 +276,33 @@ const googleMonitoringUptimeCheckConfig = `{
         "max_items": 1,
         "nesting_mode": "list"
       },
+      "synthetic_monitor": {
+        "block": {
+          "block_types": {
+            "cloud_function_v2": {
+              "block": {
+                "attributes": {
+                  "name": {
+                    "description": "The fully qualified name of the cloud function resource.",
+                    "description_kind": "plain",
+                    "required": true,
+                    "type": "string"
+                  }
+                },
+                "description": "Target a Synthetic Monitor GCFv2 Instance",
+                "description_kind": "plain"
+              },
+              "max_items": 1,
+              "min_items": 1,
+              "nesting_mode": "list"
+            }
+          },
+          "description": "A Synthetic Monitor deployed to a Cloud Functions V2 instance.",
+          "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+      },
       "tcp_check": {
         "block": {
           "attributes": {

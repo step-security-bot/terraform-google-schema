@@ -66,6 +66,12 @@ const googleComputeRegionTargetHttpsProxy = `{
           "string"
         ]
       },
+      "ssl_policy": {
+        "description": "A reference to the Region SslPolicy resource that will be associated with\nthe TargetHttpsProxy resource. If not set, the TargetHttpsProxy\nresource will not have any SSL policy configured.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+      },
       "url_map": {
         "description": "A reference to the RegionUrlMap resource that defines the mapping from URL\nto the RegionBackendService.",
         "description_kind": "plain",

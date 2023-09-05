@@ -10,6 +10,7 @@ const googleIdentityPlatformConfig = `{
   "block": {
     "attributes": {
       "authorized_domains": {
+        "computed": true,
         "description": "List of domains authorized for OAuth redirects.",
         "description_kind": "plain",
         "optional": true,
