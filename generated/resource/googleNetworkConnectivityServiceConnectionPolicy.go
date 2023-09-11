@@ -90,6 +90,13 @@ const googleNetworkConnectivityServiceConnectionPolicy = `{
                   "object",
                   {
                     "code": "number",
+                    "details": [
+                      "list",
+                      [
+                        "map",
+                        "string"
+                      ]
+                    ],
                     "message": "string"
                   }
                 ]

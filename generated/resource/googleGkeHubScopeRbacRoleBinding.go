@@ -33,6 +33,15 @@ const googleGkeHubScopeRbacRoleBinding = `{
         "optional": true,
         "type": "string"
       },
+      "labels": {
+        "description": "Labels for this ScopeRBACRoleBinding.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": [
+          "map",
+          "string"
+        ]
+      },
       "name": {
         "computed": true,
         "description": "The resource name for the RBAC Role Binding",

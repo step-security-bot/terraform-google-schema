@@ -1134,7 +1134,7 @@ const googleContainerCluster = `{
           "attributes": {
             "enable_components": {
               "computed": true,
-              "description": "GKE components exposing metrics. Valid values include SYSTEM_COMPONENTS, APISERVER, CONTROLLER_MANAGER, and SCHEDULER.",
+              "description": "GKE components exposing metrics. Valid values include SYSTEM_COMPONENTS, APISERVER, SCHEDULER, CONTROLLER_MANAGER, STORAGE, HPA, POD, DAEMONSET, DEPLOYMENT and STATEFULSET.",
               "description_kind": "plain",
               "optional": true,
               "type": [
